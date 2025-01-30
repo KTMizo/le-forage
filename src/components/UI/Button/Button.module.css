@@ -1,0 +1,71 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-6);
+  font: var(--font-button);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.content {
+}
+
+.arrow {
+  width: 18px;
+  height: 18px;
+}
+
+/* Primary */
+
+.primary {
+  background-color: var(--beige);
+  color: var(--noir);
+}
+
+/* Secondary */
+
+.secondary {
+  background-color: var(--blanc);
+  color: var(--noir);
+}
+
+.secondary .arrow {
+  color: var(--rouge);
+}
+
+/* Outline */
+
+.outline {
+  background-color: transparent;
+  border: 1px solid var(--beige-30);
+  color: var(--beige);
+}
+
+/* Outline Accent*/
+
+.outline-accent {
+  background-color: transparent;
+  border: 1px solid var(--beige-30);
+  color: var(--beige);
+}
+
+.outline-accent .arrow {
+  color: var(--rouge);
+}
+
+/* Accent Outline */
+
+.accent-outline {
+  background-color: transparent;
+  border: 1px solid var(--rouge);
+  color: var(--rouge);
+}
+
+.accent-outline .arrow {
+  color: var(--rouge);
+}

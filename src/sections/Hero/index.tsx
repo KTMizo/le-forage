@@ -1,0 +1,38 @@
+import React from "react";
+import styles from "./Hero.module.css";
+import Button from "@/components/UI/Button";
+
+const Hero = () => {
+  return (
+    <div className={styles.hero}>
+      <div className={styles.container}>
+        {/* Logo */}
+        <div className={styles.logo}>
+          <img src="/assets/svg/logo/logo.svg" alt="Le Forage Logo" />
+        </div>
+
+        {/* Main Content */}
+        <div className={styles.content}>
+          <div className={styles.contentText}>
+            <h1 className={styles.title}>L'art de sonder le sol</h1>
+
+            <p className={styles.description}>
+              Nous accompagnons de nombreux bureaux d'études géotechniques et
+              environnementaux dans la réussite de leurs projets.
+            </p>
+          </div>{" "}
+          <Button variant="outline" href="/destination" showArrow>
+            Demandez un devis
+          </Button>
+        </div>
+
+        {/* Footer Text */}
+        <div className={styles.footer}>
+          <span className={styles.tag}>[FORER LA PAGE]</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;

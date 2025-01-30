@@ -1,0 +1,35 @@
+.gridBackground {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 0 80px;
+}
+
+.gridColumn {
+  flex: 1;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.gridColumn + .gridColumn {
+  margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+  .gridBackground {
+    padding: 0 40px;
+  }
+
+  .gridColumn + .gridColumn {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .gridBackground {
+    padding: 0 16px;
+  }
+
+  .gridColumn + .gridColumn {
+    margin-left: 8px;
+  }
+}

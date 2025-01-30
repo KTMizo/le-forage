@@ -1,16 +1,39 @@
 @font-face {
-  font-family: "Neue Montreal Medium";
-  src: url("/assets/fonts/neuemontreal-medium-webfont.woff2") format("woff2"),
-    url("/assets/fonts/neuemontreal-medium-webfont.woff") format("woff");
-  font-weight: 500;
+  font-family: "articulat_cfdemi_bold";
+  src: url("/assets/fonts/articulatcf/articulatcf-demibold-webfont.woff2")
+      format("woff2"),
+    url("/assets/fonts/articulatcf/articulatcf-demibold-webfont.woff")
+      format("woff");
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Neue Montreal Regular";
-  src: url("/assets/fonts/neuemontreal-regular-webfont.woff2") format("woff2"),
-    url("/assets/fonts/neuemontreal-regular-webfont.woff") format("woff");
-  font-weight: 400;
+  font-family: "articulat_cfmedium";
+  src: url("/assets/fonts/articulatcf/articulatcf-medium-webfont.woff2")
+      format("woff2"),
+    url("/assets/fonts/articulatcf/articulatcf-medium-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "articulat_cfregular";
+  src: url("/assets/fonts/articulatcf/articulatcf-regular-webfont.woff2")
+      format("woff2"),
+    url("/assets/fonts/articulatcf/articulatcf-regular-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "bebas_neueregular";
+  src: url("/assets/fonts/bebas-neue/bebasneue-regular-webfont.woff2")
+      format("woff2"),
+    url("/assets/fonts/bebas-neue/bebasneue-regular-webfont.woff")
+      format("woff");
+  font-weight: normal;
   font-style: normal;
 }
 
@@ -28,7 +51,7 @@
 
 html,
 body {
-  font-family: "Neue Montreal Regular", sans-serif;
+  font-family: "articulat_cfmedium";
   height: 100%;
   background-color: var(--grey);
 }

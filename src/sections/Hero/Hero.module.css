@@ -1,0 +1,57 @@
+.hero {
+  min-height: 100%;
+  background-color: var(--rouge);
+  padding: 48px 80px 20px 80px;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 96px;
+}
+
+.logo {
+  width: 350px;
+  height: 160px;
+}
+
+.logo img {
+  width: 350px;
+  height: 160px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 48px;
+}
+
+.contentText {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  color: var(--beige);
+  font: var(--font-xxl-med);
+}
+
+.description {
+  color: var(--beige);
+  font: var(--font-s-med);
+  max-width: 800px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.tag {
+  color: var(--blanc);
+  font-family: "bebas_neueregular";
+  text-transform: uppercase;
+}
