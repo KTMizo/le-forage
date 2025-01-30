@@ -5,11 +5,9 @@ import ImageBreak from "@/sections/ImageBreak";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Hero />
-        <ImageBreak />
-      </main>
-    </div>
+    <main className={styles.main}>
+      <Hero />
+      <ImageBreak />
+    </main>
   );
 }
