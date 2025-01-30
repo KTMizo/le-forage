@@ -1,6 +1,7 @@
 .imageWrapper {
-  height: 60vw;
+  height: 50vw;
   width: 100%;
+  display: block;
 }
 
 .image {
