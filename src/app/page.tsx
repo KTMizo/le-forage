@@ -6,11 +6,10 @@ import ImageBreak from "@/sections/ImageBreak";
 export default function Home() {
   return (
     <>
-      {" "}
       <main className={styles.main}>
         <Hero />
         <ImageBreak />
-      </main>{" "}
+      </main>
     </>
   );
 }
