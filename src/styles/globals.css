@@ -52,7 +52,9 @@
 html,
 body {
   font-family: "articulat_cfmedium";
-  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
   background-color: var(--grey);
 }
 
