@@ -10,7 +10,7 @@ const Hero = () => {
         {/* Logo */}
         <div className={styles.logo}>
           <Image
-            src="/assets/svg/Logo/logo.svg"
+            src="/assets/svg/logo/logo.svg"
             alt="Le Forage Logo"
             width={350}
             height={160}
