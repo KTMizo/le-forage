@@ -1,7 +1,7 @@
 // components/Cards/MachineCard/MachineCard.tsx
 import Image from "next/image";
 import styles from "./MachineCard.module.css";
-import Button from "@/components/ui/Button";
+import Button from "@/components/UI/Button";
 
 interface MachineCardProps {
   image: {
