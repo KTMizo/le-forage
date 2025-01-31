@@ -1,0 +1,60 @@
+.footer {
+  width: 100%;
+  background-color: var(--rouge);
+  align-items: flex-end;
+  padding: 48px 80px 20px 80px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-80);
+}
+.footerInfos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: 70vw; /* Matching the max-width of FooterCards */
+  margin: 0 auto; /* Centering the footerInfos */
+}
+
+.footerLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footerYear {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--beige);
+}
+.footerMentionslegales {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--beige);
+}
+
+.footerRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.footerCookie {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--beige);
+}
+.footerMentions {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--beige);
+}

@@ -1,0 +1,43 @@
+/* components/ListAsk/ListAsk.module.css */
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.questionItem {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 0;
+  width: 100%;
+}
+
+.questionButton {
+  width: 100%;
+  padding: 0 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.questionText {
+  font-size: 18px;
+  color: var(--noir);
+}
+
+.readMoreWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.toggleIcon {
+  color: #ff0000;
+}
+
+.readMore {
+  color: var(--noir);
+  font-size: 16px;
+}

@@ -1,0 +1,28 @@
+.titleContent {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  gap: 5rem;
+  padding-bottom: 12rem;
+}
+
+.subtitleWrapper {
+  width: fit-content;
+}
+
+.subtitleAbout {
+  text-align: left;
+  color: var(--bleu);
+  font-family: "bebas_neueregular";
+  font-size: 20px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.titleAbout {
+  font-size: 2.125rem;
+  font-weight: 300;
+  text-indent: 150px; /* Ajoute un retrait au début du paragraphe */
+  width: 100%;
+  padding-right: 120px;
+}

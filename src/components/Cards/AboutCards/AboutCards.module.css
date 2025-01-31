@@ -1,0 +1,44 @@
+.card {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2.5rem 0;
+}
+
+.cardTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e3a8a;
+  border-radius: 0.5rem;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  color: #1e3a8a;
+}
+
+.description {
+  color: #374151;
+}

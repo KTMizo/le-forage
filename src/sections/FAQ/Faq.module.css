@@ -1,0 +1,39 @@
+.faq {
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-80) var(--padding-120);
+  gap: 168px;
+}
+
+.faqContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4.25rem;
+  width: 30vw; /* Garde une largeur fixe pour la colonne */
+}
+
+.subtitle {
+  width: 100%;
+}
+
+.subtitle h2 {
+  text-align: left;
+  color: var(--bleu);
+  font-family: "bebas_neueregular";
+  font-size: 20px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.imageWrapper {
+  position: relative; /* Nécessaire pour fill */
+  width: 100%;
+  min-height: 500px; /* Hauteur minimale */
+  flex: 1; /* Prend tout l'espace vertical restant */
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

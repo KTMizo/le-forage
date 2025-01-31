@@ -1,3 +1,18 @@
 .main {
   overflow: hidden;
 }
+
+.contact {
+  position: fixed;
+  top: 40px;
+  right: 80px;
+  z-index: 1000; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
+}
+
+.nav {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
+}

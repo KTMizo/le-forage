@@ -1,19 +1,34 @@
-// ImageBreak/index.tsx
 import React from "react";
 import Image from "next/image";
 import styles from "./ImageBreak.module.css";
 
-const ImageBreak = () => {
+interface ImageBreakProps {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  quality?: number;
+  priority?: boolean;
+}
+
+const ImageBreak: React.FC<ImageBreakProps> = ({
+  src,
+  alt,
+  width = 1920,
+  height = 1080,
+  quality = 85,
+  priority = false,
+}) => {
   return (
     <div className={styles.imageWrapper}>
       <Image
         className={styles.image}
-        src="/assets/images/hero-cover.jpg"
-        alt="Le Forage"
-        width={1920} // Ajustez selon vos besoins
-        height={1080} // Ajustez selon vos besoins
-        priority // Pour LCP (Largest Contentful Paint)
-        quality={85} // Équilibre entre qualité et performance
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        priority={priority}
+        quality={quality}
       />
     </div>
   );
