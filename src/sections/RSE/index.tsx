@@ -116,9 +116,9 @@ const RSE = () => {
         <div className={styles.rseLeft}>
           <div className={styles.textGroup}>
             <p className={styles.description}>
-              La sécurité de nos équipes est une de nos priorités. Nous mettons
+              {`La sécurité de nos équipes est une de nos priorités. Nous mettons
               en place des procédures rigoureuses, des équipements de protection
-              adaptés à chaque type d'intervention et des formations continues.
+              adaptés à chaque type d'intervention et des formations continues.`}
             </p>
             <p className={styles.methodNote}>
               Notre méthode garantie des conditions de travail sûres, tout en
