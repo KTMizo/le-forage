@@ -134,7 +134,7 @@ const RSE = () => {
               Nos engagements pour la sécurité :
             </h4>
             <div className={styles.securityCards}>
-              {securityCards.map((card, index) => (
+              {securityCards.map((card) => (
                 <PartnersCard key={card.text} {...card} />
               ))}
             </div>
@@ -143,7 +143,7 @@ const RSE = () => {
           <div className={styles.qualifications}>
             <h4 className={styles.qualificationsTitle}>Nos qualifications :</h4>
             <div className={styles.qualificationsCards}>
-              {qualificationsCards.map((card, index) => (
+              {qualificationsCards.map((card) => (
                 <PartnersCard key={card.text} {...card} />
               ))}
             </div>
