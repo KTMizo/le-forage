@@ -29,7 +29,7 @@ const MachineCard = ({ image, title, technicalSheetUrl }: MachineCardProps) => {
 
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <Button variant="primary" href={technicalSheetUrl}>
+        <Button variant="primary" href={technicalSheetUrl} showArrow>
           Télécharger la fiche technique
         </Button>
       </div>

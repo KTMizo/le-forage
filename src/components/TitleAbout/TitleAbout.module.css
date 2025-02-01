@@ -21,6 +21,7 @@
 
 .titleAbout {
   font-size: 2.125rem;
+  line-height: auto;
   font-weight: 300;
   text-indent: 150px; /* Ajoute un retrait au début du paragraphe */
   width: 100%;
