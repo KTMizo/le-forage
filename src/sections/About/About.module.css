@@ -1,6 +1,7 @@
 .about {
   padding: 120px 80px;
   width: 100%;
+  background-color: var(--beige);
 }
 
 .aboutTitle {
