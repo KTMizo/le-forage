@@ -17,12 +17,12 @@
 }
 
 /* Animation pour les symboles */
-.logo path:nth-child(1) {
+.logo path:nth-child(2) {
   animation: slideUpSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
   opacity: 0;
 }
 
-.logo path:nth-child(2) {
+.logo path:nth-child(1) {
   animation: slideDownSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
   animation-delay: 0.2s;
   opacity: 0;

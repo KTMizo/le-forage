@@ -6,6 +6,7 @@
   flex-direction: column;
   background: #000;
   overflow: hidden;
+  z-index: 1000;
 }
 
 .sectionHeader {
