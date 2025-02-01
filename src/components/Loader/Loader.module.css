@@ -1,0 +1,116 @@
+/* Loader.module.css */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--rouge);
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 48px;
+  left: 80px;
+  animation: logoScale 1.5s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+  transform-origin: left;
+}
+
+/* Animation pour les symboles */
+.logo path:nth-child(1) {
+  animation: slideUpSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+  opacity: 0;
+}
+
+.logo path:nth-child(2) {
+  animation: slideDownSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+/* Animation pour les lettres (les paths restants) */
+.logo path:nth-child(n + 3) {
+  animation: letterSlide 0.6s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+  transform-origin: bottom;
+  opacity: 0;
+}
+
+/* Délais échelonnés pour chaque lettre dans l'ordre "LE FORAGE" */
+/* L */
+.logo path:nth-child(10) {
+  animation-delay: 0.4s;
+}
+/* E */
+.logo path:nth-child(9) {
+  animation-delay: 0.45s;
+}
+/* F */
+.logo path:nth-child(8) {
+  animation-delay: 0.5s;
+}
+/* O */
+.logo path:nth-child(7) {
+  animation-delay: 0.55s;
+}
+/* R */
+.logo path:nth-child(6) {
+  animation-delay: 0.6s;
+}
+/* A */
+.logo path:nth-child(5) {
+  animation-delay: 0.65s;
+}
+/* G */
+.logo path:nth-child(4) {
+  animation-delay: 0.7s;
+}
+/* E */
+.logo path:nth-child(3) {
+  animation-delay: 0.75s;
+}
+
+@keyframes logoScale {
+  0% {
+    transform: scale(0.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUpSymbol {
+  0% {
+    transform: translateY(100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownSymbol {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes letterSlide {
+  0% {
+    transform: translateY(100%) scaleY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(20%) scaleY(0.6);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+}

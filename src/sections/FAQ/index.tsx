@@ -5,7 +5,7 @@ import ListAsk from "@/components/ListAsk";
 
 const FAQ = () => {
   return (
-    <div className={styles.faq}>
+    <section className={styles.faq}>
       <div className={styles.faqContent}>
         <div className={styles.subtitle}>
           <h2>FAQ</h2>
@@ -29,7 +29,7 @@ const FAQ = () => {
         <ListAsk question="Proposez-vous des analyses en laboratoire ?" />
         <ListAsk question="Les DICT sont elles obligatoires ?" />
       </div>
-    </div>
+    </section>
   );
 };
 

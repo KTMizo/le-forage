@@ -5,7 +5,7 @@ import Button from "@/components/UI/Button";
 
 const Hero = () => {
   return (
-    <div className={styles.hero}>
+    <section className={styles.hero}>
       <div className={styles.container}>
         {/* Logo */}
         <div className={styles.logo}>
@@ -37,7 +37,7 @@ const Hero = () => {
           <span className={styles.tag}>[FORER LA PAGE]</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -2,19 +2,24 @@ import styles from "./page.module.css";
 
 import Button from "@/components/UI/Button";
 import Nav from "@/components/Nav";
+import ScrollProgress from "@/components/ScrollProgress";
+import Divider from "@/components/Divider";
+import Loader from "@/components/Loader";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
 import About from "@/sections/About";
+import Services from "@/sections/Services";
 import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import FAQ from "@/sections/FAQ";
-import Divider from "@/components/Divider";
 import Footer from "@/sections/Footer";
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <Loader />
+      <ScrollProgress />
       <div className={styles.nav}>
         <Nav />
       </div>
@@ -33,6 +38,7 @@ export default function Home() {
         priority={true}
       />
       <About />
+      <Services />
       <ImageBreak
         src="/assets/images/separate.jpg"
         alt="Description de l'image"

@@ -100,7 +100,7 @@ const RSE = () => {
   ];
 
   return (
-    <div className={styles.rse}>
+    <section className={styles.rse}>
       <div className={styles.rseHeader}>
         <div className={styles.titleGroup}>
           <span className={styles.tagTitle}>RSE</span>
@@ -150,7 +150,7 @@ const RSE = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

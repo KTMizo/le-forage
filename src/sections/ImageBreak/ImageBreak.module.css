@@ -2,6 +2,8 @@
   height: 50vw;
   width: 100%;
   display: block;
+  position: relative;
+  overflow: hidden;
 }
 
 .image {

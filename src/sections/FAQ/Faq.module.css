@@ -1,7 +1,7 @@
 .faq {
   display: flex;
   flex-direction: row;
-  padding: var(--padding-80) var(--padding-120);
+  padding: 120px 80px;
   gap: 168px;
 }
 

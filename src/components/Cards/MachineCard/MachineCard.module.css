@@ -9,15 +9,14 @@
   align-items: center;
   gap: 8px;
   background: #000000;
-  border-radius: 1px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .imageWrapper {
   position: relative;
-  width: 520px;
-  height: 718px;
+  width: 420px;
+  height: 518px;
   display: flex;
   justify-content: center;
   align-items: center;

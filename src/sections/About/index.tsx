@@ -6,7 +6,7 @@ import AboutSkill from "@/components/Cards/AboutCards/AboutSkill";
 
 const About = () => {
   return (
-    <div className={styles.about}>
+    <section className={styles.about}>
       <div className={styles.aboutTitle}>
         <TitleAbout />
       </div>
@@ -43,7 +43,7 @@ const About = () => {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
