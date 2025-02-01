@@ -2,11 +2,10 @@
   position: relative;
   padding: 120px 80px;
   min-height: 100vh;
-  background-color: #fff;
+  background-color: var(--beige);
 }
 
 .servicesTitle {
-  height: 100%;
   width: 100%;
   padding-bottom: 120px;
 }
@@ -21,34 +20,31 @@
 }
 
 .servicesContent {
-  display: flex;
-  gap: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   position: relative;
-  max-width: 100vw;
+  width: 100%;
 }
 
 .scrollContent {
-  width: 50%;
   display: flex;
   flex-direction: column;
 }
 
-/* Section individuelle */
 .contentSection {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 100vh;
-  gap: 48px;
+  padding-right: 40px;
 }
 
 .sectionTitle {
-  height: fit-content;
   padding-bottom: 48px;
 }
 
 .sectionTitle h3 {
   color: var(--rouge);
-  text-align: left;
   font-size: 48px;
   font-weight: 400;
   line-height: 1.2;
@@ -60,14 +56,23 @@
   flex-direction: column;
 }
 
-/* Conteneur d'image fixe */
 .fixedImageContainer {
-  width: 50% !important;
+  padding: 140px 0 140px 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Hauteur ajustée pour le padding */
   position: relative;
-  height: 600px;
+}
+
+.imageWrapper {
+  position: relative; /* Changez de 'absolute' à 'relative' */
+  width: 100%;
+  height: 100%;
 }
 
 .servicesImage {
-  object-fit: cover;
-  transition: opacity 0.3s ease;
+  object-fit: cover; /* Couvre l'espace disponible sans perdre les proportions */
+  width: 100%; /* S'adapte à la largeur du conteneur */
+  height: 100%; /* S'adapte à la hauteur du conteneur */
 }

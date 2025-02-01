@@ -55,3 +55,12 @@
   font-family: "bebas_neueregular";
   text-transform: uppercase;
 }
+
+.pattern {
+  position: absolute;
+  top: 0;
+  right: 80px;
+  width: 200px;
+  height: 100%;
+  object-fit: cover;
+}

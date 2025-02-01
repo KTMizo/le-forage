@@ -1,0 +1,33 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--rouge);
+}
+
+.content {
+  text-align: center;
+  padding: 3rem;
+}
+
+.title {
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--beige);
+  margin: 0;
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 2rem;
+  color: var(--beige);
+  margin: 1rem 0;
+}
+
+.description {
+  color: var(--beige);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}

@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
 
 interface ServiceSectionProps {
   title: string;
-  questions: string[];
+  questions: readonly string[];
   imageSrc: string;
   setActiveImage: (src: string) => void;
   index: number;
@@ -28,15 +28,16 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
     const trigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
+      trigger: section,
       start: "top center",
       end: "bottom center",
       onEnter: () => setActiveImage(imageSrc),
       onEnterBack: () => setActiveImage(imageSrc),
-      markers: false, // Aide au débug si nécessaire
+      markers: true,
     });
 
     return () => {
@@ -67,33 +68,37 @@ const Services = () => {
   const [activeImage, setActiveImage] = useState(
     "/assets/images/first-forage.jpg"
   );
+
   const servicesRef = useRef<HTMLElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!servicesRef.current || !imageContainerRef.current) return;
+    const services = servicesRef.current;
+    const imageContainer = imageContainerRef.current;
+    const scrollContent = scrollContentRef.current;
 
-    const mm = gsap.matchMedia();
+    if (!services || !imageContainer || !scrollContent) return;
 
-    mm.add("(min-width: 768px)", () => {
-      const mainTrigger = ScrollTrigger.create({
-        trigger: servicesRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        pin: imageContainerRef.current,
-        pinSpacing: false,
-        pinType: "fixed",
-        anticipatePin: 1,
-      });
+    const calculatePinEnd = (): string => {
+      const contentHeight = scrollContent.offsetHeight;
+      const windowHeight = window.innerHeight;
+      return `+=${contentHeight - windowHeight}`;
+    };
 
-      return () => {
-        mainTrigger.kill();
-      };
+    const mainTrigger = ScrollTrigger.create({
+      trigger: scrollContent,
+      start: "top top",
+      end: calculatePinEnd,
+      pin: imageContainer,
+      pinSpacing: false,
+      markers: true,
+      invalidateOnRefresh: true,
     });
 
     return () => {
-      mm.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      mainTrigger.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -128,7 +133,7 @@ const Services = () => {
       ],
       imageSrc: "/assets/images/forage-geotechniques.jpg",
     },
-  ];
+  ] as const;
 
   return (
     <section ref={servicesRef} className={styles.services}>
@@ -136,7 +141,7 @@ const Services = () => {
         <h2 className={styles.title}>Nos services</h2>
       </div>
       <div className={styles.servicesContent}>
-        <div className={styles.scrollContent}>
+        <div ref={scrollContentRef} className={styles.scrollContent}>
           {services.map((service, index) => (
             <ServiceSection
               key={index}

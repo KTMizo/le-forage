@@ -3,7 +3,6 @@ import styles from "./page.module.css";
 import Button from "@/components/UI/Button";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
-import Divider from "@/components/Divider";
 import Loader from "@/components/Loader";
 
 import Hero from "@/sections/Hero";
@@ -51,7 +50,6 @@ export default function Home() {
       <Machine />
       <FAQ />
       <Footer />
-      <Divider />
     </main>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "./Hero.module.css";
 import Button from "@/components/UI/Button";
+import Fore from "@/components/Fore";
 
 const Hero = () => {
   return (
@@ -30,6 +31,9 @@ const Hero = () => {
           <Button variant="outline" href="/destination" showArrow>
             Demandez un devis
           </Button>
+        </div>
+        <div className={styles.pattern}>
+          <Fore />
         </div>
 
         {/* Footer Text */}

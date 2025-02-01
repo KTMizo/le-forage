@@ -1,11 +1,17 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import FooterCards from "@/components/Cards/FooterCards/FooterCards";
-import Link from "next/link"; // Importation du Link de Next.js
+import Link from "next/link";
+import Fore from "@/components/Fore";
+// Importation du Link de Next.js
 
 const Footer = () => {
   return (
     <section className={styles.footer}>
+      <div className={styles.pattern}>
+        <Fore />
+      </div>
+
       <div className={styles.footerContent}>
         <FooterCards />
         <div className={styles.footerInfos}>
