@@ -18,6 +18,7 @@
   overflow: hidden;
   width: 90%;
   max-width: 1000px;
+  z-index: 9999;
   max-height: 90vh;
 }
 
@@ -65,13 +66,13 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 16px;
 }
 
 .iconContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
   border-radius: 4px;
   width: 50px;
   height: 50px;
@@ -80,8 +81,8 @@
 }
 
 .icon {
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 

@@ -3,7 +3,6 @@ import styles from "./page.module.css";
 import Button from "@/components/UI/Button";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
-import Loader from "@/components/Loader";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
@@ -17,7 +16,6 @@ import Footer from "@/sections/Footer";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Loader />
       <ScrollProgress />
       <div className={styles.nav}>
         <Nav />

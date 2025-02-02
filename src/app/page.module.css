@@ -8,11 +8,3 @@
   right: 80px;
   z-index: 1001; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
 }
-
-.nav {
-  position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
-}
