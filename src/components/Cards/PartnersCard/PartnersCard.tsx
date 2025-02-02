@@ -1,4 +1,3 @@
-// components/Cards/PartnersCard/PartnersCard.tsx
 "use client";
 
 import Image from "next/image";
@@ -26,6 +25,7 @@ interface PartnersCardProps {
   text: string;
   hasTooltip?: boolean;
   tooltipContent?: string;
+  onClick?: () => void;
 }
 
 const PartnersCard = ({
@@ -33,15 +33,35 @@ const PartnersCard = ({
   text,
   hasTooltip = false,
   tooltipContent,
+  onClick,
 }: PartnersCardProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    onClick?.();
+  };
+
+  const handleMouseEnter = () => {
+    if (hasTooltip) {
+      setShowTooltip(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (hasTooltip) {
+      setShowTooltip(false);
+    }
+  };
 
   return (
     <button
       type="button"
       className={styles.card}
-      onMouseEnter={() => hasTooltip && setShowTooltip(true)}
-      onMouseLeave={() => hasTooltip && setShowTooltip(false)}>
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      aria-label={`Voir les détails de ${text}`}>
       <div className={styles.content}>
         <div className={styles.logoContainer}>
           <Image

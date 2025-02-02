@@ -36,7 +36,7 @@
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  padding-right: 80px;
+  padding-right: 40px;
 }
 
 .sectionTitle {
@@ -57,48 +57,22 @@
 }
 
 .fixedImageContainer {
-  padding: 140px 0 140px 80px;
+  padding: 140px 0 140px 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100vh; /* Hauteur ajustée pour le padding */
   position: relative;
 }
 
 .imageWrapper {
-  position: relative;
+  position: relative; /* Changez de 'absolute' à 'relative' */
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-.imageSlide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
 }
 
 .servicesImage {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.services:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1px;
-  height: 100%;
-  background-color: #0000001a;
-  z-index: 1;
+  object-fit: cover; /* Couvre l'espace disponible sans perdre les proportions */
+  width: 100%; /* S'adapte à la largeur du conteneur */
+  height: 100%; /* S'adapte à la hauteur du conteneur */
 }

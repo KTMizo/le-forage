@@ -1,0 +1,140 @@
+/* app/components/PartnersPopUp/PartnersPopUp.module.css */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup {
+  position: relative;
+  background: white;
+  overflow: hidden;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  color: #333;
+  cursor: pointer;
+  z-index: 10;
+  padding: 4px 12px;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #666;
+}
+
+.contentWrapper {
+  display: flex;
+  gap: 32px;
+  padding: 24px;
+  max-height: calc(90vh - 48px);
+  overflow-y: auto;
+}
+
+.imageContainer {
+  flex: 1;
+  min-width: 45%;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 16px;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  width: 50px;
+  height: 50px;
+  background-color: #f2f2f2;
+  border: 1px solid #03030310;
+}
+
+.icon {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.title {
+  color: var(--noir);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.description {
+  font-size: 18px;
+  color: var(--black);
+  margin: 0;
+}
+
+.navigation {
+  display: flex;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.navButton {
+  width: 48px;
+  height: 48px;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.navButton:hover {
+  background-color: #1e40af;
+}
+
+@media (max-width: 768px) {
+  .contentWrapper {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .imageContainer {
+    min-width: 100%;
+  }
+}

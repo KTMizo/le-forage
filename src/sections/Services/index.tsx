@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import ListAsk from "@/components/ListAsk";
 import styles from "./Services.module.css";
@@ -14,36 +14,15 @@ interface ServiceSectionProps {
   title: string;
   questions: readonly string[];
   imageSrc: string;
-  setActiveImage: (src: string) => void;
   index: number;
 }
 
 const ServiceSection: React.FC<ServiceSectionProps> = ({
   title,
   questions,
-  imageSrc,
-  setActiveImage,
   index,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const trigger = ScrollTrigger.create({
-      trigger: section,
-      start: "top center",
-      end: "bottom center",
-      onEnter: () => setActiveImage(imageSrc),
-      onEnterBack: () => setActiveImage(imageSrc),
-      markers: true,
-    });
-
-    return () => {
-      trigger.kill();
-    };
-  }, [imageSrc, setActiveImage]);
 
   return (
     <div
@@ -65,42 +44,10 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
 };
 
 const Services = () => {
-  const [activeImage, setActiveImage] = useState(
-    "/assets/images/first-forage.jpg"
-  );
-
   const servicesRef = useRef<HTMLElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const services = servicesRef.current;
-    const imageContainer = imageContainerRef.current;
-    const scrollContent = scrollContentRef.current;
-
-    if (!services || !imageContainer || !scrollContent) return;
-
-    const calculatePinEnd = (): string => {
-      const contentHeight = scrollContent.offsetHeight;
-      const windowHeight = window.innerHeight;
-      return `+=${contentHeight - windowHeight}`;
-    };
-
-    const mainTrigger = ScrollTrigger.create({
-      trigger: scrollContent,
-      start: "top top",
-      end: calculatePinEnd,
-      pin: imageContainer,
-      pinSpacing: false,
-      markers: true,
-      invalidateOnRefresh: true,
-    });
-
-    return () => {
-      mainTrigger.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+  const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const services = [
     {
@@ -135,6 +82,74 @@ const Services = () => {
     },
   ] as const;
 
+  useEffect(() => {
+    const services = servicesRef.current;
+    const imageContainer = imageContainerRef.current;
+    const scrollContent = scrollContentRef.current;
+
+    if (!services || !imageContainer || !scrollContent) return;
+
+    const sections = [...scrollContent.children];
+    const images = imagesRef.current.filter(
+      (img): img is HTMLDivElement => img !== null
+    );
+
+    // Reset initial positions
+    gsap.set(images, { yPercent: 100 });
+    gsap.set(images[0], { yPercent: 0 });
+
+    // Create timeline for image animations
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scrollContent,
+        start: "top top",
+        end: () => `+=${scrollContent.offsetHeight - window.innerHeight}`,
+        pin: imageContainer,
+        pinSpacing: false,
+        scrub: true,
+        invalidateOnRefresh: true,
+        markers: true,
+      },
+    });
+
+    // Add animations for each section transition
+    sections.forEach((_, index) => {
+      if (index === 0) return; // Skip first section
+
+      const triggerElement = sections[index];
+      const prevImage = images[index - 1];
+      const currentImage = images[index];
+
+      if (!triggerElement || !prevImage || !currentImage) return;
+
+      // Create a ScrollTrigger for each section transition
+      ScrollTrigger.create({
+        trigger: triggerElement,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => {
+          gsap.to(currentImage, {
+            yPercent: 0,
+            duration: 0.7,
+            ease: "power2.inOut",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(currentImage, {
+            yPercent: 100,
+            duration: 0.7,
+            ease: "power2.inOut",
+          });
+        },
+      });
+    });
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
     <section ref={servicesRef} className={styles.services}>
       <div className={styles.servicesTitle}>
@@ -149,21 +164,31 @@ const Services = () => {
               title={service.title}
               questions={service.questions}
               imageSrc={service.imageSrc}
-              setActiveImage={setActiveImage}
             />
           ))}
         </div>
         <div ref={imageContainerRef} className={styles.fixedImageContainer}>
           <div className={styles.imageWrapper}>
-            <Image
-              src={activeImage}
-              alt="Service illustration"
-              width={800}
-              height={600}
-              className={styles.servicesImage}
-              priority
-              quality={85}
-            />
+            {services.map((service, index) => (
+              <div
+                key={index}
+                ref={(el) => {
+                  if (imagesRef.current) {
+                    imagesRef.current[index] = el;
+                  }
+                }}
+                className={styles.imageSlide}>
+                <Image
+                  src={service.imageSrc}
+                  alt={`Service ${service.title}`}
+                  width={800}
+                  height={600}
+                  className={styles.servicesImage}
+                  priority={index === 0}
+                  quality={85}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
