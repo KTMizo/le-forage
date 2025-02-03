@@ -1,8 +1,36 @@
-// index.tsx
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import styles from "./Loader.module.css";
 
 const Loader = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Ajouter la classe pour bloquer le scroll
+    document.body.classList.add("no-scroll");
+
+    // Timer de 2 secondes
+    const timer = setTimeout(() => {
+      const loader = document.querySelector(`.${styles.loader}`);
+      loader?.classList.add(styles.loaderExit);
+
+      // Attendre la fin de l'animation de sortie
+      setTimeout(() => {
+        setIsLoading(false);
+        document.body.classList.remove("no-scroll");
+      }, 1000);
+    }, 1500);
+
+    // Nettoyage
+    return () => {
+      clearTimeout(timer);
+      document.body.classList.remove("no-scroll");
+    };
+  }, []);
+
+  if (!isLoading) return null;
+
   return (
     <div className={styles.loader}>
       <div className={styles.logo}>

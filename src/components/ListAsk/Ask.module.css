@@ -6,13 +6,14 @@
 
 .questionItem {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 2.5rem 0;
+  padding: 2rem 0;
   width: 100%;
-  transition: padding 0.5s cubic-bezier(0.89, 0.2, 0.11, 0.79);
+  transition: 0.5s cubic-bezier(0.31, 0.2, 0, 1);
 }
 
 .questionItem:hover {
-  padding: 2.5rem 2rem;
+  padding: 2rem 1rem;
+  background-color: var(--blanc);
 }
 
 .questionItem:hover .questionText {
@@ -20,7 +21,7 @@
 }
 
 .questionItem:hover .toggleIcon {
-  rotate: 180deg; /* Changé de 90deg à 180deg */
+  rotate: 90deg; /* Changé de 90deg à 180deg */
   color: var(--rouge);
 }
 
@@ -48,7 +49,7 @@
 }
 
 .toggleIcon {
-  transition: all 0.5s cubic-bezier(0.89, 0.2, 0.11, 0.79);
+  transition: all 0.5s cubic-bezier(0.31, 0.2, 0, 1);
   color: var(--rouge);
 }
 

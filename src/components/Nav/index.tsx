@@ -1,25 +1,10 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./Nav.module.css";
 
 const Nav = () => {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50); // Active l'animation quand l'utilisateur descend de plus de 50px
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <div className={styles.wrapper}>
-      <div className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
+      <div className={styles.navbar}>
         <div className={styles.navItems}>
           <a href="#">À propos</a>
           <a href="#">Nos services</a>

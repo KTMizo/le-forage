@@ -15,6 +15,9 @@
 .logo {
   width: 350px;
   height: 160px;
+  transform-origin: 0 0; /* Point d'ancrage en haut à gauche */
+  will-change: transform; /* Optimisation des performances */
+  position: relative; /* Pour s'assurer que le point d'ancrage est respecté */
 }
 
 .logo img {
@@ -38,12 +41,25 @@
 .title {
   color: var(--beige);
   font: var(--font-xxl-med);
+  overflow: hidden;
+}
+
+/* Styles pour l'animation par mots */
+.animatedWord {
+  will-change: transform;
+  opacity: 0;
+}
+
+.animatedLine {
+  will-change: transform;
+  opacity: 0;
 }
 
 .description {
   color: var(--beige);
   font: var(--font-s-med);
   max-width: 800px;
+  overflow: hidden;
 }
 
 .footer {
