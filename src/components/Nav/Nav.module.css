@@ -2,7 +2,7 @@
 
 .navbar {
   z-index: 1000;
-  position: fixed;
+  position: absolute;
   top: 40px;
   left: 50%;
   transform: translateX(-50%); /* Centrer horizontalement */

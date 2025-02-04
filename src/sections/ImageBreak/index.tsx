@@ -32,6 +32,19 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
 
     if (!container || !image) return;
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            container.classList.add(styles.reveal);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(container);
+
     const handleScroll = () => {
       const rect = container.getBoundingClientRect();
       const windowHeight = window.innerHeight;
@@ -45,7 +58,10 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [parallaxStrength]);
 
   return (

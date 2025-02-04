@@ -16,20 +16,16 @@ const Footer = () => {
         <FooterCards />
         <div className={styles.footerInfos}>
           <div className={styles.footerLeft}>
-            <div className={styles.footerYear}>© 2025 Le forage</div>
-            <Link
-              href="/mentions-legales"
-              className={styles.footerMentionslegales}>
-              Mentions légales
-            </Link>
+            <div className={styles.footerYear}>© 2025 Le Forage</div>
           </div>
-
           <div className={styles.footerRight}>
             <Link href="/protection-donnees" className={styles.footerCookie}>
               Protection des données
             </Link>
-            <Link href="/design-thomas-b" className={styles.footerMentions}>
-              Design Thomas B
+            <Link
+              href="/mentions-legales"
+              className={styles.footerMentionslegales}>
+              Mentions légales
             </Link>
           </div>
         </div>

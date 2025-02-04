@@ -18,8 +18,8 @@
   opacity: 0;
 }
 
-.no-scroll {
-  overflow: hidden !important;
+.noScroll {
+  overflow: hidden;
   height: 100vh !important;
   position: fixed !important;
   width: 100% !important;

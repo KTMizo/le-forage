@@ -10,6 +10,7 @@
   text-decoration: none;
   gap: 0.5rem;
   width: fit-content;
+  position: relative;
 }
 
 .content {
@@ -21,10 +22,52 @@
 }
 
 /* Primary */
-
 .primary {
-  background-color: var(--beige);
+  background-color: var(--blanc);
+  border-radius: var(--border-6);
   color: var(--noir);
+  position: relative;
+  transition: color 0.5s cubic-bezier(0.4, 0, 0, 1);
+  isolation: isolate;
+}
+
+.primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--bleu);
+  border-radius: var(--border-6);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+  z-index: -1;
+}
+
+.primary:hover {
+  border-radius: var(--border-6);
+  color: var(--blanc);
+  border-color: var(--rouge);
+}
+
+.primary:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.primary:hover::after {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+/* Pour l'arrow, on peut ajouter un petit effet */
+/* Animation de la flèche */
+.primary .arrow {
+  transform: translate(0, 0);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.primary:hover .arrow {
+  transform: translate(2px, -2px);
 }
 
 /* Secondary */
@@ -38,34 +81,111 @@
   color: var(--rouge);
 }
 
-/* Outline */
+/* 
+
+
+Outline = Fond blanc texte noir
+
+
+
+*/
 
 .outline {
   background-color: transparent;
   border: 1px solid var(--beige-30);
+  border-radius: var(--border-6);
   color: var(--beige);
+  position: relative;
+  transition: color 0.5s cubic-bezier(0.4, 0, 0, 1);
+  isolation: isolate;
 }
 
-/* Outline Accent*/
-
-.outline-accent {
-  background-color: transparent;
-  border: 1px solid var(--beige-30);
-  color: var(--beige);
+.outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--blanc);
+  border-radius: var(--border-6);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+  z-index: -1;
 }
 
-.outline-accent .arrow {
-  color: var(--rouge);
+.outline:hover {
+  color: var(--noir);
+  border-color: transparent;
 }
 
-/* Accent Outline */
+.outline:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.outline:hover::after {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+/* Pour l'arrow, on peut ajouter un petit effet */
+/* Animation de la flèche */
+.outline .arrow {
+  transform: translate(0, 0);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.outline:hover .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* 
+
+Accent Outline 
+
+
+*/
 
 .accent-outline {
   background-color: transparent;
   border: 1px solid var(--rouge);
   color: var(--rouge);
+  position: relative;
+  transition: color 0.5s cubic-bezier(0.4, 0, 0, 1);
+  isolation: isolate;
+}
+
+.accent-outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--noir);
+  transform: scaleX(0);
+  transform-origin: right;
+  border-radius: var(--border-6);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+  z-index: -1;
+}
+
+.accent-outline:hover {
+  color: var(--blanc);
+  border-color: transparent;
+}
+
+.accent-outline:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.accent-outline:hover::after {
+  transform: scaleX(1);
+  transform-origin: right;
 }
 
 .accent-outline .arrow {
   color: var(--rouge);
+  transition: color 0.5s cubic-bezier(0.4, 0, 0, 1);
+}
+
+.accent-outline:hover .arrow {
+  color: var(--blanc);
 }

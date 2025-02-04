@@ -1,8 +1,15 @@
 .hero {
+  min-height: 100%;
   height: 100%;
   background-color: var(--rouge);
   padding: 48px 80px 20px 80px;
   position: relative;
+  will-change: height;
+  overflow: hidden;
+}
+
+.hero.expanded {
+  height: 100vh;
 }
 
 .container {
@@ -10,19 +17,27 @@
   flex-direction: column;
   height: 100%;
   gap: 96px;
+  padding-top: 180px;
+  will-change: transform, gap, padding-top;
+  position: relative;
+  z-index: 2;
+}
+
+.stickyWrapper {
+  position: fixed;
+  top: 48px;
+  left: 80px;
+  width: 250px;
+  height: 120px;
+  z-index: 50;
 }
 
 .logo {
-  width: 350px;
-  height: 160px;
-  transform-origin: 0 0; /* Point d'ancrage en haut à gauche */
-  will-change: transform; /* Optimisation des performances */
-  position: relative; /* Pour s'assurer que le point d'ancrage est respecté */
-}
-
-.logo img {
-  width: 350px;
-  height: 160px;
+  width: 250px;
+  height: 120px;
+  transform-origin: 0 0;
+  will-change: transform;
+  position: relative;
 }
 
 .content {
@@ -30,12 +45,16 @@
   flex-direction: column;
   flex-grow: 1;
   gap: 48px;
+  will-change: transform;
+  position: relative;
+  z-index: 2;
 }
 
 .contentText {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transform-origin: center center;
 }
 
 .title {
@@ -44,7 +63,6 @@
   overflow: hidden;
 }
 
-/* Styles pour l'animation par mots */
 .animatedWord {
   will-change: transform;
   opacity: 0;
@@ -64,12 +82,25 @@
 
 .footer {
   text-align: center;
+  position: relative;
+  z-index: 1;
+  will-change: transform, opacity;
 }
 
 .tag {
   color: var(--blanc);
   font-family: "bebas_neueregular";
   text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  padding: 10px 20px;
+}
+
+.tag:hover {
+  transform: scale(1.05);
 }
 
 .pattern {
@@ -79,4 +110,6 @@
   width: 200px;
   height: 100%;
   object-fit: cover;
+  will-change: transform, opacity;
+  z-index: 1;
 }

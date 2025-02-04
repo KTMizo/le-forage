@@ -7,6 +7,10 @@
   padding: 2.5rem 0;
 }
 
+.card:hover .iconContainer {
+  scale: 1.1;
+}
+
 .cardTitle {
   display: flex;
   flex-direction: row;
@@ -24,6 +28,7 @@
   justify-content: center;
   background-color: #1e3a8a;
   border-radius: 0.5rem;
+  transition: all 0.5s cubic-bezier(0.31, 0.2, 0, 1);
 }
 
 .icon {

@@ -8,7 +8,7 @@ const Loader = () => {
 
   useEffect(() => {
     // Ajouter la classe pour bloquer le scroll
-    document.body.classList.add("no-scroll");
+    document.body.classList.add("noScroll");
 
     // Timer de 2 secondes
     const timer = setTimeout(() => {
@@ -19,7 +19,7 @@ const Loader = () => {
       setTimeout(() => {
         setIsLoading(false);
         document.body.classList.remove("no-scroll");
-      }, 1000);
+      }, 1500);
     }, 1500);
 
     // Nettoyage
@@ -35,8 +35,8 @@ const Loader = () => {
     <div className={styles.loader}>
       <div className={styles.logo}>
         <svg
-          width="351"
-          height="161"
+          width="250"
+          height="120"
           viewBox="0 0 351 161"
           fill="none"
           xmlns="http://www.w3.org/2000/svg">
