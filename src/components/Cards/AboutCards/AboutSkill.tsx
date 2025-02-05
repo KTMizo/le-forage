@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "./AboutCards.module.css";
+import SplitType from "split-type";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 type CardProps = {
   iconSrc: string;
@@ -9,8 +12,58 @@ type CardProps = {
 };
 
 const AboutSkill = ({ iconSrc, title, description }: CardProps) => {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!titleRef.current || !descriptionRef.current || !cardRef.current)
+      return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Split le texte du titre
+    const splitTitle = new SplitType(titleRef.current, {
+      types: "lines",
+      lineClass: styles.animatedLine,
+    });
+
+    // Split le texte de la description
+    const splitDescription = new SplitType(descriptionRef.current, {
+      types: "lines",
+      lineClass: styles.animatedLine,
+    });
+
+    // Animation pour le titre et la description
+    gsap.fromTo(
+      cardRef.current.querySelectorAll(`.${styles.animatedLine}`),
+      {
+        y: 100,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
+
+    return () => {
+      splitTitle.revert();
+      splitDescription.revert();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} ref={cardRef}>
       <div className={styles.cardTitle}>
         <div className={styles.iconContainer}>
           <Image
@@ -21,10 +74,14 @@ const AboutSkill = ({ iconSrc, title, description }: CardProps) => {
             className={styles.icon}
           />
         </div>
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.title} ref={titleRef}>
+          {title}
+        </h3>
       </div>
       <div className={styles.content}>
-        <p className={styles.description}>{description}</p>
+        <p className={styles.description} ref={descriptionRef}>
+          {description}
+        </p>
       </div>
     </div>
   );

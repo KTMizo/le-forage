@@ -3,8 +3,15 @@
 }
 
 .contact {
-  position: fixed;
+  position: absolute;
   top: 40px;
   right: 80px;
   z-index: 1001; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
+}
+
+.menu {
+  position: fixed;
+  top: 40px;
+  right: 80px;
+  z-index: 1000; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
 }

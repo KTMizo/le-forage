@@ -5,10 +5,7 @@
   align-items: center;
   gap: 1.5rem;
   padding: 2.5rem 0;
-}
-
-.card:hover .iconContainer {
-  scale: 1.1;
+  overflow: hidden; /* Pour masquer le débordement des animations */
 }
 
 .cardTitle {
@@ -28,7 +25,6 @@
   justify-content: center;
   background-color: #1e3a8a;
   border-radius: 0.5rem;
-  transition: all 0.5s cubic-bezier(0.31, 0.2, 0, 1);
 }
 
 .icon {
@@ -39,6 +35,7 @@
 
 .content {
   flex: 1;
+  overflow: hidden; /* Pour masquer le débordement des animations */
 }
 
 .title {
@@ -48,8 +45,16 @@
   font-size: 20px;
   font-weight: 200;
   text-transform: uppercase;
+  overflow: hidden; /* Pour masquer le débordement des animations */
 }
 
 .description {
   color: #374151;
+  overflow: hidden; /* Pour masquer le débordement des animations */
+}
+
+/* Styles pour les lignes animées */
+.animatedLine {
+  display: block;
+  overflow: hidden;
 }

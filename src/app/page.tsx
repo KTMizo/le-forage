@@ -4,6 +4,7 @@ import Button from "@/components/UI/Button";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Loader from "@/components/Loader";
+import Menu from "@/components/UI/Menu";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
@@ -26,6 +27,9 @@ export default function Home() {
         <Button variant="primary" href="/destination">
           Nous contacter
         </Button>
+      </div>
+      <div className={styles.menu}>
+        <Menu />
       </div>
       <Hero />
       <ImageBreak

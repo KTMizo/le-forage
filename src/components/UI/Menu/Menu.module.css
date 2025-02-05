@@ -1,0 +1,43 @@
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-6);
+  font: var(--font-button);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  gap: 0.5rem;
+  width: fit-content;
+  background-color: var(--blanc);
+  position: relative;
+  transform: translateX(200);
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menuButton.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menuText {
+  color: var(--noir);
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 6.85px;
+  width: 16px;
+  height: 16px;
+  justify-content: center;
+}
+
+.line {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background-color: #ab2325;
+}
