@@ -159,8 +159,8 @@ Accent Outline
   position: absolute;
   inset: 0;
   background-color: var(--noir);
-  transform: scaleX(0);
-  transform-origin: right;
+  transform: scaleY(0);
+  transform-origin: bottom;
   border-radius: var(--border-6);
   transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
   z-index: -1;
@@ -172,8 +172,8 @@ Accent Outline
 }
 
 .accent-outline:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
+  transform: scaleY(1);
+  transform-origin: top;
 }
 
 .accent-outline:hover::after {
