@@ -17,7 +17,7 @@
   flex-direction: column;
   height: 100%;
   gap: 96px;
-  padding-top: 200px;
+  padding-top: 240px;
   will-change: transform, gap, padding-top;
   position: relative;
   z-index: 2;

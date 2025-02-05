@@ -25,7 +25,7 @@
   height: 100%;
   width: 100%;
   clip-path: inset(100% 0 0 0);
-  transition: clip-path 1.5s cubic-bezier(0.98, 0.09, 0.16, 0.92);
+  transition: clip-path 1.5s cubic-bezier(0.6, 0, 0.3, 0.9);
 }
 
 .aboutImageContainer.visible .aboutImage {

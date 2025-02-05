@@ -83,6 +83,7 @@
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  transform-origin: center center;
 }
 
 .servicesImage {

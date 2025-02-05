@@ -128,6 +128,15 @@ const Services = () => {
         start: "top center",
         end: "bottom center",
         onEnter: () => {
+          // Scale up de l'image précédente pendant que la nouvelle arrive
+          if (index > 0) {
+            gsap.to(images[index - 1], {
+              scale: 1.3,
+              duration: 0.7,
+              ease: "power2.inOut",
+            });
+          }
+          // Animation normale de l'image courante qui monte
           gsap.to(currentImage, {
             yPercent: 0,
             duration: 0.7,
@@ -135,6 +144,15 @@ const Services = () => {
           });
         },
         onLeaveBack: () => {
+          // Retour à la normale pour l'image précédente
+          if (index > 0) {
+            gsap.to(images[index - 1], {
+              scale: 1,
+              duration: 0.7,
+              ease: "power2.inOut",
+            });
+          }
+          // Animation normale de l'image courante qui descend
           gsap.to(currentImage, {
             yPercent: 100,
             duration: 0.7,
