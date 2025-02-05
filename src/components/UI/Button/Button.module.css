@@ -73,8 +73,8 @@
 /* Secondary */
 
 .secondary {
-  background-color: var(--blanc);
-  color: var(--noir);
+  background-color: var(--rouge);
+  color: var(--blanc);
 }
 
 .secondary .arrow {

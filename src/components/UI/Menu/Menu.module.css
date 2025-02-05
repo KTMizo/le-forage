@@ -12,33 +12,175 @@
   width: fit-content;
   background-color: var(--blanc);
   position: relative;
-  transform: translateX(300px); /* Ajout de l'unité % */
-  opacity: 1; /* Commencer avec opacity 0 */
-  transition: transform 0.6s cubic-bezier(0.6, 0, 0.3, 0.9),
-    opacity 0.5s cubic-bezier(0.6, 0, 0.3, 0.9);
+  transform: scale(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
 }
 
 .menuButton.visible {
-  transform: translateX(0);
-  opacity: 1;
+  transform: scale(1);
 }
 
 .menuText {
   color: var(--noir);
 }
 
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 6.85px;
-  width: 16px;
-  height: 16px;
-  justify-content: center;
+.openButton {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 50;
 }
 
-.line {
-  display: block;
-  width: 16px;
-  height: 1.5px;
-  background-color: #ab2325;
+.openButton line {
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease;
+}
+
+.openButton.hidden {
+  transform: scale(1.2);
+}
+
+.openButton.hidden line:first-child {
+  transform: translateY(3px);
+}
+
+.openButton.hidden line:last-child {
+  transform: translateY(0);
+}
+
+.menuOverlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+  backdrop-filter: blur(0px);
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 40;
+  overflow: hidden;
+}
+
+.menuOverlay.active {
+  opacity: 1;
+  visibility: visible;
+  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.menuPanel {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 80px;
+  top: 40px;
+  width: 300px;
+  background-color: var(--blanc);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-6);
+  transform: translateY(-20px) scale(0.95);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.3s ease;
+}
+
+.menuPanel.active {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.closeIcon {
+  transition: transform 0.3s ease;
+}
+
+.closeButton:hover .closeIcon {
+  transform: rotate(90deg);
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menuNav.active {
+  animation: slideIn 0.4s ease forwards;
+}
+
+.menuItem {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.menuNav a {
+  font: var(--font-button);
+  text-decoration: none;
+  color: var(--noir);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.menuNav a:hover {
+  color: #ab2325;
+  transform: translateX(8px);
+}
+
+.contact {
+  font: var(--font-button);
+  text-decoration: none;
+  color: var(--blanc);
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+  .menuPanel {
+    top: 16px;
+    right: 16px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .menuPanel {
+    top: 16px;
+    right: 16px;
+  }
 }

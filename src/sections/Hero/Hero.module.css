@@ -95,7 +95,7 @@
   position: relative;
   display: inline-block;
   transition: transform 0.3s ease;
-  padding: 10px 20px;
+  padding: 10px 10px 20px;
 }
 
 .tag:hover {
@@ -111,4 +111,42 @@
   object-fit: cover;
   will-change: transform, opacity;
   z-index: 1;
+}
+
+@media screen and (max-width: 1024px) {
+  .hero {
+    padding: 0 1rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .pattern {
+    position: absolute;
+    top: 0;
+    right: -32px;
+    width: 200px;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform, opacity;
+    z-index: 1;
+  }
+  .stickyWrapper {
+    top: 16px;
+    left: 16px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .pattern {
+    position: absolute;
+    top: 0;
+    right: -32px;
+    width: 200px;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform, opacity;
+    z-index: 1;
+  }
+  .stickyWrapper {
+    top: 16px;
+    left: 16px;
+  }
 }

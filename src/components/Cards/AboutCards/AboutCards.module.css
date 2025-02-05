@@ -1,4 +1,5 @@
 .card {
+  height: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
@@ -57,4 +58,25 @@
 .animatedLine {
   display: block;
   overflow: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+  .card {
+    gap: 16px;
+    padding: 16px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow: hidden; /* Pour masquer le débordement des animations */
+  }
+}
+@media screen and (max-width: 480px) {
+  .card {
+    gap: 16px;
+    padding: 16px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow: hidden; /* Pour masquer le débordement des animations */
+  }
 }

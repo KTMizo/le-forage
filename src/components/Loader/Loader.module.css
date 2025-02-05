@@ -131,3 +131,17 @@
     opacity: 1;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  /* Loader.module.css */
+  .logo {
+    top: 16px;
+    left: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 480px) {
+}

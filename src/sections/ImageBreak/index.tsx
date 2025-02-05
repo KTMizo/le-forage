@@ -12,6 +12,7 @@ interface ParallaxImageProps {
   quality?: number;
   priority?: boolean;
   parallaxStrength?: number;
+  className?: string;
 }
 
 const ParallaxImage: React.FC<ParallaxImageProps> = ({
@@ -22,6 +23,7 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
   quality = 85,
   priority = false,
   parallaxStrength = 0.1,
+  className = "",
 }) => {
   const imageRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -46,6 +48,8 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
     observer.observe(container);
 
     const handleScroll = () => {
+      if (window.innerWidth < 768) return; // Désactive l'effet parallax sur mobile
+
       const rect = container.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
@@ -58,25 +62,28 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        image.style.transform = "translateY(0)";
+      } else {
+        handleScroll();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
     return () => {
       observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, [parallaxStrength]);
 
   return (
-    <section ref={containerRef} className={styles.imageWrapper}>
-      <div
-        ref={imageRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "120%",
-          transform: "translateY(0)",
-          willChange: "transform",
-        }}>
+    <section
+      ref={containerRef}
+      className={`${styles.imageWrapper} ${className}`}>
+      <div ref={imageRef} className={styles.imageContainer}>
         <Image
           className={styles.image}
           src={src}
@@ -85,6 +92,7 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
           height={height}
           priority={priority}
           quality={quality}
+          sizes="100vw"
         />
       </div>
     </section>

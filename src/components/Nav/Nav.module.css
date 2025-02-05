@@ -66,3 +66,13 @@
   text-align: center;
   backdrop-filter: blur(10px); /* Appliquer le flou au background */
 }
+
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+}

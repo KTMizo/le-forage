@@ -81,7 +81,7 @@ const Hero = () => {
 
     // Animation de scale du logo et opacité des lettres au scroll
     gsap.to(logoRef.current, {
-      scale: 0.35,
+      scale: 0.4,
       scrollTrigger: {
         trigger: "body",
         start: "top top",
@@ -115,8 +115,8 @@ const Hero = () => {
       <div ref={stickyWrapperRef} className={styles.stickyWrapper}>
         <div ref={logoRef} className={styles.logo}>
           <svg
-            width="250"
-            height="120"
+            width="auto"
+            height="auto"
             viewBox="0 0 351 161"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">

@@ -15,3 +15,29 @@
   right: 80px;
   z-index: 1000; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
 }
+
+@media screen and (max-width: 1024px) {
+  .menu {
+    top: 40px;
+    right: 80px;
+  }
+  .contact {
+    top: 40px;
+    right: 80px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .menu {
+    top: 16px;
+    right: 16px;
+  }
+  .contact {
+    display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+  .menu {
+    top: 16px;
+    right: 16px;
+  }
+}

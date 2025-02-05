@@ -103,3 +103,30 @@
   background-color: #0000001a;
   z-index: 1;
 }
+
+@media screen and (max-width: 1024px) {
+  .services {
+    padding: 1rem;
+  }
+  .servicesContent {
+    display: flex;
+    flex-direction: column;
+  }
+  .services:before {
+    top: 50%;
+    right: 8px;
+  }
+  .servicesTitle {
+    width: 100%;
+    padding-bottom: 3rem;
+  }
+  .contentSection {
+    height: 100%;
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 480px) {
+}

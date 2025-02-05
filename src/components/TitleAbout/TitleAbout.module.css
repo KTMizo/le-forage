@@ -39,3 +39,38 @@
   will-change: transform;
   opacity: 0; /* État initial caché */
 }
+
+@media screen and (max-width: 1024px) {
+  .titleContent {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 12rem;
+  }
+  .titleAbout {
+    padding-right: 110px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .titleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 48px;
+  }
+
+  .titleAbout {
+    padding-right: 0;
+    text-indent: 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  .titleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .titleAbout {
+    padding-right: 0;
+    text-indent: 0;
+  }
+}
