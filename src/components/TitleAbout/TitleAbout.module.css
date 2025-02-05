@@ -22,7 +22,7 @@
 }
 
 .titleAbout {
-  font-size: 2.125rem;
+  font: var(--font-s-med);
   line-height: auto;
   font-weight: 300;
   text-indent: 150px;
