@@ -12,8 +12,8 @@
   width: fit-content;
   background-color: var(--blanc);
   position: relative;
-  transform: translateX(200);
-  opacity: 1;
+  transform: translateX(300px); /* Ajout de l'unité % */
+  opacity: 0; /* Commencer avec opacity 0 */
   transition: transform 0.6s cubic-bezier(0.6, 0, 0.3, 0.9),
     opacity 0.5s cubic-bezier(0.6, 0, 0.3, 0.9);
 }
