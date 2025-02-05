@@ -15,9 +15,21 @@
   gap: 10.5rem;
 }
 
+.aboutImageContainer {
+  position: relative;
+  overflow: hidden;
+}
+
 .aboutImage {
   object-fit: cover;
   height: 100%;
+  width: 100%;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.5s cubic-bezier(0.98, 0.09, 0.16, 0.92);
+}
+
+.aboutImageContainer.visible .aboutImage {
+  clip-path: inset(0 0 0 0);
 }
 
 .aboutCards {

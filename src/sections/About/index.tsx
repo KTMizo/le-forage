@@ -1,25 +1,64 @@
-import React from "react";
+"use client";
+
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./About.module.css";
 import TitleAbout from "@/components/TitleAbout";
 import AboutSkill from "@/components/Cards/AboutCards/AboutSkill";
 
 const About = () => {
+  const imageRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    const currentElement = imageRef.current;
+
+    if (currentElement) {
+      observer.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement);
+      }
+    };
+  }, []);
+
   return (
     <section className={styles.about}>
       <div className={styles.aboutTitle}>
         <TitleAbout />
       </div>
       <div className={styles.aboutContent}>
-        <Image
-          className={styles.aboutImage}
-          src="/assets/images/about-cover.jpg"
-          alt="Le Forage"
-          width={425}
-          height={530}
-          priority
-          quality={85}
-        />
+        <div
+          ref={imageRef}
+          className={`${styles.aboutImageContainer} ${
+            isVisible ? styles.visible : ""
+          }`}>
+          <Image
+            className={styles.aboutImage}
+            src="/assets/images/about-cover.jpg"
+            alt="Le Forage"
+            width={425}
+            height={530}
+            priority
+            quality={85}
+          />
+        </div>
         <div className={styles.aboutCards}>
           <AboutSkill
             iconSrc="/assets/svg/Icones/expertise-et-savoir-faire.svg"
