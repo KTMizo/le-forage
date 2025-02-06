@@ -111,3 +111,15 @@
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 }
+
+@media screen and (max-width: 1024px) {
+  .card {
+    width: 100%;
+  }
+
+  /* Rse.module.css */
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 480px) {
+}

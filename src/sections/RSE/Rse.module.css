@@ -127,3 +127,63 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
+
+@media screen and (max-width: 1024px) {
+  /* Rse.module.css */
+  .rse {
+    padding: 3rem 1rem;
+  }
+  .rseHeader {
+    margin-bottom: 3rem;
+  }
+  .titleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+  }
+  .tagTitle {
+    position: relative;
+    left: 0;
+  }
+  .mainTitle {
+    text-align: left;
+    font-size: 24px;
+  }
+  .rseContent {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+  .description {
+    font-size: 24px;
+  }
+
+  .methodNote {
+    font-size: 16px;
+    color: var(--black-20);
+    margin: 0;
+  }
+  .rseCards {
+    gap: 3rem;
+  }
+  .security {
+    gap: 1.5rem;
+  }
+  .securityCards {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .qualifications {
+    gap: 1.5rem;
+  }
+  .qualificationsCards {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 480px) {
+}

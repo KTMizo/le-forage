@@ -106,27 +106,85 @@
 
 @media screen and (max-width: 1024px) {
   .services {
-    padding: 1rem;
+    padding: 2rem 1rem;
   }
+
   .servicesContent {
     display: flex;
     flex-direction: column;
+    gap: 4rem;
   }
-  .services:before {
-    top: 50%;
-    right: 8px;
-  }
+
   .servicesTitle {
-    width: 100%;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
   }
+
   .contentSection {
-    height: 100%;
+    height: auto;
     padding-right: 0;
+    margin-bottom: 6rem;
+  }
+
+  .fixedImageContainer {
+    position: relative;
+    padding: 0;
+    height: auto;
+    min-height: 300px;
+  }
+
+  .imageWrapper {
+    position: relative;
+    height: 300px;
+  }
+
+  .imageSlide {
+    position: relative;
+    height: 300px;
+  }
+
+  .sectionTitle h3 {
+    font-size: 36px;
+  }
+
+  .services:before {
+    display: none;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .services {
+    padding: 1.5rem 1rem;
+  }
+
+  .sectionTitle h3 {
+    font-size: 32px;
+  }
+
+  .fixedImageContainer {
+    min-height: 250px;
+  }
+
+  .imageWrapper,
+  .imageSlide {
+    height: 250px;
+  }
 }
+
 @media screen and (max-width: 480px) {
+  .services {
+    padding: 48px 1rem;
+  }
+
+  .sectionTitle h3 {
+    font-size: 28px;
+  }
+
+  .fixedImageContainer {
+    min-height: 200px;
+  }
+
+  .imageWrapper,
+  .imageSlide {
+    height: 200px;
+  }
 }
