@@ -15,7 +15,7 @@ const FooterCards = () => {
           projet
         </h2>
         <Button variant="accent-outline" href="/destination" showArrow>
-          Nous contacter
+          Demandez un devis
         </Button>
       </div>
     </div>

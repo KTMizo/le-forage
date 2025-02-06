@@ -54,7 +54,7 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
       const windowHeight = window.innerHeight;
 
       if (rect.top < windowHeight && rect.bottom > 0) {
-        const offset = (rect.top - windowHeight) * parallaxStrength;
+        const offset = (rect.top + windowHeight) * -parallaxStrength;
         image.style.transform = `translateY(${offset}px)`;
       }
     };

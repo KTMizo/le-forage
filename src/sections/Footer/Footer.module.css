@@ -73,3 +73,30 @@
   height: 100%;
   object-fit: cover;
 }
+/* 
+
+
+Responsive design 
+
+
+*/
+
+@media screen and (max-width: 1024px) {
+  .footer {
+    padding: 48px 1rem 48px 1rem;
+    flex-wrap: wrap;
+  }
+  .footerYear {
+    font-size: 12px;
+  }
+
+  .footerMentionslegales {
+    font-size: 12px;
+  }
+  .footerCookie {
+    font-size: 12px;
+  }
+  .footerMentions {
+    font-size: 12px;
+  }
+}
