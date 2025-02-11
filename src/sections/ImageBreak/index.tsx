@@ -3,19 +3,22 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./ImageBreak.module.css";
+import type { ImageBreakData } from "@/types/modules/imageBreak";
 
-interface ParallaxImageProps {
+interface ImageBreakProps {
   src: string;
   alt: string;
-  width?: number;
-  height?: number;
-  quality?: number;
-  priority?: boolean;
-  parallaxStrength?: number;
+  width: number;
+  height: number;
+  quality: number;
+  priority: boolean;
+  parallaxStrength: number;
   className?: string;
 }
 
-const ParallaxImage: React.FC<ParallaxImageProps> = ({
+const ImageBreak: React.FC<ImageBreakProps> & {
+  fromData: (data: ImageBreakData) => ImageBreakProps;
+} = ({
   src,
   alt,
   width = 1920,
@@ -99,4 +102,17 @@ const ParallaxImage: React.FC<ParallaxImageProps> = ({
   );
 };
 
-export default ParallaxImage;
+// Static method to create an ImageBreak from ImageBreakData
+ImageBreak.fromData = (data: ImageBreakData) => {
+  return {
+    src: data.image.url,
+    alt: data.alt,
+    width: data.image.width,
+    height: data.image.height,
+    quality: data.params.quality,
+    priority: data.params.priority,
+    parallaxStrength: data.params.parallax_strength,
+  };
+};
+
+export default ImageBreak;

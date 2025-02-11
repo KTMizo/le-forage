@@ -1,3 +1,5 @@
+// components/Cards/PartnersCard/PartnersCard.tsx
+
 "use client";
 
 import Image from "next/image";

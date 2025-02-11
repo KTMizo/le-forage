@@ -1,11 +1,14 @@
+// components/Footer/index.tsx
 import React from "react";
 import styles from "./Footer.module.css";
 import FooterCards from "@/components/Cards/FooterCards/FooterCards";
 import Link from "next/link";
 import Fore from "@/components/Fore";
-// Importation du Link de Next.js
+import { Footer as FooterType } from "@/types/modules/footer"; // Assurez-vous que ce chemin est correct
 
-const Footer = () => {
+const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
+  const { footer_card, footer_info } = data;
+
   return (
     <section className={styles.footer}>
       <div className={styles.pattern}>
@@ -13,20 +16,26 @@ const Footer = () => {
       </div>
 
       <div className={styles.footerContent}>
-        <FooterCards />
+        <FooterCards title={footer_card.title} button={footer_card.button} />
         <div className={styles.footerInfos}>
           <div className={styles.footerLeft}>
-            <div className={styles.footerYear}>© 2025 Le Forage</div>
+            <div className={styles.footerYear}>
+              © 2025 {footer_info.company}
+            </div>
           </div>
           <div className={styles.footerRight}>
-            <Link href="/protection-donnees" className={styles.footerCookie}>
-              Protection des données
-            </Link>
-            <Link
-              href="/mentions-legales"
-              className={styles.footerMentionslegales}>
-              Mentions légales
-            </Link>
+            {footer_info.legal_links.map((link, index) => (
+              <Link
+                key={index}
+                href={link.url}
+                className={
+                  index === 0
+                    ? styles.footerCookie
+                    : styles.footerMentionslegales
+                }>
+                {link.text}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

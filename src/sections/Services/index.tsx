@@ -5,6 +5,7 @@ import ListAsk from "@/components/ListAsk";
 import styles from "./Services.module.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { ServicesSection } from "@/types/modules/services";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,8 +13,7 @@ if (typeof window !== "undefined") {
 
 interface ServiceSectionProps {
   title: string;
-  questions: readonly string[];
-  imageSrc: string;
+  questions: { question: string }[];
   index: number;
 }
 
@@ -34,8 +34,14 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
           <h3>{title}</h3>
         </div>
         <div className={styles.sectionDescription}>
-          {questions.map((question, idx) => (
-            <ListAsk key={`${index}-${idx}`} question={question} />
+          {questions.map((item, idx) => (
+            <ListAsk
+              key={`${index}-${idx}`}
+              question={item.question}
+              answer=""
+              isOpen={false}
+              onToggle={() => {}}
+            />
           ))}
         </div>
       </div>
@@ -43,44 +49,15 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
   );
 };
 
-const Services = () => {
+interface ServicesProps {
+  data: ServicesSection;
+}
+
+const Services: React.FC<ServicesProps> = ({ data }) => {
   const servicesRef = useRef<HTMLElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const services = [
-    {
-      title: "Forage géotechniques",
-      questions: [
-        "Sondage pressiométrique",
-        "Sondage carotté",
-        "Sondage destructif instrumenté",
-        "Sondage à la Tarière",
-        "Pénétromètre dynamique",
-        "Pénétromètre statique",
-      ],
-      imageSrc: "/assets/images/first-forage.jpg",
-    },
-    {
-      title: "Forage environnementaux",
-      questions: [
-        "Sondage pressiométrique",
-        "Sondage carotté",
-        "Sondage destructif instrumenté",
-      ],
-      imageSrc: "/assets/images/forage-environnementaux.jpg",
-    },
-    {
-      title: "Essais d'eau",
-      questions: [
-        "Sondage pressiométrique",
-        "Sondage carotté",
-        "Sondage destructif instrumenté",
-      ],
-      imageSrc: "/assets/images/forage-geotechniques.jpg",
-    },
-  ] as const;
 
   useEffect(() => {
     const services = servicesRef.current;
@@ -108,7 +85,6 @@ const Services = () => {
         pinSpacing: false,
         scrub: true,
         invalidateOnRefresh: true,
-        markers: true,
       },
     });
 
@@ -171,23 +147,22 @@ const Services = () => {
   return (
     <section ref={servicesRef} className={styles.services}>
       <div className={styles.servicesTitle}>
-        <h2 className={styles.title}>Nos services</h2>
+        <h2 className={styles.title}>{data.services_title}</h2>
       </div>
       <div className={styles.servicesContent}>
         <div ref={scrollContentRef} className={styles.scrollContent}>
-          {services.map((service, index) => (
+          {data.services.map((service, index) => (
             <ServiceSection
               key={index}
               index={index}
               title={service.title}
               questions={service.questions}
-              imageSrc={service.imageSrc}
             />
           ))}
         </div>
         <div ref={imageContainerRef} className={styles.fixedImageContainer}>
           <div className={styles.imageWrapper}>
-            {services.map((service, index) => (
+            {data.services.map((service, index) => (
               <div
                 key={index}
                 ref={(el) => {
@@ -197,10 +172,10 @@ const Services = () => {
                 }}
                 className={styles.imageSlide}>
                 <Image
-                  src={service.imageSrc}
-                  alt={`Service ${service.title}`}
-                  width={800}
-                  height={600}
+                  src={service.image.url}
+                  alt={service.image.alt}
+                  width={service.image.width}
+                  height={service.image.height}
                   className={styles.servicesImage}
                   priority={index === 0}
                   quality={85}

@@ -1,4 +1,4 @@
-// app/components/PartnersPopUp/index.tsx
+// components/Cards/PartnersPopUp/PartnersPopUp.tsx
 import React from "react";
 import Image from "next/image";
 import styles from "./PartnersPopUp.module.css";

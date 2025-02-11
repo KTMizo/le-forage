@@ -1,3 +1,31 @@
+/**
+ * @file /Users/antoinepiney/Documents/hub-station/le-forage/le-forage/src/components/UI/Button/index.tsx
+ *
+ * This file contains the Button component which can be used to render a button or a link with different variants and optional arrow icon.
+ *
+ * @typedef {("primary" | "secondary" | "outline" | "outline-accent" | "accent-outline")} ButtonVariant - The variant of the button.
+ *
+ * @interface ButtonProps
+ * @property {ButtonVariant} [variant="primary"] - The variant of the button.
+ * @property {string} [href] - The URL to link to. If provided, the button will be rendered as a link.
+ * @property {React.ReactNode} children - The content of the button.
+ * @property {string} [className=""] - Additional class names to apply to the button.
+ * @property {boolean} [showArrow=false] - Whether to show an arrow icon inside the button.
+ * @property {() => void} [onClick] - The click handler for the button.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <Button variant="primary" onClick={() => console.log('Button clicked!')}>
+ *   Click Me
+ * </Button>
+ *
+ * @example
+ * // Usage example with link:
+ * <Button variant="outline" href="/about">
+ *   Learn More
+ * </Button>
+ */
 import React from "react";
 import Link from "next/link";
 import styles from "./Button.module.css";
@@ -16,6 +44,7 @@ interface ButtonProps {
   className?: string;
   showArrow?: boolean;
   onClick?: () => void;
+  target?: string; // add target property
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -25,6 +54,7 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   showArrow = false,
   onClick,
+  target, // add target property
 }) => {
   const buttonClasses = `${styles.button} ${styles[variant]} ${className}`;
 
@@ -62,7 +92,7 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={buttonClasses}>
+      <Link href={href} passHref className={buttonClasses} target={target}>
         {content}
       </Link>
     );

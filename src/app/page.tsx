@@ -14,8 +14,43 @@ import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import FAQ from "@/sections/FAQ";
 import Footer from "@/sections/Footer";
+import {
+  getHeroData,
+  getTitleAboutData,
+  getAboutData,
+  getRSERelatedData,
+  getMachineData,
+  getServicesData,
+  getImageBreakData,
+  getFooterData,
+  getFaqData,
+} from "@/lib/api";
 
-export default function Home() {
+export const revalidate = 60; // Revalidate every hour
+
+export default async function Home() {
+  const [
+    heroData,
+    titleAboutData,
+    aboutData,
+    rseData,
+    machineData,
+    servicesData,
+    imageBreakData,
+    footerData,
+    faqData,
+  ] = await Promise.all([
+    getHeroData(),
+    getTitleAboutData(),
+    getAboutData(),
+    getRSERelatedData("home"),
+    getMachineData(),
+    getServicesData(),
+    getImageBreakData(),
+    getFooterData(),
+    getFaqData("home"),
+  ]);
+
   return (
     <main className={styles.main}>
       <Loader />
@@ -31,29 +66,35 @@ export default function Home() {
       <div className={styles.menu}>
         <Menu />
       </div>
-      <Hero />
+      <Hero data={heroData} />
       <ImageBreak
-        src="/assets/images/hero-cover.jpg"
-        alt="Description de l'image"
-        width={1600}
-        height={900}
-        quality={90}
-        priority={true}
+        src={imageBreakData.hero_about_break.image.url}
+        alt={imageBreakData.hero_about_break.alt}
+        width={imageBreakData.hero_about_break.image.width}
+        height={imageBreakData.hero_about_break.image.height}
+        quality={imageBreakData.hero_about_break.params.quality}
+        priority={imageBreakData.hero_about_break.params.priority}
+        parallaxStrength={
+          imageBreakData.hero_about_break.params.parallax_strength
+        }
       />
-      <About />
-      <Services />
+      <About titleAboutData={titleAboutData} aboutData={aboutData} />
+      <Services data={servicesData} />
       <ImageBreak
-        src="/assets/images/separate.jpg"
-        alt="Description de l'image"
-        width={1600}
-        height={700}
-        quality={90}
-        priority={true}
+        src={imageBreakData.services_rse_break.image.url}
+        alt={imageBreakData.services_rse_break.alt}
+        width={imageBreakData.services_rse_break.image.width}
+        height={imageBreakData.services_rse_break.image.height}
+        quality={imageBreakData.services_rse_break.params.quality}
+        priority={imageBreakData.services_rse_break.params.priority}
+        parallaxStrength={
+          imageBreakData.services_rse_break.params.parallax_strength
+        }
       />
-      <RSE />
-      <Machine />
-      <FAQ />
-      <Footer />
+      <RSE data={rseData} />
+      <Machine data={machineData} />
+      <FAQ data={faqData} />
+      <Footer data={footerData} />
     </main>
   );
 }

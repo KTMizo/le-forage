@@ -2,24 +2,29 @@
 import Image from "next/image";
 import styles from "./MachineCard.module.css";
 import Button from "@/components/UI/Button";
+import type { MachineItem } from "@/types/modules/machine";
 
-interface MachineCardProps {
-  image: {
-    src: string;
-    alt: string;
-    width?: number;
-    height?: number;
-  };
+type MachineCardProps = {
+  image: MachineItem["image"];
   title: string;
-  technicalSheetUrl: string;
-}
+  technical_sheet: string;
+  boutton: MachineItem["boutton"];
+};
 
-const MachineCard = ({ image, title, technicalSheetUrl }: MachineCardProps) => {
+const MachineCard = ({
+  image,
+  title,
+  technical_sheet,
+  boutton,
+}: MachineCardProps) => {
+  // Ensure href is always a string
+  const href = typeof technical_sheet === "string" ? technical_sheet : "#";
+
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <Image
-          src={image.src}
+          src={image.url}
           alt={image.alt}
           width={image.width || 520}
           height={image.height || 520}
@@ -29,8 +34,12 @@ const MachineCard = ({ image, title, technicalSheetUrl }: MachineCardProps) => {
 
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <Button variant="primary" href={technicalSheetUrl} showArrow>
-          Télécharger la fiche technique
+        <Button
+          target="_blank"
+          variant={boutton.variant}
+          href={href}
+          showArrow={boutton.showArrow}>
+          {boutton.text}
         </Button>
       </div>
     </div>

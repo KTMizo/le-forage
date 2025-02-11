@@ -5,62 +5,41 @@ import styles from "./Machine.module.css";
 import MachineCard from "@/components/Cards/MachineCard/MachineCard";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import type { Machine as MachineType } from "@/types/modules/machine";
 
-interface Machine {
-  image: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-  title: string;
-  technicalSheetUrl: string;
+const defaultData: MachineType = {
+  machines_section_header: {
+    tag_title: "NOS MACHINES",
+    main_title: "Aux services de vos projets",
+  },
+  machines: [
+    {
+      image: {
+        ID: 1,
+        id: 1,
+        title: "Machine de forage E 4.50",
+        url: "/assets/images/machines/machinetest.png",
+        alt: "Machine de forage E 4.50",
+        width: 520,
+        height: 718,
+      },
+      title: "E 4.50 - Machine de forage",
+      technical_sheet: "/fiches-techniques/e450.pdf",
+      boutton: {
+        text: "Télécharger la fiche technique",
+        url: "/fiches-techniques/e450.pdf",
+        variant: "primary",
+        showArrow: true,
+      },
+    },
+  ],
+};
+
+interface MachineProps {
+  data?: MachineType;
 }
 
-const machines: Machine[] = [
-  {
-    image: {
-      src: "/assets/images/machines/machinetest.png",
-      alt: "Machine de forage E 4.50",
-      width: 520,
-      height: 718,
-    },
-    title: "E 4.50 - Machine de forage",
-    technicalSheetUrl: "/fiches-techniques/e450.pdf",
-  },
-  {
-    image: {
-      src: "/assets/images/machines/machinetest.png",
-      alt: "DPM 30 - Pénétromètre",
-      width: 520,
-      height: 718,
-    },
-    title: "DPM 30 - Pénétromètre",
-    technicalSheetUrl: "/fiches-techniques/dpm30.pdf",
-  },
-  {
-    image: {
-      src: "/assets/images/machines/machinetest.png",
-      alt: "Machine de forage E 4.50",
-      width: 520,
-      height: 718,
-    },
-    title: "Machine test",
-    technicalSheetUrl: "/fiches-techniques/test.pdf",
-  },
-  {
-    image: {
-      src: "/assets/images/machines/machinetest.png",
-      alt: "Machine de forage E 4.50",
-      width: 520,
-      height: 718,
-    },
-    title: "Machine test",
-    technicalSheetUrl: "/fiches-techniques/test.pdf",
-  },
-];
-
-const Machine = () => {
+const Machine = ({ data = defaultData }: MachineProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
 
@@ -100,14 +79,23 @@ const Machine = () => {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.sectionHeader}>
-        <span className={styles.tagTitle}>NOS MACHINES</span>
-        <h2 className={styles.mainTitle}>Aux services de vos projets</h2>
+        <span className={styles.tagTitle}>
+          {data.machines_section_header.tag_title}
+        </span>
+        <h2 className={styles.mainTitle}>
+          {data.machines_section_header.main_title}
+        </h2>
       </div>
       <div className={styles.horizontalSection}>
         <div ref={horizontalRef} className={styles.cardsContainer}>
-          {machines.map((machine, index) => (
+          {data.machines.map((machine, index) => (
             <div key={index} className={styles.cardWrapper}>
-              <MachineCard {...machine} />
+              <MachineCard
+                image={machine.image}
+                title={machine.title}
+                technical_sheet={machine.technical_sheet}
+                boutton={machine.boutton}
+              />
             </div>
           ))}
         </div>

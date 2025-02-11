@@ -8,7 +8,6 @@ const ListAsk: React.FC<ListAskProps> = ({
   answer,
   isOpen,
   onToggle,
-  //DropDown,
 }) => {
   return (
     <div className={styles.container}>

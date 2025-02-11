@@ -5,11 +5,16 @@ import styles from "./TitleAbout.module.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import type { TitleAboutData } from "@/types/modules/titleAbout";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TitleAbout = () => {
-  const subtitleRef = useRef(null);
+const TitleAbout: React.FC<TitleAboutData> = ({
+  subtitle,
+  highlight,
+  mainText,
+}) => {
+  const subtitleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (!subtitleRef.current) return;
@@ -51,15 +56,11 @@ const TitleAbout = () => {
     <div className={styles.titleContent}>
       <div className={styles.subtitleWapper}>
         <h3 ref={subtitleRef} className={styles.subtitleAbout}>
-          Qui sommes nous
+          {subtitle}
         </h3>
       </div>
       <h2 className={styles.titleAbout}>
-        <span className={styles.hightLight}>Le Forage</span> est votre
-        partenaire spécialisé dans les sondages géotechniques et
-        environnementaux. Grâce à une expertise reconnue et une expérience
-        solide, nous offrons un savoir-faire unique pour explorer, analyser, et
-        comprendre les différentes couches du sol.
+        <span className={styles.hightLight}>{highlight}</span> {mainText}
       </h2>
     </div>
   );

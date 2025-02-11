@@ -8,34 +8,61 @@ import Fore from "@/components/Fore";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+// Dans votre fichier Hero.tsx
+
+import { HeroData, ButtonVariant } from "@/types/modules/hero"; // Assurez-vous que le chemin est correct
+
+interface HeroProps {
+  data: HeroData;
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
-  const titleRef = useRef(null);
-  const descriptionRef = useRef(null);
-  const containerRef = useRef(null);
-  const logoRef = useRef(null);
-  const stickyWrapperRef = useRef(null);
-  useEffect(() => {
-    if (!titleRef.current || !descriptionRef.current || !logoRef.current)
-      return;
+const Hero: React.FC<HeroProps> = ({ data }) => {
+  // S'assurer que variant est du bon type
+  const buttonVariant = (data?.button?.variant || "outline") as ButtonVariant;
 
+  const buttonData = {
+    variant: buttonVariant,
+    text: data?.button?.text ?? "Demandez un devis",
+    url: data?.button?.url ?? "/destination",
+    showArrow: data?.button?.showArrow ?? true,
+  };
+
+  // Refs pour les éléments animés
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const stickyWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Vérification de la présence des éléments référencés
+    if (
+      !titleRef.current ||
+      !descriptionRef.current ||
+      !logoRef.current ||
+      !containerRef.current
+    ) {
+      return;
+    }
+
+    // Timeline pour les animations
     const tl = gsap.timeline();
 
-    // Split le texte du titre en mots
+    // Configuration de SplitType pour le titre
     const splitTitle = new SplitType(titleRef.current, {
       types: "words",
       wordClass: styles.animatedWord,
     });
 
-    // Split le texte de la description en lignes
+    // Configuration de SplitType pour la description
     const splitDescription = new SplitType(descriptionRef.current, {
       types: "lines",
       lineClass: styles.animatedLine,
     });
 
-    // Wrapper pour chaque ligne
+    // Création des wrappers pour les lignes
     splitDescription.lines?.forEach((line) => {
       const wrapper = document.createElement("div");
       wrapper.className = styles.lineWrapper;
@@ -43,12 +70,10 @@ const Hero = () => {
       wrapper.appendChild(line);
     });
 
-    // S'assurer que le conteneur est visible
-    if (containerRef.current) {
-      gsap.set(containerRef.current, { visibility: "visible" });
-    }
+    // Rendre le conteneur visible avant l'animation
+    gsap.set(containerRef.current, { visibility: "visible" });
 
-    // Animation initiale du texte
+    // Animation des mots du titre
     tl.fromTo(
       `.${styles.animatedWord}`,
       {
@@ -63,7 +88,10 @@ const Hero = () => {
         ease: "power4.out",
         delay: 2,
       }
-    ).fromTo(
+    );
+
+    // Animation des lignes de description
+    tl.fromTo(
       `.${styles.animatedLine}`,
       {
         y: 50,
@@ -79,7 +107,7 @@ const Hero = () => {
       "-=0.9"
     );
 
-    // Animation de scale du logo et opacité des lettres au scroll
+    // Animation du logo au scroll
     gsap.to(logoRef.current, {
       scale: 0.4,
       scrollTrigger: {
@@ -90,18 +118,19 @@ const Hero = () => {
       },
     });
 
-    // Animation pour faire disparaître les lettres
+    // Animation des lettres du logo
     const logoLetters = document.querySelectorAll(".logo-letter");
     gsap.to(logoLetters, {
       opacity: 0,
       scrollTrigger: {
         trigger: "body",
         start: "top top",
-        end: "+=250", // Plus court que l'animation de scale pour que les lettres disparaissent avant la fin du scaling
+        end: "+=250",
         scrub: true,
       },
     });
 
+    // Nettoyage des animations
     return () => {
       splitTitle.revert();
       splitDescription.revert();
@@ -174,22 +203,23 @@ const Hero = () => {
           style={{ visibility: "hidden" }}>
           <div className={styles.content}>
             <div className={styles.contentText}>
-              <h1
-                ref={titleRef}
-                className={styles.title}>{`L'art de sonder le sol`}</h1>
-
+              <h1 ref={titleRef} className={styles.title}>
+                {data.title}
+              </h1>
               <p ref={descriptionRef} className={styles.description}>
-                {`Nous accompagnons de nombreux bureaux d'études géotechniques et environnementaux dans la réussite de leurs projets.`}
+                {data.description}
               </p>
             </div>
-            <Button variant="outline" href="/destination" showArrow>
-              Demandez un devis
+            <Button
+              variant={buttonData.variant}
+              href={buttonData.url}
+              showArrow={buttonData.showArrow}>
+              {buttonData.text}
             </Button>
           </div>
           <div className={styles.pattern}>
             <Fore />
           </div>
-
           <div className={styles.footer}>
             <Link href="/" className={styles.tag}>
               [Forer la page]

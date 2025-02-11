@@ -67,7 +67,7 @@ const AboutSkill = ({ iconSrc, title, description }: CardProps) => {
       <div className={styles.cardTitle}>
         <div className={styles.iconContainer}>
           <Image
-            src={iconSrc}
+            src={iconSrc || "/assets/svg/Icones/default.svg"} // Assurez-vous d'avoir une image de secours
             alt={title}
             width="520"
             height="520"
