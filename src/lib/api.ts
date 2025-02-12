@@ -23,11 +23,32 @@ if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 // Ensure the WordPress API URL is defined
 
 // Helper function to fetch data from API
+// Helper function to fetch data from API
+// api.ts
 async function fetchFromAPI(endpoint: string) {
-  const res = await fetch(endpoint, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
-  return res.json();
+  const res = await fetch(endpoint, {
+    next: {
+      revalidate: 3600, // Revalide toutes les heures
+    },
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    console.error(`Erreur HTTP: ${res.status} pour ${endpoint}`);
+    throw new Error(`Échec de la récupération de ${endpoint}`);
+  }
+
+  try {
+    return await res.json();
+  } catch (error) {
+    console.error(`Erreur de parsing JSON pour ${endpoint}:`, error);
+    throw error;
+  }
 }
+
+// Amélioration de la fonction getPage
 
 // Helper function to get image URL by image ID
 // Helper function to get image URL by image ID
@@ -45,12 +66,24 @@ async function getImageUrl(imageId: number): Promise<string> {
 
 // Fetch a WordPress page by slug
 export async function getPage(slug: string): Promise<WordPressPage> {
-  const url = `${WP_API_URL}/pages?slug=${slug}&_embed`;
-  const data = await fetchFromAPI(url);
-  if (!data?.[0]) throw new Error(`Page with slug ${slug} not found`);
-  return data[0];
-}
+  try {
+    if (!WP_API_URL) {
+      throw new Error("L'URL de l'API WordPress n'est pas configurée");
+    }
 
+    const url = `${WP_API_URL}/pages?slug=${slug}&_embed`;
+    const data = await fetchFromAPI(url);
+
+    if (!data?.[0]) {
+      throw new Error(`Page ${slug} non trouvée`);
+    }
+
+    return data[0];
+  } catch (error) {
+    console.error(`Erreur lors de la récupération de la page ${slug}:`, error);
+    throw error;
+  }
+}
 // Fetch page data from local WordPress instance
 async function getPageData(slug: string) {
   const data = await fetchFromAPI(`${WP_API_URL}?slug=${slug}`);
