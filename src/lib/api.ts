@@ -26,10 +26,9 @@ if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 async function fetchFromAPI(endpoint: string) {
   try {
     const res = await fetch(endpoint, {
-      next: {
-        revalidate: 3600, // Revalide toutes les heures
-      },
+      method: "GET",
       headers: {
+        Authorization: `Bearer c341322d9aa6e1871c8560854c06825e23a07f3c85e404152b53f752df62ff663fdabee4f1edc91e0e13ad06bb839fc569fb2f35946e3ddd4229368d9cfcc5abba54066bdbe4297bf63404bc9877d35f5680ef09b9f25c9e00420ba2d338ff5097daa7a0dabd3ba5653d7b63ce8e586576a0f55e187c5b60eadf5f03b98230d2`, // Replace YOUR_ACCESS_TOKEN with the actual token
         "Content-Type": "application/json",
       },
     });
@@ -44,6 +43,7 @@ async function fetchFromAPI(endpoint: string) {
     throw error;
   }
 }
+
 // Helper function to get image URL by image ID
 // Helper function to get image URL by image ID
 async function getImageUrl(imageId: number): Promise<string> {
