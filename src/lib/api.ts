@@ -24,7 +24,11 @@ if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 
 // Helper function to fetch data from API
 async function fetchFromAPI(endpoint: string) {
-  const res = await fetch(endpoint, { cache: "no-store" });
+  const res = await fetch(endpoint, {
+    next: {
+      revalidate: 3600, // Revalide toutes les heures
+    },
+  });
   if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
   return res.json();
 }
@@ -34,7 +38,11 @@ async function fetchFromAPI(endpoint: string) {
 async function getImageUrl(imageId: number): Promise<string> {
   try {
     if (!imageId) return "";
-    const response = await fetch(`${WP_API_URL}/media/${imageId}`);
+    const response = await fetch(`${WP_API_URL}/media/${imageId}`, {
+      next: {
+        revalidate: 3600,
+      },
+    });
     const data = await response.json();
     return data.source_url || "";
   } catch (error) {
