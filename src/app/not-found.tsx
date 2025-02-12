@@ -12,7 +12,7 @@ export default function NotFound() {
           Désolé, la page que vous recherchez n&apos;existe pas ou a été
           déplacée.
         </p>
-        <Button variant="primary" href="/" showArrow>
+        <Button variant="primary" href="/test" showArrow>
           Retour à l&apos;accueil
         </Button>
       </div>
