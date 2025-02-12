@@ -8,7 +8,9 @@ import Fore from "@/components/Fore";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import { HeroData, ButtonVariant } from "@/types/modules/hero";
+// Dans votre fichier Hero.tsx
+
+import { HeroData, ButtonVariant } from "@/types/modules/hero"; // Assurez-vous que le chemin est correct
 
 interface HeroProps {
   data: HeroData;
@@ -17,6 +19,7 @@ interface HeroProps {
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
+  // S'assurer que variant est du bon type
   const buttonVariant = (data?.button?.variant || "outline") as ButtonVariant;
 
   const buttonData = {
@@ -26,6 +29,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
     showArrow: data?.button?.showArrow ?? true,
   };
 
+  // Refs pour les éléments animés
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +37,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   const stickyWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Vérification de la présence des éléments référencés
     if (
       !titleRef.current ||
       !descriptionRef.current ||
@@ -42,18 +47,22 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       return;
     }
 
+    // Timeline pour les animations
     const tl = gsap.timeline();
 
+    // Configuration de SplitType pour le titre
     const splitTitle = new SplitType(titleRef.current, {
       types: "words",
       wordClass: styles.animatedWord,
     });
 
+    // Configuration de SplitType pour la description
     const splitDescription = new SplitType(descriptionRef.current, {
       types: "lines",
       lineClass: styles.animatedLine,
     });
 
+    // Création des wrappers pour les lignes
     splitDescription.lines?.forEach((line) => {
       const wrapper = document.createElement("div");
       wrapper.className = styles.lineWrapper;
@@ -61,64 +70,67 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       wrapper.appendChild(line);
     });
 
-    // Attendre que les éléments soient dans le DOM
-    requestAnimationFrame(() => {
-      gsap.set(containerRef.current, { visibility: "visible" });
+    // Rendre le conteneur visible avant l'animation
+    gsap.set(containerRef.current, { visibility: "visible" });
 
-      tl.fromTo(
-        `.${styles.animatedWord}`,
-        {
-          y: 100,
-          opacity: 1,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out",
-          delay: 2,
-        }
-      );
+    // Animation des mots du titre
+    tl.fromTo(
+      `.${styles.animatedWord}`,
+      {
+        y: 100,
+        opacity: 1,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out",
+        delay: 2,
+      }
+    );
 
-      tl.fromTo(
-        `.${styles.animatedLine}`,
-        {
-          y: 50,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-        },
-        "-=0.9"
-      );
-
-      gsap.to(logoRef.current, {
-        scale: 0.4,
-        scrollTrigger: {
-          trigger: "body",
-          start: "top top",
-          end: "+=500",
-          scrub: true,
-        },
-      });
-
-      const logoLetters = document.querySelectorAll(".logo-letter");
-      gsap.to(logoLetters, {
+    // Animation des lignes de description
+    tl.fromTo(
+      `.${styles.animatedLine}`,
+      {
+        y: 50,
         opacity: 0,
-        scrollTrigger: {
-          trigger: "body",
-          start: "top top",
-          end: "+=250",
-          scrub: true,
-        },
-      });
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power3.out",
+      },
+      "-=0.9"
+    );
+
+    // Animation du logo au scroll
+    gsap.to(logoRef.current, {
+      scale: 0.4,
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "+=500",
+        scrub: true,
+      },
     });
 
+    // Animation des lettres du logo
+    const logoLetters = document.querySelectorAll(".logo-letter");
+    gsap.to(logoLetters, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "+=250",
+        scrub: true,
+      },
+    });
+
+    // Nettoyage des animations
     return () => {
       splitTitle.revert();
       splitDescription.revert();
