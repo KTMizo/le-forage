@@ -18,10 +18,9 @@ import type {
 
 // Define API URLs
 const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
-const LOCAL_WP_URL = "http://localhost:8888/le-forage/wp-json/wp/v2/pages";
+if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 
 // Ensure the WordPress API URL is defined
-if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 
 // Helper function to fetch data from API
 async function fetchFromAPI(endpoint: string) {
@@ -54,7 +53,7 @@ export async function getPage(slug: string): Promise<WordPressPage> {
 
 // Fetch page data from local WordPress instance
 async function getPageData(slug: string) {
-  const data = await fetchFromAPI(`${LOCAL_WP_URL}?slug=${slug}`);
+  const data = await fetchFromAPI(`${WP_API_URL}?slug=${slug}`);
   if (!Array.isArray(data) || data.length === 0)
     throw new Error("No page data found");
   return data[0];
@@ -87,7 +86,7 @@ export async function getTitleAboutData(): Promise<TitleAboutData> {
 
 // Fetch about data for the home page
 export async function getAboutData(): Promise<AboutData> {
-  const pageData = await fetchFromAPI(`${LOCAL_WP_URL}?slug=home`);
+  const pageData = await fetchFromAPI(`${WP_API_URL}?slug=home`);
   if (!Array.isArray(pageData) || pageData.length === 0)
     throw new Error("No page data found");
 
