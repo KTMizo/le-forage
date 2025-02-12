@@ -24,15 +24,26 @@ if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 
 // Helper function to fetch data from API
 async function fetchFromAPI(endpoint: string) {
-  const res = await fetch(endpoint, {
-    next: {
-      revalidate: 3600, // Revalide toutes les heures
-    },
-  });
-  if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
-  return res.json();
-}
+  try {
+    const res = await fetch(endpoint, {
+      next: {
+        revalidate: 3600, // Revalide toutes les heures
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    if (!res.ok) {
+      throw new Error(`Failed to fetch ${endpoint}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(`Error fetching from API: ${endpoint}`, error);
+    throw error;
+  }
+}
 // Helper function to get image URL by image ID
 // Helper function to get image URL by image ID
 async function getImageUrl(imageId: number): Promise<string> {
@@ -54,9 +65,16 @@ async function getImageUrl(imageId: number): Promise<string> {
 // Fetch a WordPress page by slug
 export async function getPage(slug: string): Promise<WordPressPage> {
   const url = `${WP_API_URL}/pages?slug=${slug}&_embed`;
-  const data = await fetchFromAPI(url);
-  if (!data?.[0]) throw new Error(`Page with slug ${slug} not found`);
-  return data[0];
+  try {
+    const data = await fetchFromAPI(url);
+    if (!data?.[0]) {
+      throw new Error(`Page with slug ${slug} not found`);
+    }
+    return data[0];
+  } catch (error) {
+    console.error(`Error fetching page with slug ${slug}:`, error);
+    throw error;
+  }
 }
 
 // Fetch page data from local WordPress instance

@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-
 import Button from "@/components/UI/Button";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -14,6 +13,17 @@ import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import FAQ from "@/sections/FAQ";
 import Footer from "@/sections/Footer";
+
+import type { HeroData } from "@/types/modules/hero";
+import type { TitleAboutData } from "@/types/modules/titleAbout";
+import type { AboutData } from "@/types/modules/about";
+import type { RSEModules } from "@/types/modules/rse";
+import type { Machine as MachineType } from "@/types/modules/machine";
+import type { ServicesSection } from "@/types/modules/services";
+import type { ImageBreakSection } from "@/types/modules/imageBreak";
+import type { Footer as FooterType } from "@/types/modules/footer";
+import type { ACFFaqFields } from "@/types/modules/faq";
+
 import {
   getHeroData,
   getTitleAboutData,
@@ -26,9 +36,95 @@ import {
   getFaqData,
 } from "@/lib/api";
 
-export const revalidate = 60; // Revalidate every hour
+export const revalidate = 3600;
+
+// Créer des valeurs par défaut typées
+const defaultHeroData: HeroData = {
+  title: "",
+  description: "",
+  button: { text: "", url: "", variant: "primary", showArrow: true },
+};
+
+const defaultTitleAboutData: TitleAboutData = {
+  subtitle: "",
+  highlight: "",
+  mainText: "",
+};
+
+const defaultAboutData: AboutData = {
+  mainImage: { url: "", alt: "", width: 0, height: 0 },
+  skills: [],
+};
+
+const defaultRSEData: RSEModules = {
+  rse_header: { tag_title: "", main_title: "" },
+  rse_content: { description: "", method_note: "" },
+  security_cards: [],
+  qualifications_cards: [],
+};
+
+const defaultMachineData: MachineType = {
+  machines_section_header: { tag_title: "", main_title: "" },
+  machines: [],
+};
+
+const defaultServicesData: ServicesSection = {
+  services_title: "",
+  services: [],
+};
+
+const defaultImageBreakData: ImageBreakSection = {
+  hero_about_break: {
+    image: { ID: 0, id: 0, title: "", url: "", alt: "", width: 0, height: 0 },
+    alt: "",
+    params: { quality: 75, priority: true, parallax_strength: 0.1 },
+  },
+  services_rse_break: {
+    image: { ID: 0, id: 0, title: "", url: "", alt: "", width: 0, height: 0 },
+    alt: "",
+    params: { quality: 75, priority: true, parallax_strength: 0.1 },
+  },
+};
+
+const defaultFooterData: FooterType = {
+  footer_card: {
+    title: "",
+    button: { text: "", url: "", variant: "primary", showArrow: true },
+  },
+  footer_info: { company: "", legal_links: [] },
+};
+
+const defaultFaqData: ACFFaqFields = {
+  faq_title: "",
+  faq_cover_image: "",
+  faq_items: [],
+};
+
+async function fetchWithFallback<T>(
+  fetchFn: () => Promise<T>,
+  fallback: T
+): Promise<T> {
+  try {
+    return await fetchFn();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return fallback;
+  }
+}
 
 export default async function Home() {
+  const results = await Promise.allSettled([
+    fetchWithFallback(getHeroData, defaultHeroData),
+    fetchWithFallback(getTitleAboutData, defaultTitleAboutData),
+    fetchWithFallback(getAboutData, defaultAboutData),
+    fetchWithFallback(() => getRSERelatedData("home"), defaultRSEData),
+    fetchWithFallback(getMachineData, defaultMachineData),
+    fetchWithFallback(getServicesData, defaultServicesData),
+    fetchWithFallback(getImageBreakData, defaultImageBreakData),
+    fetchWithFallback(getFooterData, defaultFooterData),
+    fetchWithFallback(() => getFaqData("home"), defaultFaqData),
+  ]);
+
   const [
     heroData,
     titleAboutData,
@@ -39,17 +135,9 @@ export default async function Home() {
     imageBreakData,
     footerData,
     faqData,
-  ] = await Promise.all([
-    getHeroData(),
-    getTitleAboutData(),
-    getAboutData(),
-    getRSERelatedData("home"),
-    getMachineData(),
-    getServicesData(),
-    getImageBreakData(),
-    getFooterData(),
-    getFaqData("home"),
-  ]);
+  ] = results.map((result) =>
+    result.status === "fulfilled" ? result.value : result.reason
+  );
 
   return (
     <main className={styles.main}>
