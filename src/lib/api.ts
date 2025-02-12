@@ -26,38 +26,47 @@ if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 // 1. Modifier la fonction getPageData pour être plus robuste
 async function getPageData(slug: string) {
   try {
-    // Essayer d'abord l'endpoint pages
-    const pagesEndpoint = `${WP_API_URL}/pages?slug=${slug}`;
-    let data = await fetchFromAPI(pagesEndpoint);
+    // Try multiple endpoints in sequence
+    const endpoints = [
+      `${WP_API_URL}/pages?slug=${slug}`,
+      `${WP_API_URL}/posts?slug=${slug}`,
+      `${WP_API_URL}/${slug}`,
+    ];
 
-    if (!Array.isArray(data) || data.length === 0) {
-      // Essayer l'endpoint posts
-      const postsEndpoint = `${WP_API_URL}/posts?slug=${slug}`;
-      data = await fetchFromAPI(postsEndpoint);
+    let data = null;
+
+    for (const endpoint of endpoints) {
+      data = await fetchFromAPI(endpoint);
+
+      if (data) {
+        // Handle both array and single object responses
+        const pageData = Array.isArray(data) ? data[0] : data;
+
+        if (pageData) {
+          // Ensure ACF data exists
+          if (!pageData.acf) {
+            pageData.acf = {};
+          }
+          return pageData;
+        }
+      }
     }
 
-    if (!Array.isArray(data) || data.length === 0) {
-      // Essayer l'endpoint direct (pour les endpoints personnalisés)
-      const directEndpoint = `${WP_API_URL}/${slug}`;
-      data = await fetchFromAPI(directEndpoint);
-    }
-
-    if (!Array.isArray(data) || data.length === 0) {
-      console.warn(`No data found for slug: ${slug}, returning default data`);
-      return {
-        acf: {},
-      };
-    }
-
-    // Si les données ACF sont undefined, retourner un objet vide
-    if (!data[0].acf) {
-      data[0].acf = {};
-    }
-
-    return data[0];
-  } catch (error) {
-    console.error(`Error fetching page data for slug: ${slug}:`, error);
+    // If no data found, return a default structure instead of throwing
+    console.warn(
+      `No data found for slug: ${slug}, returning default structure`
+    );
     return {
+      title: { rendered: "" },
+      content: { rendered: "" },
+      acf: {},
+    };
+  } catch (error) {
+    console.error(`Error in getPageData for slug ${slug}:`, error);
+    // Return default structure instead of throwing
+    return {
+      title: { rendered: "" },
+      content: { rendered: "" },
       acf: {},
     };
   }
@@ -79,20 +88,14 @@ async function fetchFromAPI(endpoint: string) {
       console.warn(
         `API request failed for ${endpoint}: ${res.status} ${res.statusText}`
       );
-      return [];
+      return null;
     }
 
     const data = await res.json();
-
-    // Si c'est un objet unique, le transformer en tableau
-    if (!Array.isArray(data) && typeof data === "object") {
-      return [data];
-    }
-
     return data;
   } catch (error) {
     console.error(`Error fetching from API: ${endpoint}`, error);
-    return [];
+    return null;
   }
 }
 
@@ -160,36 +163,52 @@ export async function getTitleAboutData(): Promise<TitleAboutData> {
 
 // Fetch about data for the home page
 export async function getAboutData(): Promise<AboutData> {
-  const pageData = await fetchFromAPI(`${WP_API_URL}?slug=home`);
-  if (!Array.isArray(pageData) || pageData.length === 0)
-    throw new Error("No page data found");
+  try {
+    const pageData = await getPageData("home");
 
-  const aboutImageId = pageData[0].acf?.about_image;
-  const aboutSkills = pageData[0].acf?.about_skills || [];
+    const aboutImageId = pageData?.acf?.about_image;
+    const aboutSkills = pageData?.acf?.about_skills || [];
 
-  const mainImageUrl =
-    (await getImageUrl(aboutImageId)) || "/assets/images/about-cover.jpg";
+    const mainImageUrl = aboutImageId
+      ? await getImageUrl(aboutImageId)
+      : "/assets/images/about-cover.jpg";
 
-  const skills = await Promise.all(
-    aboutSkills.map(async (skill: Skill) => {
-      const iconUrl = await getImageUrl(Number(skill.icon));
-      return {
-        icon: iconUrl || "/assets/svg/Icones/default.svg",
-        title: skill.title || "Titre par défaut",
-        description: skill.description || "Description par défaut",
-      };
-    })
-  );
+    const skills = await Promise.all(
+      aboutSkills.map(async (skill: Skill) => {
+        const iconUrl = skill.icon
+          ? await getImageUrl(Number(skill.icon))
+          : "/assets/svg/Icones/default.svg";
 
-  return {
-    mainImage: {
-      url: mainImageUrl,
-      alt: "Le Forage",
-      width: 425,
-      height: 530,
-    },
-    skills,
-  };
+        return {
+          icon: iconUrl,
+          title: skill.title || "Titre par défaut",
+          description: skill.description || "Description par défaut",
+        };
+      })
+    );
+
+    return {
+      mainImage: {
+        url: mainImageUrl,
+        alt: "Le Forage",
+        width: 425,
+        height: 530,
+      },
+      skills,
+    };
+  } catch (error) {
+    console.error("Error in getAboutData:", error);
+    // Return default data instead of throwing
+    return {
+      mainImage: {
+        url: "/assets/images/about-cover.jpg",
+        alt: "Le Forage",
+        width: 425,
+        height: 530,
+      },
+      skills: [],
+    };
+  }
 }
 
 // Interface for WordPress card data
