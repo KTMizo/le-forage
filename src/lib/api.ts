@@ -81,7 +81,7 @@ async function fetchFromAPI(endpoint: string) {
         Authorization: `Bearer ${process.env.WP_API_TOKEN}`,
         "Content-Type": "application/json",
       },
-      next: { revalidate: 0 },
+      next: { revalidate: 10 },
     });
 
     if (!res.ok) {
@@ -105,7 +105,7 @@ async function getImageUrl(imageId: number): Promise<string> {
     if (!imageId) return "";
 
     const response = await fetch(`${WP_API_URL}/media/${imageId}`, {
-      next: { revalidate: 0 },
+      next: { revalidate: 10 },
     });
 
     if (!response.ok) {

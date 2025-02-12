@@ -36,7 +36,7 @@ import {
   getFaqData,
 } from "@/lib/api";
 
-export const revalidate = 0;
+export const revalidate = 10;
 
 // Créer des valeurs par défaut typées
 const defaultHeroData: HeroData = {
