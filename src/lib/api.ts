@@ -23,37 +23,75 @@ const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 
 // Helper function to fetch data from API
+// 1. Modifier la fonction getPageData pour être plus robuste
+async function getPageData(slug: string) {
+  try {
+    // Essayer d'abord l'endpoint pages
+    const pagesEndpoint = `${WP_API_URL}/pages?slug=${slug}`;
+    let data = await fetchFromAPI(pagesEndpoint);
+
+    if (!Array.isArray(data) || data.length === 0) {
+      // Si pas trouvé, essayer l'endpoint posts
+      const postsEndpoint = `${WP_API_URL}/posts?slug=${slug}`;
+      data = await fetchFromAPI(postsEndpoint);
+    }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      console.warn(`No data found for slug: ${slug}, returning default data`);
+      return {
+        acf: {},
+      };
+    }
+
+    return data[0];
+  } catch (error) {
+    console.error(`Error fetching page data for slug: ${slug}:`, error);
+    return {
+      acf: {},
+    };
+  }
+}
+
+// 2. Modifier la fonction fetchFromAPI pour gérer les erreurs plus gracieusement
 async function fetchFromAPI(endpoint: string) {
   try {
     const res = await fetch(endpoint, {
       method: "GET",
       headers: {
-        Authorization: `Bearer c341322d9aa6e1871c8560854c06825e23a07f3c85e404152b53f752df62ff663fdabee4f1edc91e0e13ad06bb839fc569fb2f35946e3ddd4229368d9cfcc5abba54066bdbe4297bf63404bc9877d35f5680ef09b9f25c9e00420ba2d338ff5097daa7a0dabd3ba5653d7b63ce8e586576a0f55e187c5b60eadf5f03b98230d2`, // Replace YOUR_ACCESS_TOKEN with the actual token
+        Authorization: `Bearer ${process.env.WP_API_TOKEN}`, // Utiliser une variable d'environnement
         "Content-Type": "application/json",
       },
+      next: { revalidate: 3600 }, // Ajouter la revalidation
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch ${endpoint}`);
+      console.warn(
+        `API request failed for ${endpoint}: ${res.status} ${res.statusText}`
+      );
+      return [];
     }
 
     return res.json();
   } catch (error) {
     console.error(`Error fetching from API: ${endpoint}`, error);
-    throw error;
+    return [];
   }
 }
 
-// Helper function to get image URL by image ID
-// Helper function to get image URL by image ID
+// 3. Modifier getImageUrl pour être plus robuste
 async function getImageUrl(imageId: number): Promise<string> {
   try {
     if (!imageId) return "";
+
     const response = await fetch(`${WP_API_URL}/media/${imageId}`, {
-      next: {
-        revalidate: 3600,
-      },
+      next: { revalidate: 3600 },
     });
+
+    if (!response.ok) {
+      console.warn(`Failed to fetch image ${imageId}: ${response.status}`);
+      return "";
+    }
+
     const data = await response.json();
     return data.source_url || "";
   } catch (error) {
@@ -75,14 +113,6 @@ export async function getPage(slug: string): Promise<WordPressPage> {
     console.error(`Error fetching page with slug ${slug}:`, error);
     throw error;
   }
-}
-
-// Fetch page data from local WordPress instance
-async function getPageData(slug: string) {
-  const data = await fetchFromAPI(`${WP_API_URL}?slug=${slug}`);
-  if (!Array.isArray(data) || data.length === 0)
-    throw new Error("No page data found");
-  return data[0];
 }
 
 // Fetch hero data for the home page
