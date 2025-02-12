@@ -31,9 +31,15 @@ async function getPageData(slug: string) {
     let data = await fetchFromAPI(pagesEndpoint);
 
     if (!Array.isArray(data) || data.length === 0) {
-      // Si pas trouvé, essayer l'endpoint posts
+      // Essayer l'endpoint posts
       const postsEndpoint = `${WP_API_URL}/posts?slug=${slug}`;
       data = await fetchFromAPI(postsEndpoint);
+    }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      // Essayer l'endpoint direct (pour les endpoints personnalisés)
+      const directEndpoint = `${WP_API_URL}/${slug}`;
+      data = await fetchFromAPI(directEndpoint);
     }
 
     if (!Array.isArray(data) || data.length === 0) {
@@ -41,6 +47,11 @@ async function getPageData(slug: string) {
       return {
         acf: {},
       };
+    }
+
+    // Si les données ACF sont undefined, retourner un objet vide
+    if (!data[0].acf) {
+      data[0].acf = {};
     }
 
     return data[0];
@@ -58,10 +69,10 @@ async function fetchFromAPI(endpoint: string) {
     const res = await fetch(endpoint, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${process.env.WP_API_TOKEN}`, // Utiliser une variable d'environnement
+        Authorization: `Bearer ${process.env.WP_API_TOKEN}`,
         "Content-Type": "application/json",
       },
-      next: { revalidate: 3600 }, // Ajouter la revalidation
+      next: { revalidate: 3600 },
     });
 
     if (!res.ok) {
@@ -71,7 +82,14 @@ async function fetchFromAPI(endpoint: string) {
       return [];
     }
 
-    return res.json();
+    const data = await res.json();
+
+    // Si c'est un objet unique, le transformer en tableau
+    if (!Array.isArray(data) && typeof data === "object") {
+      return [data];
+    }
+
+    return data;
   } catch (error) {
     console.error(`Error fetching from API: ${endpoint}`, error);
     return [];
