@@ -19,32 +19,33 @@ const TitleAbout: React.FC<TitleAboutData> = ({
   useEffect(() => {
     if (!subtitleRef.current) return;
 
-    // Split le texte en mots
     const splitSubtitle = new SplitType(subtitleRef.current, {
       types: "words",
       wordClass: styles.animatedWord,
     });
 
-    // Animation pour le sous-titre
-    gsap.fromTo(
-      `.${styles.animatedWord}`,
-      {
-        y: 100,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: subtitleRef.current,
-          start: "top 80%",
-          once: true,
+    // Attendre que les éléments soient dans le DOM
+    requestAnimationFrame(() => {
+      gsap.fromTo(
+        `.${styles.animatedWord}`,
+        {
+          y: 100,
+          opacity: 0,
         },
-      }
-    );
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: subtitleRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+    });
 
     return () => {
       splitSubtitle.revert();
