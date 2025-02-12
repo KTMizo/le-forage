@@ -13,7 +13,7 @@
   position: fixed;
   top: 40px;
   right: 80px;
-  z-index: 1000; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
+  z-index: 1001; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
 }
 
 @media screen and (max-width: 1024px) {
