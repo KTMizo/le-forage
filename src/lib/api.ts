@@ -18,37 +18,17 @@ import type {
 
 // Define API URLs
 const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
-if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
+const LOCAL_WP_URL = "http://localhost:8888/le-forage/wp-json/wp/v2/pages";
 
 // Ensure the WordPress API URL is defined
+if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
 
 // Helper function to fetch data from API
-// Helper function to fetch data from API
-// api.ts
 async function fetchFromAPI(endpoint: string) {
-  const res = await fetch(endpoint, {
-    next: {
-      revalidate: 3600, // Revalide toutes les heures
-    },
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!res.ok) {
-    console.error(`Erreur HTTP: ${res.status} pour ${endpoint}`);
-    throw new Error(`Échec de la récupération de ${endpoint}`);
-  }
-
-  try {
-    return await res.json();
-  } catch (error) {
-    console.error(`Erreur de parsing JSON pour ${endpoint}:`, error);
-    throw error;
-  }
+  const res = await fetch(endpoint, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch ${endpoint}`);
+  return res.json();
 }
-
-// Amélioration de la fonction getPage
 
 // Helper function to get image URL by image ID
 // Helper function to get image URL by image ID
@@ -66,27 +46,15 @@ async function getImageUrl(imageId: number): Promise<string> {
 
 // Fetch a WordPress page by slug
 export async function getPage(slug: string): Promise<WordPressPage> {
-  try {
-    if (!WP_API_URL) {
-      throw new Error("L'URL de l'API WordPress n'est pas configurée");
-    }
-
-    const url = `${WP_API_URL}/pages?slug=${slug}&_embed`;
-    const data = await fetchFromAPI(url);
-
-    if (!data?.[0]) {
-      throw new Error(`Page ${slug} non trouvée`);
-    }
-
-    return data[0];
-  } catch (error) {
-    console.error(`Erreur lors de la récupération de la page ${slug}:`, error);
-    throw error;
-  }
+  const url = `${WP_API_URL}/pages?slug=${slug}&_embed`;
+  const data = await fetchFromAPI(url);
+  if (!data?.[0]) throw new Error(`Page with slug ${slug} not found`);
+  return data[0];
 }
+
 // Fetch page data from local WordPress instance
 async function getPageData(slug: string) {
-  const data = await fetchFromAPI(`${WP_API_URL}?slug=${slug}`);
+  const data = await fetchFromAPI(`${LOCAL_WP_URL}?slug=${slug}`);
   if (!Array.isArray(data) || data.length === 0)
     throw new Error("No page data found");
   return data[0];
@@ -119,7 +87,7 @@ export async function getTitleAboutData(): Promise<TitleAboutData> {
 
 // Fetch about data for the home page
 export async function getAboutData(): Promise<AboutData> {
-  const pageData = await fetchFromAPI(`${WP_API_URL}?slug=home`);
+  const pageData = await fetchFromAPI(`${LOCAL_WP_URL}?slug=home`);
   if (!Array.isArray(pageData) || pageData.length === 0)
     throw new Error("No page data found");
 
