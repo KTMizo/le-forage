@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   const buttonData = {
     variant: buttonVariant,
     text: data?.button?.text ?? "Demandez un devis",
-    url: data?.button?.url ?? "/destination",
+    url: data?.button?.url ?? "/",
     showArrow: data?.button?.showArrow ?? true,
   };
 
