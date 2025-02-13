@@ -1,10 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Faq.module.css";
 import ListAsk from "@/components/ListAsk";
 import { FaqSectionProps, ACFFaqItem } from "@/types/modules/faq";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface FaqItemWithState extends ACFFaqItem {
   isOpen: boolean;
@@ -17,6 +24,72 @@ const FAQ: React.FC<FaqSectionProps> = ({ data }) => {
       isOpen: false,
     }))
   );
+
+  const [isVisible, setIsVisible] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      // Split et anime le titre
+      const splitTitle = new SplitType(titleRef.current, {
+        types: "lines",
+        lineClass: "animated-line",
+      });
+
+      gsap.fromTo(
+        titleRef.current.querySelectorAll(".animated-line"),
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
+
+      return () => {
+        splitTitle.revert();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    const currentElement = imageWrapperRef.current;
+
+    if (currentElement) {
+      observer.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement);
+      }
+    };
+  }, []);
 
   const handleToggle = (index: number) => {
     setFaqItems((prevItems) =>
@@ -31,9 +104,13 @@ const FAQ: React.FC<FaqSectionProps> = ({ data }) => {
     <section className={styles.faq}>
       <div className={styles.faqContent}>
         <div className={styles.subtitle}>
-          <h2>{data.faq_title}</h2>
+          <h2 ref={titleRef}>{data.faq_title}</h2>
         </div>
-        <div className={styles.imageWrapper}>
+        <div
+          ref={imageWrapperRef}
+          className={`${styles.imageWrapper} ${
+            isVisible ? styles.visible : ""
+          }`}>
           <Image
             src={data.faq_cover_image}
             alt={data.faq_title}
@@ -41,6 +118,7 @@ const FAQ: React.FC<FaqSectionProps> = ({ data }) => {
             sizes="(max-width: 100vw) 100vw, 50vw"
             priority
             style={{ objectFit: "cover" }}
+            className={styles.image}
           />
         </div>
       </div>

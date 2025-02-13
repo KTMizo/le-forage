@@ -22,9 +22,9 @@
 
 @keyframes scrollUpInfinite {
   0% {
-    transform: translateY(-100%);
+    transform: translateY(-500%);
   }
   100% {
-    transform: translateY(300%);
+    transform: translateY(-100%);
   }
 }

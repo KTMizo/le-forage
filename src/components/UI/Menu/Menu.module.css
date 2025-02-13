@@ -1,4 +1,5 @@
-.menuButton {
+/* Menu.module.css */
+.menu__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,37 +17,37 @@
   transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
 }
 
-.menuButton.visible {
+.menu__button_visible {
   transform: scale(1);
 }
 
-.menuText {
+.menu__buttonText {
   color: var(--noir);
 }
 
-.openButton {
+.menu__buttonIcon {
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 50;
 }
 
-.openButton line {
+.menu__buttonIcon line {
   transform-origin: center;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease;
 }
 
-.openButton.hidden {
+.menu__buttonIcon_hidden {
   transform: scale(1.2);
 }
 
-.openButton.hidden line:first-child {
+.menu__buttonIcon_hidden line:first-child {
   transform: translateY(3px);
 }
 
-.openButton.hidden line:last-child {
+.menu__buttonIcon_hidden line:last-child {
   transform: translateY(0);
 }
 
-.menuOverlay {
+.menu__overlay {
   position: fixed;
   inset: 0;
   opacity: 0;
@@ -58,14 +59,14 @@
   overflow: hidden;
 }
 
-.menuOverlay.active {
+.menu__overlay_active {
   opacity: 1;
   visibility: visible;
   backdrop-filter: blur(4px);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.menuPanel {
+.menu__panel {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -81,19 +82,19 @@
     opacity 0.3s ease;
 }
 
-.menuPanel.active {
+.menu__panel_active {
   transform: translateY(0) scale(1);
   opacity: 1;
 }
 
-.menuHeader {
+.menu__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xl);
 }
 
-.closeButton {
+.menu__closeButton {
   background: none;
   border: none;
   cursor: pointer;
@@ -102,49 +103,50 @@
   transition: background-color 0.2s ease;
 }
 
-.closeButton:hover {
+.menu__closeButton:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.closeIcon {
+.menu__closeIcon {
   transition: transform 0.3s ease;
 }
 
-.closeButton:hover .closeIcon {
+.menu__closeButton:hover .menu__closeIcon {
   transform: rotate(90deg);
 }
 
-.menuNav {
+.menu__nav {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.menuNav.active {
+.menu__nav_active {
   animation: slideIn 0.4s ease forwards;
 }
 
-.menuItem {
+.menu__navLink {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeSlideIn 0.5s ease forwards;
-}
-
-.menuNav a {
   font: var(--font-button);
   text-decoration: none;
   color: var(--noir);
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.menuNav a:hover {
+.menu__navLink:hover {
   color: #ab2325;
   transform: translateX(8px);
 }
 
-.contact {
-  font: var(--font-button);
-  text-decoration: none;
+.menu__contactWrapper {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.menu__contactButton {
   color: var(--blanc);
   width: 100%;
   height: 100%;
@@ -172,14 +174,16 @@
 
 @media screen and (max-width: 1024px) {
 }
+
 @media screen and (max-width: 768px) {
-  .menuPanel {
+  .menu__panel {
     top: 16px;
     right: 16px;
   }
 }
+
 @media screen and (max-width: 480px) {
-  .menuPanel {
+  .menu__panel {
     top: 16px;
     right: 16px;
   }

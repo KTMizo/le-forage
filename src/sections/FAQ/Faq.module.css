@@ -42,6 +42,41 @@
   width: 100%;
 }
 
+/* Ajoutez ces styles à votre Faq.module.css */
+
+/* Animation du titre */
+.subtitle h2 {
+  overflow: hidden;
+}
+
+.animated-line {
+  overflow: hidden;
+  display: block;
+}
+
+.animated-line > div {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation de l'image */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.image {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.5s cubic-bezier(0.6, 0, 0.3, 0.9);
+}
+
+.imageWrapper.visible .image {
+  clip-path: inset(0 0 0 0);
+}
+
 @media screen and (max-width: 1024px) {
   .faq {
     flex-direction: column-reverse;

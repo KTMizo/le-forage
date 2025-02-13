@@ -5,7 +5,6 @@
 }
 
 .questionItem {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 2rem 0;
   width: 100%;
   transition: 0.5s cubic-bezier(0.31, 0.2, 0, 1);
@@ -17,11 +16,11 @@
 }
 
 .questionItem:hover .questionText {
-  color: var(--rouge); /* ou utilisez une variable CSS si nécessaire */
+  color: var(--rouge);
 }
 
 .questionItem:hover .toggleIcon {
-  rotate: 90deg; /* Changé de 90deg à 180deg */
+  rotate: 90deg;
   color: var(--rouge);
 }
 
@@ -53,13 +52,63 @@
   color: var(--rouge);
 }
 
+.toggleIcon.open {
+  transform: rotate(45deg);
+}
+
 .readMore {
   color: var(--noir);
   font-size: 16px;
 }
 
 .answer {
+  max-height: 0;
+  margin-top: 0;
+  padding: 0 0.75rem;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.31, 0.2, 0, 1);
+}
+
+.answer.open {
+  max-height: 1000px; /* Ajustez cette valeur selon vos besoins */
   margin-top: 0.75rem;
+  opacity: 1;
   padding: 0.75rem;
+}
+/* Ajoutez ces styles à votre Ask.module.css */
+
+.animatedLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  transform-origin: left;
+}
+
+.questionItem {
+  position: relative; /* Pour positionner la ligne animée */
+  padding: 2rem 0;
+  width: 100%;
+  transition: 0.5s cubic-bezier(0.31, 0.2, 0, 1);
+}
+
+/* Assurez-vous que les conteneurs de texte ont overflow hidden */
+.questionText,
+.readMore {
+  overflow: hidden;
+  display: block;
+}
+
+/* Pour les lignes animées */
+.animated-line {
+  overflow: hidden;
+  display: block;
+}
+
+.animated-line > div {
+  position: relative;
   overflow: hidden;
 }

@@ -56,3 +56,20 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Ajoutez ces styles à votre Machine.module.css */
+
+.tagTitle,
+.mainTitle {
+  overflow: hidden;
+}
+
+.animated-line {
+  overflow: hidden;
+  display: block;
+}
+
+.animated-line > div {
+  position: relative;
+  overflow: hidden;
+}

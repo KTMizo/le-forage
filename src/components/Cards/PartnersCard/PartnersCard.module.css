@@ -112,6 +112,28 @@
   border-color: #333 transparent transparent transparent;
 }
 
+/* Ajoutez ces styles à votre PartnersCard.module.css */
+
+.cardContainer {
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  overflow: hidden;
+  background: var(--black-4, rgba(0, 0, 0, 0.04));
+  border-radius: 4px;
+}
+
+.card {
+  width: 100%;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.logoContainer,
+.text,
+.rightIcon {
+  will-change: transform, opacity;
+}
 @media screen and (max-width: 1024px) {
   .card {
     width: 100%;

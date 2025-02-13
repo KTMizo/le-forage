@@ -1,11 +1,17 @@
-// sections/RSE/index.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Rse.module.css";
 import PartnersCard from "@/components/Cards/PartnersCard/PartnersCard";
 import PartnersPopUp from "@/components/Cards/PartnersPopUp/PartnersPopUp";
 import type { RSEModules, RSECard } from "@/types/modules/rse";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface RSEProps {
   data: RSEModules;
@@ -14,12 +20,70 @@ interface RSEProps {
 const RSE = ({ data }: RSEProps) => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
+  // Refs pour les animations
+  const tagTitleRef = useRef<HTMLSpanElement>(null);
+  const mainTitleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const methodNoteRef = useRef<HTMLParagraphElement>(null);
+  const securityTitleRef = useRef<HTMLHeadingElement>(null);
+  const qualificationsTitleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    // Liste de tous les éléments à animer
+    const elements = [
+      { ref: tagTitleRef, start: "top 90%" },
+      { ref: mainTitleRef, start: "top 90%" },
+      { ref: descriptionRef, start: "top 90%" },
+      { ref: methodNoteRef, start: "top 90%" },
+      { ref: securityTitleRef, start: "top 90%" },
+      { ref: qualificationsTitleRef, start: "top 90%" },
+    ];
+
+    // Animation pour chaque élément
+    elements.forEach(({ ref, start }) => {
+      if (!ref.current) return;
+
+      // Split le texte
+      const splitText = new SplitType(ref.current, {
+        types: "lines",
+        lineClass: "animated-line",
+      });
+
+      // Animation
+      gsap.fromTo(
+        ref.current.querySelectorAll(".animated-line"),
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ref.current,
+            start,
+            once: true,
+          },
+        }
+      );
+
+      // Cleanup
+      return () => {
+        splitText.revert();
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    });
+  }, []);
+
   const renderCards = (cards: RSECard[]) =>
     cards.map((card) => (
       <React.Fragment key={card.text}>
         <PartnersCard
           logo={{
-            src: card.logo, // Utiliser directement l'URL retournée par l'API
+            src: card.logo,
             alt: card.text,
             width: 48,
             height: 48,
@@ -46,22 +110,30 @@ const RSE = ({ data }: RSEProps) => {
     <section className={styles.rse}>
       <div className={styles.rseHeader}>
         <div className={styles.titleGroup}>
-          <span className={styles.tagTitle}>{data.rse_header.tag_title}</span>
-          <h1 className={styles.mainTitle}>{data.rse_header.main_title}</h1>
+          <span className={styles.tagTitle} ref={tagTitleRef}>
+            {data.rse_header.tag_title}
+          </span>
+          <h1 className={styles.mainTitle} ref={mainTitleRef}>
+            {data.rse_header.main_title}
+          </h1>
         </div>
       </div>
 
       <div className={styles.rseContent}>
         <div className={styles.rseLeft}>
           <div className={styles.textGroup}>
-            <p className={styles.description}>{data.rse_content.description}</p>
-            <p className={styles.methodNote}>{data.rse_content.method_note}</p>
+            <p className={styles.description} ref={descriptionRef}>
+              {data.rse_content.description}
+            </p>
+            <p className={styles.methodNote} ref={methodNoteRef}>
+              {data.rse_content.method_note}
+            </p>
           </div>
         </div>
 
         <div className={styles.rseCards}>
           <div className={styles.security}>
-            <h4 className={styles.securityTitle}>
+            <h4 className={styles.securityTitle} ref={securityTitleRef}>
               Nos engagements pour la sécurité :
             </h4>
             <div className={styles.securityCards}>
@@ -70,7 +142,11 @@ const RSE = ({ data }: RSEProps) => {
           </div>
 
           <div className={styles.qualifications}>
-            <h4 className={styles.qualificationsTitle}>Nos qualifications :</h4>
+            <h4
+              className={styles.qualificationsTitle}
+              ref={qualificationsTitleRef}>
+              Nos qualifications :
+            </h4>
             <div className={styles.qualificationsCards}>
               {renderCards(data.qualifications_cards)}
             </div>

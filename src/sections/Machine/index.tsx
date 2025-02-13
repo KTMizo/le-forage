@@ -6,6 +6,11 @@ import MachineCard from "@/components/Cards/MachineCard/MachineCard";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import type { Machine as MachineType } from "@/types/modules/machine";
+import SplitType from "split-type";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const defaultData: MachineType = {
   machines_section_header: {
@@ -42,10 +47,53 @@ interface MachineProps {
 const Machine = ({ data = defaultData }: MachineProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
+  const tagTitleRef = useRef<HTMLSpanElement>(null);
+  const mainTitleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    // Animation des textes
+    const textElements = [
+      { ref: tagTitleRef, start: "top 90%" },
+      { ref: mainTitleRef, start: "top 90%" },
+    ];
+
+    textElements.forEach(({ ref, start }) => {
+      if (!ref.current) return;
+
+      // Split le texte
+      const splitText = new SplitType(ref.current, {
+        types: "lines",
+        lineClass: "animated-line",
+      });
+
+      // Animation
+      gsap.fromTo(
+        ref.current.querySelectorAll(".animated-line"),
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ref.current,
+            start,
+            once: true,
+          },
+        }
+      );
+
+      return () => {
+        splitText.revert();
+      };
+    });
+  }, []);
 
   const initScrollTrigger = useCallback(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     if (!sectionRef.current || !horizontalRef.current) return;
 
     const container = horizontalRef.current;
@@ -79,10 +127,10 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.sectionHeader}>
-        <span className={styles.tagTitle}>
+        <span className={styles.tagTitle} ref={tagTitleRef}>
           {data.machines_section_header.tag_title}
         </span>
-        <h2 className={styles.mainTitle}>
+        <h2 className={styles.mainTitle} ref={mainTitleRef}>
           {data.machines_section_header.main_title}
         </h2>
       </div>

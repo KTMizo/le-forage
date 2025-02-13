@@ -19,6 +19,14 @@ const Fore = () => {
       <div className={styles.svgWrapper}>{svgContent}</div>
       <div className={styles.svgWrapper}>{svgContent}</div>
       <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
+      <div className={styles.svgWrapper}>{svgContent}</div>
     </div>
   );
 };

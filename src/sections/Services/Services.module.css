@@ -17,6 +17,7 @@
   font-size: 20px;
   font-weight: 200;
   text-transform: uppercase;
+  overflow: hidden;
 }
 
 .servicesContent {
@@ -102,6 +103,33 @@
   height: 100%;
   background-color: #0000001a;
   z-index: 1;
+}
+
+/* Ajoutez ces styles à votre Services.module.css */
+
+.sectionTitle {
+  padding-bottom: 48px;
+  overflow: hidden; /* Important pour l'animation */
+}
+
+.sectionTitle h3 {
+  color: var(--rouge);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  overflow: hidden; /* Important pour l'animation */
+}
+
+/* Styles pour les lignes animées */
+.animated-line {
+  overflow: hidden;
+  display: block;
+}
+
+.animated-line > div {
+  position: relative;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1024px) {

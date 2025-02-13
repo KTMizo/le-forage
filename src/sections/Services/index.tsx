@@ -6,6 +6,7 @@ import styles from "./Services.module.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { ServicesSection } from "@/types/modules/services";
+import SplitType from "split-type";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -23,6 +24,42 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
   index,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!titleRef.current) return;
+
+    // Split le texte du titre
+    const splitTitle = new SplitType(titleRef.current, {
+      types: "lines",
+      lineClass: "animated-line",
+    });
+
+    // Animation pour le titre
+    gsap.fromTo(
+      titleRef.current.querySelectorAll(".animated-line"),
+      {
+        y: 100,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
+
+    return () => {
+      splitTitle.revert();
+    };
+  }, []);
 
   return (
     <div
@@ -31,7 +68,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
       data-section={`section-${index}`}>
       <div className={styles.textContent}>
         <div className={styles.sectionTitle}>
-          <h3>{title}</h3>
+          <h3 ref={titleRef}>{title}</h3>
         </div>
         <div className={styles.sectionDescription}>
           {questions.map((item, idx) => (
@@ -58,6 +95,41 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const mainTitleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (mainTitleRef.current) {
+      // Split et anime le titre principal
+      const splitMainTitle = new SplitType(mainTitleRef.current, {
+        types: "lines",
+        lineClass: "animated-line",
+      });
+
+      gsap.fromTo(
+        mainTitleRef.current.querySelectorAll(".animated-line"),
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: mainTitleRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
+
+      return () => {
+        splitMainTitle.revert();
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const services = servicesRef.current;
@@ -147,7 +219,9 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
   return (
     <section ref={servicesRef} className={styles.services}>
       <div className={styles.servicesTitle}>
-        <h2 className={styles.title}>{data.services_title}</h2>
+        <h2 className={styles.title} ref={mainTitleRef}>
+          {data.services_title}
+        </h2>
       </div>
       <div className={styles.servicesContent}>
         <div ref={scrollContentRef} className={styles.scrollContent}>
