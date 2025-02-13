@@ -11,11 +11,16 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
-  // Retirez experimental.optimizeCss car il cause des problèmes
-  /* experimental: {
-    optimizeCss: true,
-    scrollRestoration: true,
-  }, */
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
+  },
 };
 
 export default nextConfig;
