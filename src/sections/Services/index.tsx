@@ -217,7 +217,7 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
     if (!services || !lineDecor) return;
 
     gsap.to(lineDecor, {
-      y: `${services.offsetHeight - 146}px`,
+      y: `${services.offsetHeight - 32}px`,
       ease: "none",
       scrollTrigger: {
         trigger: services,

@@ -121,7 +121,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
     // Animation des lettres du logo
     const logoLetters = document.querySelectorAll(".logo-letter");
     gsap.to(logoLetters, {
-      opacity: 0,
+      y: 200,
       scrollTrigger: {
         trigger: "body",
         start: "top top",

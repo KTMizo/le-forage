@@ -8,6 +8,9 @@
   position: relative;
 }
 
+.cardContainer:hover {
+  clip-path: none !important;
+}
 .card {
   display: flex;
   width: 20vw;
