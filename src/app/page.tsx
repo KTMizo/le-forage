@@ -145,10 +145,11 @@ export default async function Home() {
         <Nav />
       </div>
       <div className={styles.contact}>
-        <Button variant="primary" href="/destination">
+        <Button variant="primary" href="mailto:bonjour@antoinepiney.fr">
           Nous contacter
         </Button>
       </div>
+
       <div className={styles.menu}>
         <Menu />
       </div>

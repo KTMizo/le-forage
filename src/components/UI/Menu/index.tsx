@@ -129,7 +129,7 @@ const MenuButton = () => {
                 variant="secondary"
                 href="/destination"
                 className={styles.menu__contactButton}>
-                Lorem ipsum
+                Nous contacter
               </Button>
             </div>
           </nav>

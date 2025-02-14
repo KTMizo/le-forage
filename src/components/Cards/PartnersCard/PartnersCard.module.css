@@ -1,3 +1,13 @@
+.cardContainer {
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  background: var(--black-4, rgba(0, 0, 0, 0.04));
+  transition: all 0.5s cubic-bezier(0, 0.7, 0.7, 0.9);
+  border-radius: 4px;
+  position: relative;
+}
+
 .card {
   display: flex;
   width: 20vw;
@@ -9,21 +19,36 @@
   background: var(--black-4, rgba(0, 0, 0, 0.04));
   transition: all 0.2s ease;
   cursor: pointer;
-  position: relative; /* Ajout de position relative */
+  position: relative;
+  transform: translateZ(0);
+  will-change: transform;
+  overflow: visible;
 }
 
 .card:hover {
   background: var(--blanc);
-  /*padding: 8px 24px 8px 16px;*/
 }
 
 .card:hover .text {
-  color: var(--rouge); /* ou utilisez une variable CSS si nécessaire */
+  color: var(--rouge);
 }
 
-.card:hover .rightIcon {
-  rotate: 180deg; /* Changé de 90deg à 180deg */
+.card:hover .rightIcon svg {
+  transform: rotate(180deg);
   color: var(--rouge);
+  transition: all 0.5s cubic-bezier(0, 0.7, 0.7, 0.9);
+}
+
+.rightIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.rightIcon svg {
+  transform: rotate(0deg);
+  transition: all 0.5s cubic-bezier(0, 0.7, 0.7, 0.9);
 }
 
 .content {
@@ -42,6 +67,7 @@
   border-radius: 4px;
   border: 1px solid var(--black-20);
   padding: 6px;
+  will-change: transform, opacity;
 }
 
 .logo {
@@ -54,6 +80,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  position: relative;
 }
 
 .text {
@@ -70,25 +97,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 6px;
   color: rgba(255, 255, 255, 0.6);
   background: black;
   cursor: help;
   border-radius: 9999px;
-}
-
-.rightIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-  color: rgba(0, 0, 0, 0.8);
-  transition: all 0.5s cubic-bezier(0, 0.7, 0.7, 0.9);
+  overflow: visible;
+  position: relative;
 }
 
 .tooltip {
   position: absolute;
-  bottom: 100%;
+  bottom: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
   background: black;
@@ -97,8 +117,8 @@
   border-radius: 4px;
   font-size: 0.75rem;
   white-space: nowrap;
-  margin-bottom: 8px;
-  z-index: 10;
+  pointer-events: none;
+  z-index: 1000;
 }
 
 .tooltip::after {
@@ -109,39 +129,17 @@
   transform: translateX(-50%);
   border-width: 4px;
   border-style: solid;
-  border-color: #333 transparent transparent transparent;
+  border-color: #000000 transparent transparent transparent;
 }
 
-/* Ajoutez ces styles à votre PartnersCard.module.css */
-
-.cardContainer {
-  width: 100%;
-  height: 100%;
-  transform-origin: left;
-  overflow: hidden;
-  background: var(--black-4, rgba(0, 0, 0, 0.04));
-  border-radius: 4px;
-}
-
-.card {
-  width: 100%;
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-.logoContainer,
-.text,
-.rightIcon {
-  will-change: transform, opacity;
-}
 @media screen and (max-width: 1024px) {
   .card {
     width: 100%;
   }
-
-  /* Rse.module.css */
 }
+
 @media screen and (max-width: 768px) {
 }
+
 @media screen and (max-width: 480px) {
 }

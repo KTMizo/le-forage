@@ -34,11 +34,12 @@
   cursor: pointer;
   z-index: 10;
   padding: 4px 12px;
-  transition: color 0.2s;
+  transition: all 0.5s cubic-bezier(0, 0.7, 0.7, 0.9);
 }
 
 .closeButton:hover {
-  color: #666;
+  rotate: 180deg;
+  color: var(--rouge);
 }
 
 .contentWrapper {

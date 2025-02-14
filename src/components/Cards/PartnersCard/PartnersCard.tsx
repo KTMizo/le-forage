@@ -54,6 +54,7 @@ const PartnersCard = ({
     // Initial states
     gsap.set(cardWrapperRef.current, {
       clipPath: "inset(0 100% 0 0)",
+      overflow: "visible",
     });
 
     gsap.set([logoRef.current, textRef.current, iconRef.current], {
@@ -72,6 +73,7 @@ const PartnersCard = ({
 
     tl.to(cardWrapperRef.current, {
       clipPath: "inset(0 0% 0 0)",
+      overflow: "visible",
       duration: 0.8,
       ease: "power4.inOut",
     })
