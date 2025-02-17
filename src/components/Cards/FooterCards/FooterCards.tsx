@@ -1,3 +1,4 @@
+"use client";
 // components/Cards/FooterCards/FooterCards.tsx
 import React from "react";
 import styles from "./FooterCards.module.css";

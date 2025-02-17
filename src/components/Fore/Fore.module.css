@@ -14,7 +14,7 @@
 }
 
 .svg {
-  margin-top: -50px;
+  margin-top: -52px;
   fill: var(--beige-30);
   height: 333px;
   width: auto;
@@ -25,6 +25,6 @@
     transform: translateY(-500%);
   }
   100% {
-    transform: translateY(-100%);
+    transform: translateY(-200%);
   }
 }

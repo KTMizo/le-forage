@@ -28,6 +28,7 @@
   text-indent: 150px;
   width: 100%;
   padding-right: 120px;
+  overflow: hidden;
 }
 
 .hightLight {
@@ -39,6 +40,8 @@
   will-change: transform;
   opacity: 0; /* État initial caché */
 }
+
+/* Ajoutez ces styles pour l'animation des lignes */
 
 @media screen and (max-width: 1024px) {
   .titleContent {
