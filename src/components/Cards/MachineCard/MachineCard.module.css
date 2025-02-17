@@ -2,7 +2,7 @@
 .card {
   display: flex;
   width: 968px;
-  height: 846px;
+  height: 100%;
   padding: 64px 220px;
   flex-direction: column;
   justify-content: center;

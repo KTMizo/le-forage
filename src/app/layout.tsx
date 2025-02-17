@@ -2,6 +2,7 @@
 import "../styles/globals.css";
 import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
+import Loader from "@/components/Loader";
 
 export const metadata = {
   title: "Le Forage",
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <Loader />
+          {children}
+        </LenisProvider>
       </body>
     </html>
   );

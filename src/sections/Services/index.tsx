@@ -4,7 +4,7 @@ import Image from "next/image";
 import ListAsk from "@/components/ListAsk";
 import styles from "./Services.module.css";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import type { ServicesSection } from "@/types/modules/services";
 import SplitType from "split-type";
 
