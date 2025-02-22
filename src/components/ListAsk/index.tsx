@@ -4,26 +4,34 @@ import { ListAskProps } from "@/types/modules/faq";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import { X } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const ListAsk: React.FC<ListAskProps> = ({
+interface ExtendedListAskProps extends ListAskProps {
+  displayMode?: "inline" | "modal";
+  onClose?: () => void;
+}
+
+const ListAsk: React.FC<ExtendedListAskProps> = ({
   question,
   answer,
   isOpen,
   onToggle,
+  displayMode = "inline",
+  onClose,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const questionRef = useRef<HTMLSpanElement>(null);
   const readMoreRef = useRef<HTMLSpanElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Split tous les textes
     const splitQuestion = new SplitType(questionRef.current!, {
       types: "lines",
       lineClass: "animated-line",
@@ -34,7 +42,6 @@ const ListAsk: React.FC<ListAskProps> = ({
       lineClass: "animated-line",
     });
 
-    // Animation pour tous les éléments
     const elements = containerRef.current.querySelectorAll(".animated-line");
     const line = lineRef.current;
 
@@ -46,34 +53,17 @@ const ListAsk: React.FC<ListAskProps> = ({
       },
     });
 
-    // Anime les textes
     timeline
       .fromTo(
         elements,
-        {
-          y: 100,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out",
-        }
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power4.out" }
       )
-      // Anime la ligne
       .fromTo(
         line,
-        {
-          scaleX: 0,
-        },
-        {
-          scaleX: 1,
-          duration: 1,
-          ease: "power4.out",
-        },
-        "-=0.5" // Commence l'animation de la ligne un peu avant la fin des textes
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1, ease: "power4.out" },
+        "-=0.5"
       );
 
     return () => {
@@ -83,10 +73,25 @@ const ListAsk: React.FC<ListAskProps> = ({
     };
   }, []);
 
+  // Animation pour le modal
+  useEffect(() => {
+    if (displayMode === "modal" && modalRef.current) {
+      if (isOpen) {
+        gsap.fromTo(
+          modalRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.2, ease: "power2.out" }
+        );
+      }
+    }
+  }, [isOpen, displayMode]);
+
   return (
     <div className={styles.container} ref={containerRef}>
-      <div className={styles.questionItem}>
-        {/* Ligne animée */}
+      <div
+        className={`${styles.questionItem} ${
+          isOpen ? styles.hasOpenAnswer : ""
+        }`}>
         <div className={styles.animatedLine} ref={lineRef}></div>
 
         <button
@@ -115,9 +120,24 @@ const ListAsk: React.FC<ListAskProps> = ({
             </span>
           </div>
         </button>
-        <div className={`${styles.answer} ${isOpen ? styles.open : ""}`}>
-          <div dangerouslySetInnerHTML={{ __html: answer }} />
-        </div>
+
+        {displayMode === "inline" && (
+          <div className={`${styles.answer} ${isOpen ? styles.open : ""}`}>
+            <div dangerouslySetInnerHTML={{ __html: answer }} />
+          </div>
+        )}
+
+        {displayMode === "modal" && isOpen && (
+          <div className={styles.modal} ref={modalRef}>
+            <div className={styles.modalContent}>
+              <button className={styles.closeButton} onClick={onClose}>
+                <X size={24} />
+              </button>
+              <h2>{question}</h2>
+              <div dangerouslySetInnerHTML={{ __html: answer }} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

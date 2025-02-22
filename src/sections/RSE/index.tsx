@@ -134,7 +134,7 @@ const RSE = ({ data }: RSEProps) => {
         <div className={styles.rseCards}>
           <div className={styles.security}>
             <h4 className={styles.securityTitle} ref={securityTitleRef}>
-              Nos engagements pour la sécurité :
+              Nos engagements pour la sécurité
             </h4>
             <div className={styles.securityCards}>
               {renderCards(data.security_cards)}
@@ -145,7 +145,7 @@ const RSE = ({ data }: RSEProps) => {
             <h4
               className={styles.qualificationsTitle}
               ref={qualificationsTitleRef}>
-              Nos qualifications :
+              Nos qualifications
             </h4>
             <div className={styles.qualificationsCards}>
               {renderCards(data.qualifications_cards)}

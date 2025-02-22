@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ListAsk from "@/components/ListAsk";
 import styles from "./Services.module.css";
@@ -10,7 +10,7 @@ import SplitType from "split-type";
 
 interface ServiceSectionProps {
   title: string;
-  questions: { question: string }[];
+  questions: { question: string; answer?: string }[];
   index: number;
 }
 
@@ -21,6 +21,9 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const [openQuestionIndex, setOpenQuestionIndex] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -60,6 +63,12 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
     };
   }, []);
 
+  const handleToggle = (questionIndex: number) => {
+    setOpenQuestionIndex(
+      openQuestionIndex === questionIndex ? null : questionIndex
+    );
+  };
+
   return (
     <div
       ref={sectionRef}
@@ -74,9 +83,11 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
             <ListAsk
               key={`${index}-${idx}`}
               question={item.question}
-              answer=""
-              isOpen={false}
-              onToggle={() => {}}
+              answer={item.answer || ""} // Assurez-vous que answer a une valeur par défaut
+              isOpen={openQuestionIndex === idx}
+              onToggle={() => handleToggle(idx)}
+              displayMode="modal"
+              onClose={() => handleToggle(idx)}
             />
           ))}
         </div>
@@ -84,7 +95,6 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
     </div>
   );
 };
-
 interface ServicesProps {
   data: ServicesSection;
 }
@@ -217,13 +227,14 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
     if (!services || !lineDecor) return;
 
     gsap.to(lineDecor, {
-      y: `${services.offsetHeight - 32}px`,
+      y: `${services.offsetHeight - 282}px`,
       ease: "none",
       scrollTrigger: {
         trigger: services,
-        start: "top top",
+        start: "top 50%",
         end: "bottom bottom",
-        scrub: 1,
+        scrub: 0,
+        markers: true,
       },
     });
 

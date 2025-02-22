@@ -1,10 +1,10 @@
-/* components/ListAsk/ListAsk.module.css */
 .container {
   width: 100%;
   margin: 0 auto;
 }
 
 .questionItem {
+  position: relative;
   padding: 2rem 0;
   width: 100%;
   transition: 0.5s cubic-bezier(0.31, 0.2, 0, 1);
@@ -13,6 +13,11 @@
 .questionItem:hover {
   padding: 2rem 1rem;
   background-color: var(--blanc);
+}
+
+.questionItem.hasOpenAnswer {
+  background-color: var(--blanc);
+  padding: 2rem 1rem;
 }
 
 .questionItem:hover .questionText {
@@ -26,7 +31,6 @@
 
 .questionButton {
   width: 100%;
-  padding: 0 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,6 +43,8 @@
 .questionText {
   font-size: 18px;
   color: var(--noir);
+  overflow: hidden;
+  display: block;
 }
 
 .readMoreWrapper {
@@ -59,8 +65,11 @@
 .readMore {
   color: var(--noir);
   font-size: 16px;
+  overflow: hidden;
+  display: block;
 }
 
+/* Style pour l'affichage inline */
 .answer {
   max-height: 0;
   margin-top: 0;
@@ -71,12 +80,53 @@
 }
 
 .answer.open {
-  max-height: 1000px; /* Ajustez cette valeur selon vos besoins */
+  max-height: 1000px;
   margin-top: 0.75rem;
   opacity: 1;
   padding: 0.75rem;
 }
-/* Ajoutez ces styles à votre Ask.module.css */
+
+/* Style pour le modal */
+.modal {
+  padding: 140px 80px 140px 80px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50.01%;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.modalContent {
+  padding: 2.5rem;
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--blanc);
+}
+
+.modalContent h2 {
+  color: var(--rouge);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.closeButton {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--noir);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.closeButton:hover {
+  color: var(--rouge);
+}
 
 .animatedLine {
   position: absolute;
@@ -86,23 +136,9 @@
   height: 1px;
   background-color: rgba(0, 0, 0, 0.1);
   transform-origin: left;
+  z-index: 999999;
 }
 
-.questionItem {
-  position: relative; /* Pour positionner la ligne animée */
-  padding: 2rem 0;
-  width: 100%;
-  transition: 0.5s cubic-bezier(0.31, 0.2, 0, 1);
-}
-
-/* Assurez-vous que les conteneurs de texte ont overflow hidden */
-.questionText,
-.readMore {
-  overflow: hidden;
-  display: block;
-}
-
-/* Pour les lignes animées */
 .animated-line {
   overflow: hidden;
   display: block;
@@ -111,4 +147,10 @@
 .animated-line > div {
   position: relative;
   overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 100%;
+  }
 }
