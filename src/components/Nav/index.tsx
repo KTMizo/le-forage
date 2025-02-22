@@ -7,19 +7,19 @@ const Nav = () => {
     <div className={styles.wrapper}>
       <div className={styles.navbar}>
         <div className={styles.navItems}>
-          <a data-text="À propos" href="#">
+          <a data-text="À propos" href="#a-propos">
             À propos
           </a>
-          <a data-text="Nos services" href="#">
+          <a data-text="Nos services" href="#services">
             Nos services
           </a>
-          <a data-text="Sécurité" href="#">
+          <a data-text="Sécurité" href="#rse">
             Sécurité
           </a>
-          <a data-text="Nos machines" href="#">
+          <a data-text="Nos machines" href="#machines">
             Nos machines
           </a>
-          <a data-text="FAQ" href="#">
+          <a data-text="FAQ" href="#faq">
             FAQ
           </a>
         </div>

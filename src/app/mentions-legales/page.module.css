@@ -101,9 +101,7 @@
 }
 
 .tableOfContents {
-  background-color: var(--blanc);
   border: 1px solid var(--liseret-black);
-  border-radius: var(--border-6);
   padding: var(--spacing-lg);
 }
 

@@ -125,7 +125,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   }, [initScrollTrigger]);
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section id="machines" ref={sectionRef} className={styles.section}>
       <div className={styles.sectionHeader}>
         <span className={styles.tagTitle} ref={tagTitleRef}>
           {data.machines_section_header.tag_title}

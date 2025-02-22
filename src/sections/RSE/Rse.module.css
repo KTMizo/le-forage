@@ -64,12 +64,14 @@
 
 .description {
   font-size: 36px;
+  line-height: 150%;
   color: var(--black);
   margin: 0;
 }
 
 .methodNote {
   font-size: 18px;
+  line-height: 150%;
   color: var(--black);
   margin: 0;
 }

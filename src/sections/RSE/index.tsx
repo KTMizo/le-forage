@@ -107,7 +107,7 @@ const RSE = ({ data }: RSEProps) => {
     ));
 
   return (
-    <section className={styles.rse}>
+    <section id="rse" className={styles.rse}>
       <div className={styles.rseHeader}>
         <div className={styles.titleGroup}>
           <span className={styles.tagTitle} ref={tagTitleRef}>

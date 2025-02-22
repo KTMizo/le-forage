@@ -244,7 +244,7 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
   }, []);
 
   return (
-    <section ref={servicesRef} className={styles.services}>
+    <section id="services" ref={servicesRef} className={styles.services}>
       {/* Placer votre SVG ici */}
       <svg
         ref={lineDecorRef}

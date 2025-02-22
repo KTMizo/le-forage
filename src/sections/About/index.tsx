@@ -46,7 +46,7 @@ const About: React.FC<AboutProps> = ({ titleAboutData, aboutData }) => {
   }, []);
 
   return (
-    <section className={styles.about}>
+    <section id="a-propos" className={styles.about}>
       <div className={styles.aboutTitle}>
         <TitleAbout
           subtitle={titleAboutData.subtitle}

@@ -101,7 +101,7 @@ const FAQ: React.FC<FaqSectionProps> = ({ data }) => {
   };
 
   return (
-    <section className={styles.faq}>
+    <section id="faq" className={styles.faq}>
       <div className={styles.faqContent}>
         <div className={styles.subtitle}>
           <h2 ref={titleRef}>{data.faq_title}</h2>
