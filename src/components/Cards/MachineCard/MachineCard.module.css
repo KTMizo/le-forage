@@ -1,4 +1,3 @@
-/* components/Cards/MachineCard/MachineCard.module.css */
 .card {
   display: flex;
   width: 968px;
@@ -41,4 +40,31 @@
   font-size: 20px;
   font-weight: 400;
   margin: 0;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    padding: 32px 20px;
+    height: auto;
+    min-height: auto;
+    transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  }
+
+  .imageWrapper {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 420/518;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .content {
+    gap: 16px;
+    padding: 16px 0;
+  }
 }

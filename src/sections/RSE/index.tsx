@@ -113,9 +113,9 @@ const RSE = ({ data }: RSEProps) => {
           <span className={styles.tagTitle} ref={tagTitleRef}>
             {data.rse_header.tag_title}
           </span>
-          <h1 className={styles.mainTitle} ref={mainTitleRef}>
+          <h2 className={styles.mainTitle} ref={mainTitleRef}>
             {data.rse_header.main_title}
-          </h1>
+          </h2>
         </div>
       </div>
 
@@ -133,20 +133,20 @@ const RSE = ({ data }: RSEProps) => {
 
         <div className={styles.rseCards}>
           <div className={styles.security}>
-            <h4 className={styles.securityTitle} ref={securityTitleRef}>
+            <h3 className={styles.securityTitle} ref={securityTitleRef}>
               Nos engagements pour la sécurité
-            </h4>
+            </h3>
             <div className={styles.securityCards}>
               {renderCards(data.security_cards)}
             </div>
           </div>
 
           <div className={styles.qualifications}>
-            <h4
+            <h3
               className={styles.qualificationsTitle}
               ref={qualificationsTitleRef}>
               Nos qualifications
-            </h4>
+            </h3>
             <div className={styles.qualificationsCards}>
               {renderCards(data.qualifications_cards)}
             </div>

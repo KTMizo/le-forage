@@ -76,7 +76,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
       data-section={`section-${index}`}>
       <div className={styles.textContent}>
         <div className={styles.sectionTitle}>
-          <h3 ref={titleRef}>{title}</h3>
+          <h2 ref={titleRef}>{title}</h2>
         </div>
         <div className={styles.sectionDescription}>
           {questions.map((item, idx) => (

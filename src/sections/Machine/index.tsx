@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import styles from "./Machine.module.css";
 import MachineCard from "@/components/Cards/MachineCard/MachineCard";
 import { gsap } from "gsap";
@@ -49,6 +49,24 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const tagTitleRef = useRef<HTMLSpanElement>(null);
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we're on mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     // Animation des textes
@@ -60,13 +78,11 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     textElements.forEach(({ ref, start }) => {
       if (!ref.current) return;
 
-      // Split le texte
       const splitText = new SplitType(ref.current, {
         types: "lines",
         lineClass: "animated-line",
       });
 
-      // Animation
       gsap.fromTo(
         ref.current.querySelectorAll(".animated-line"),
         {
@@ -94,7 +110,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   }, []);
 
   const initScrollTrigger = useCallback(() => {
-    if (!sectionRef.current || !horizontalRef.current) return;
+    if (!sectionRef.current || !horizontalRef.current || isMobile) return;
 
     const container = horizontalRef.current;
 
@@ -118,14 +134,53 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     initScrollTrigger();
-  }, [initScrollTrigger]);
+  }, [initScrollTrigger, isMobile]);
+
+  // Mobile drag handlers
+  const handleMouseDown = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
+    if (!isMobile) return;
+
+    setIsDragging(true);
+    if ("touches" in e) {
+      setStartX(e.touches[0].pageX - (horizontalRef.current?.offsetLeft || 0));
+    } else {
+      setStartX(e.pageX - (horizontalRef.current?.offsetLeft || 0));
+    }
+    setScrollLeft(horizontalRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseMove = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
+    if (!isDragging || !isMobile || !horizontalRef.current) return;
+
+    e.preventDefault();
+    let x;
+    if ("touches" in e) {
+      x = e.touches[0].pageX - (horizontalRef.current.offsetLeft || 0);
+    } else {
+      x = e.pageX - (horizontalRef.current.offsetLeft || 0);
+    }
+
+    const walk = (x - startX) * 2;
+    horizontalRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
-    <section id="machines" ref={sectionRef} className={styles.section}>
+    <section
+      id="machines"
+      ref={sectionRef}
+      className={`${styles.section} ${isMobile ? styles.mobileMachine : ""}`}>
       <div className={styles.sectionHeader}>
         <span className={styles.tagTitle} ref={tagTitleRef}>
           {data.machines_section_header.tag_title}
@@ -135,7 +190,18 @@ const Machine = ({ data = defaultData }: MachineProps) => {
         </h2>
       </div>
       <div className={styles.horizontalSection}>
-        <div ref={horizontalRef} className={styles.cardsContainer}>
+        <div
+          ref={horizontalRef}
+          className={`${styles.cardsContainer} ${
+            isDragging ? styles.dragging : ""
+          }`}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={handleMouseDown}
+          onTouchMove={handleMouseMove}
+          onTouchEnd={handleMouseUp}>
           {data.machines.map((machine, index) => (
             <div key={index} className={styles.cardWrapper}>
               <MachineCard
