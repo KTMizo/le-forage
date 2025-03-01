@@ -26,6 +26,7 @@
   font-weight: 200;
   text-transform: uppercase;
   color: var(--bleu);
+  overflow: hidden;
 }
 
 .mainTitle {
@@ -149,6 +150,11 @@
 
 .animated-line > div {
   position: relative;
+  overflow: hidden;
+}
+
+.animatedWord {
+  display: inline-block;
   overflow: hidden;
 }
 

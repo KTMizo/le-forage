@@ -15,9 +15,10 @@ const TitleAbout: React.FC<TitleAboutData> = ({
   mainText,
 }) => {
   const subtitleRef = useRef<HTMLHeadingElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    if (!subtitleRef.current) return;
+    if (!subtitleRef.current || !titleRef.current) return;
 
     const splitSubtitle = new SplitType(subtitleRef.current, {
       types: "words",
@@ -26,6 +27,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
 
     // Attendre que les éléments soient dans le DOM
     requestAnimationFrame(() => {
+      // Animation du sous-titre
       gsap.fromTo(
         `.${styles.animatedWord}`,
         {
@@ -45,6 +47,24 @@ const TitleAbout: React.FC<TitleAboutData> = ({
           },
         }
       );
+
+      // Animation de l'opacité du texte principal au scroll
+      gsap.fromTo(
+        titleRef.current,
+        {
+          opacity: 0.2,
+        },
+        {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top center",
+            end: "bottom center",
+            scrub: true,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     });
 
     return () => {
@@ -60,7 +80,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
           {subtitle}
         </h3>
       </div>
-      <h2 className={styles.titleAbout}>
+      <h2 ref={titleRef} className={styles.titleAbout}>
         <span className={styles.hightLight}>{highlight}</span> {mainText}
       </h2>
     </div>

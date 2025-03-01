@@ -17,6 +17,7 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
+      infinite: true,
     });
 
     function raf(time: number) {

@@ -24,6 +24,7 @@
   font-size: 20px;
   font-weight: 200;
   text-transform: uppercase;
+  overflow: hidden;
 }
 
 .mainTitle {
@@ -70,6 +71,11 @@
 
 .animated-line > div {
   position: relative;
+  overflow: hidden;
+}
+
+.animatedWord {
+  display: inline-block;
   overflow: hidden;
 }
 

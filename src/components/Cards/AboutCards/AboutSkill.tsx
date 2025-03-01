@@ -5,6 +5,10 @@ import SplitType from "split-type";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 type CardProps = {
   iconSrc: string;
   title: string;
@@ -19,8 +23,6 @@ const AboutSkill = ({ iconSrc, title, description }: CardProps) => {
   useEffect(() => {
     if (!titleRef.current || !descriptionRef.current || !cardRef.current)
       return;
-
-    gsap.registerPlugin(ScrollTrigger);
 
     // Split le texte du titre
     const splitTitle = new SplitType(titleRef.current, {

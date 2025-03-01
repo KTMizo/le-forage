@@ -27,40 +27,56 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // Register GSAP plugin first
     gsap.registerPlugin(ScrollTrigger);
 
+    // Check if the element exists
     if (!titleRef.current) return;
 
+    // Create split text
     const splitTitle = new SplitType(titleRef.current, {
       types: "lines",
       lineClass: "animated-line",
     });
 
-    const animation = gsap.fromTo(
-      titleRef.current.querySelectorAll(".animated-line"),
-      {
-        y: 100,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 90%",
-          once: true,
-        },
-      }
-    );
+    // Get the animated lines
+    const animatedLines = titleRef.current.querySelectorAll(".animated-line");
+    if (!animatedLines.length) return;
 
-    return () => {
+    // Create animation with error handling
+    try {
+      const animation = gsap.fromTo(
+        animatedLines,
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
+
+      // Cleanup function
+      return () => {
+        if (splitTitle) splitTitle.revert();
+        if (animation) animation.kill();
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    } catch (error) {
+      console.error("GSAP animation error:", error);
+      // Clean up split text if animation fails
       if (splitTitle) splitTitle.revert();
-      if (animation) animation.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    }
   }, []);
 
   const handleToggle = (questionIndex: number) => {

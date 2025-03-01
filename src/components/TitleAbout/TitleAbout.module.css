@@ -29,6 +29,8 @@
   width: 100%;
   padding-right: 120px;
   overflow: hidden;
+  opacity: 0.2;
+  will-change: opacity;
 }
 
 .hightLight {
@@ -42,6 +44,16 @@
 }
 
 /* Ajoutez ces styles pour l'animation des lignes */
+
+.textLine {
+  display: block;
+  opacity: 0.2;
+  will-change: opacity;
+}
+
+.textLine.active {
+  opacity: 1;
+}
 
 @media screen and (max-width: 1024px) {
   .titleContent {

@@ -21,26 +21,44 @@ const RSE = ({ data }: RSEProps) => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
   // Refs pour les animations
-  const tagTitleRef = useRef<HTMLSpanElement>(null);
-  const mainTitleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const methodNoteRef = useRef<HTMLParagraphElement>(null);
-  const securityTitleRef = useRef<HTMLHeadingElement>(null);
-  const qualificationsTitleRef = useRef<HTMLHeadingElement>(null);
+  const tagTitleRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    // Liste de tous les éléments à animer
-    const elements = [
-      { ref: tagTitleRef, start: "top 90%" },
-      { ref: mainTitleRef, start: "top 90%" },
-      { ref: descriptionRef, start: "top 90%" },
-      { ref: methodNoteRef, start: "top 90%" },
-      { ref: securityTitleRef, start: "top 90%" },
-      { ref: qualificationsTitleRef, start: "top 90%" },
-    ];
+    if (!tagTitleRef.current) return;
 
-    // Animation pour chaque élément
-    elements.forEach(({ ref, start }) => {
+    const splitTagTitle = new SplitType(tagTitleRef.current, {
+      types: "words",
+      wordClass: styles.animatedWord,
+    });
+
+    // Animation du tag title
+    gsap.fromTo(
+      `.${styles.animatedWord}`,
+      {
+        y: 100,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: tagTitleRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      }
+    );
+
+    // Liste des paragraphes à animer
+    const elements = [{ ref: descriptionRef }, { ref: methodNoteRef }];
+
+    // Animation pour chaque paragraphe
+    elements.forEach(({ ref }) => {
       if (!ref.current) return;
 
       // Split le texte
@@ -49,23 +67,20 @@ const RSE = ({ data }: RSEProps) => {
         lineClass: "animated-line",
       });
 
-      // Animation
+      // Animation d'opacité au scroll
       gsap.fromTo(
         ref.current.querySelectorAll(".animated-line"),
         {
-          y: 100,
-          opacity: 0,
+          opacity: 0.2,
         },
         {
-          y: 0,
           opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out",
           scrollTrigger: {
             trigger: ref.current,
-            start,
-            once: true,
+            start: "top center",
+            end: "bottom center",
+            scrub: true,
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -76,6 +91,11 @@ const RSE = ({ data }: RSEProps) => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     });
+
+    return () => {
+      splitTagTitle.revert();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
   }, []);
 
   const renderCards = (cards: RSECard[]) =>
@@ -110,12 +130,10 @@ const RSE = ({ data }: RSEProps) => {
     <section id="rse" className={styles.rse}>
       <div className={styles.rseHeader}>
         <div className={styles.titleGroup}>
-          <span className={styles.tagTitle} ref={tagTitleRef}>
+          <span ref={tagTitleRef} className={styles.tagTitle}>
             {data.rse_header.tag_title}
           </span>
-          <h2 className={styles.mainTitle} ref={mainTitleRef}>
-            {data.rse_header.main_title}
-          </h2>
+          <h2 className={styles.mainTitle}>{data.rse_header.main_title}</h2>
         </div>
       </div>
 
@@ -133,7 +151,7 @@ const RSE = ({ data }: RSEProps) => {
 
         <div className={styles.rseCards}>
           <div className={styles.security}>
-            <h3 className={styles.securityTitle} ref={securityTitleRef}>
+            <h3 className={styles.securityTitle}>
               Nos engagements pour la sécurité
             </h3>
             <div className={styles.securityCards}>
@@ -142,11 +160,7 @@ const RSE = ({ data }: RSEProps) => {
           </div>
 
           <div className={styles.qualifications}>
-            <h3
-              className={styles.qualificationsTitle}
-              ref={qualificationsTitleRef}>
-              Nos qualifications
-            </h3>
+            <h3 className={styles.qualificationsTitle}>Nos qualifications</h3>
             <div className={styles.qualificationsCards}>
               {renderCards(data.qualifications_cards)}
             </div>

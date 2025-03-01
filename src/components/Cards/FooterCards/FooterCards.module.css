@@ -56,8 +56,19 @@
 .title {
   font: var(--font-xl-med-1);
   font-weight: 300;
-  line-height: 1.1;
+  line-height: 1.2;
   margin: 0;
+  overflow: hidden;
+}
+
+.animated-line {
+  overflow: hidden;
+  display: block;
+}
+
+.animated-line > div {
+  position: relative;
+  overflow: hidden;
 }
 
 /* 

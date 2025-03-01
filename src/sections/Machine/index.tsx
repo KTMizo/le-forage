@@ -109,6 +109,41 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (!tagTitleRef.current) return;
+
+    const splitTagTitle = new SplitType(tagTitleRef.current, {
+      types: "words",
+      wordClass: styles.animatedWord,
+    });
+
+    // Animation du tag title
+    gsap.fromTo(
+      `.${styles.animatedWord}`,
+      {
+        y: 100,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: tagTitleRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      }
+    );
+
+    return () => {
+      splitTagTitle.revert();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   const initScrollTrigger = useCallback(() => {
     if (!sectionRef.current || !horizontalRef.current || isMobile) return;
 
