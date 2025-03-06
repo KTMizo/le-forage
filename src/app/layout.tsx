@@ -3,7 +3,6 @@ import "../styles/globals.css";
 import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
-import InfiniteWrapper from "./InfiniteWrapper";
 
 export const metadata = {
   title: "Le Forage : Spécialistes en Sondage Géotechnique",
@@ -21,7 +20,7 @@ export default function RootLayout({
       <body>
         <LenisProvider>
           <Loader />
-          <InfiniteWrapper>{children}</InfiniteWrapper>
+          {children}
         </LenisProvider>
       </body>
     </html>

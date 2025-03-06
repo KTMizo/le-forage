@@ -1,0 +1,56 @@
+/* styles/infinite-scroll.css */
+
+/* Assurez-vous que le contenu a une hauteur minimale */
+.infinite-scroll-container .original-content {
+  min-height: 100vh;
+}
+
+/* Style pour les clones - assurez-vous qu'ils ne perturbent pas la mise en page */
+.infinite-scroll-container .clone {
+  pointer-events: none; /* Évite que les clones interceptent les événements */
+  opacity: 1;
+}
+
+/* Ajoutez ces styles à votre body pour éviter les problèmes de défilement */
+html {
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.infinite-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.content-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimisations pour les appareils tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .content-wrapper {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Style pour le conteneur - permettre au contenu de dépasser mais masquer le débordement horizontal */
+.infinite-scroll-container {
+  overflow-x: hidden;
+  overflow-y: visible;
+  width: 100%;
+}
