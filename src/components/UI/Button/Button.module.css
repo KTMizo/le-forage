@@ -89,7 +89,6 @@ Outline = Fond blanc texte noir
 
 
 */
-
 .outline {
   background-color: transparent;
   border: 1px solid var(--beige-30);
@@ -106,8 +105,8 @@ Outline = Fond blanc texte noir
   inset: 0;
   background-color: var(--blanc);
   border-radius: var(--border-6);
-  transform: scaleX(0);
-  transform-origin: right;
+  transform: scaleY(0);
+  transform-origin: bottom;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
   z-index: -1;
 }
@@ -118,8 +117,8 @@ Outline = Fond blanc texte noir
 }
 
 .outline:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
+  transform: scaleY(1);
+  transform-origin: top;
 }
 
 .outline:hover::after {

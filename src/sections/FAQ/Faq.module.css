@@ -82,6 +82,7 @@
     flex-direction: column-reverse;
     padding: 1rem;
     gap: 32px;
+    height: 100%;
   }
 
   .faqContent {

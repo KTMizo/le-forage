@@ -36,6 +36,7 @@
   font-weight: 400;
   line-height: 1.2;
   margin: 0;
+  max-width: 30rem;
 }
 
 /* Rse.module.css modifications */
@@ -190,7 +191,7 @@
 
   .methodNote {
     font-size: 16px;
-    color: var(--black-20);
+    color: var(--black);
     margin: 0;
   }
   .rseCards {

@@ -89,6 +89,10 @@
 
   .sectionHeader {
     padding: 32px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .tagTitle {

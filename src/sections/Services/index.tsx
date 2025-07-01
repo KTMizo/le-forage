@@ -250,7 +250,6 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
         start: "top 50%",
         end: "bottom bottom",
         scrub: 0,
-        markers: true,
       },
     });
 

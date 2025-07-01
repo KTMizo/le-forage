@@ -61,8 +61,11 @@
 }
 
 .questionItem:hover .questionText {
-  color: var(--rouge);
   transform: translateX(10px);
+}
+
+.questionItem.hasOpenAnswer .questionText {
+  color: var(--bleu);
 }
 
 .readMoreWrapper {
@@ -177,5 +180,11 @@
 @media screen and (max-width: 768px) {
   .modal {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modal {
+    padding: 0;
   }
 }
