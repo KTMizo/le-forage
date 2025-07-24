@@ -17,10 +17,13 @@ import type {
 } from "@/types/modules/imageBreak";
 
 // Define API URLs
-const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || process.env.WORDPRESS_API_URL || 'https://demo.wp-api.org/wp-json/wp/v2';
+const DISABLE_WORDPRESS = process.env.DISABLE_WORDPRESS === 'true';
 
-// Ensure the WordPress API URL is defined
-if (!WP_API_URL) throw new Error("WordPress API URL is not defined");
+// Ensure the WordPress API URL is defined (modified to not throw error)
+if (!WP_API_URL && !DISABLE_WORDPRESS) {
+  console.warn("WordPress API URL is not defined, using demo API");
+}
 
 // Helper function to fetch data from API
 // 1. Modifier la fonction getPageData pour être plus robuste
