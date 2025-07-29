@@ -132,19 +132,24 @@ const Machine = ({ data = defaultData }: MachineProps) => {
 
   // Navigation functions
   const goToSlide = useCallback((index: number) => {
-    if (isTransitioning) return;
+    if (isTransitioning || totalSlides === 0) return;
+    
+    // Ensure index is within bounds
+    const validIndex = ((index % totalSlides) + totalSlides) % totalSlides;
     
     setIsTransitioning(true);
-    setCurrentIndex(index);
-    updateSliderPosition(index);
-  }, [isTransitioning, updateSliderPosition]);
+    setCurrentIndex(validIndex);
+    updateSliderPosition(validIndex);
+  }, [isTransitioning, updateSliderPosition, totalSlides]);
 
   const nextSlide = useCallback(() => {
+    if (totalSlides <= 1) return;
     const nextIndex = (currentIndex + 1) % totalSlides;
     goToSlide(nextIndex);
   }, [currentIndex, totalSlides, goToSlide]);
 
   const prevSlide = useCallback(() => {
+    if (totalSlides <= 1) return;
     const prevIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
     goToSlide(prevIndex);
   }, [currentIndex, totalSlides, goToSlide]);
