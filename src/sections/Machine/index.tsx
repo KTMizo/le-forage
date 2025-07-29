@@ -297,17 +297,13 @@ const Machine = ({ data = defaultData }: MachineProps) => {
               onClick={prevSlide}
               disabled={isTransitioning}
               aria-label="Slide précédent"
-            >
-              <ChevronLeft size={24} />
-            </button>
+            />
             <button
               className={`${styles.navButton} ${styles.navNext}`}
               onClick={nextSlide}
               disabled={isTransitioning}
               aria-label="Slide suivant"
-            >
-              <ChevronRight size={24} />
-            </button>
+            />
           </div>
         )}
       </div>

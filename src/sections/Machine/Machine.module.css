@@ -85,7 +85,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  gap: 1rem;
   z-index: 20;
   pointer-events: none;
 }
@@ -96,35 +95,50 @@
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  background: #2563eb;
+  background: var(--bleu);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0;
   color: white;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.5rem;
+  font-weight: bold;
   pointer-events: auto;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  position: relative;
+  transition: color 0.5s cubic-bezier(0.4, 0, 0, 1);
+  isolation: isolate;
+}
+
+.navButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--blanc);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+  z-index: -1;
 }
 
 .navButton:hover:not(:disabled) {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  color: var(--bleu);
 }
 
-.navButton:active:not(:disabled) {
-  transform: translateY(0);
+.navButton:hover:not(:disabled)::before {
+  transform: scaleY(1);
+  transform-origin: top;
 }
 
 .navButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
-.navButton svg {
-  width: 1.5rem;
-  height: 1.5rem;
+.navPrev::after {
+  content: "←";
+}
+
+.navNext::after {
+  content: "→";
 }
 
 /* Text Animations */
@@ -197,7 +211,6 @@
   }
   
 
-  
   .navigation {
     bottom: 2rem;
     top: auto;
