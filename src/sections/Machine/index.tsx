@@ -116,7 +116,9 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   const updateSliderPosition = useCallback((index: number, smooth: boolean = true) => {
     if (!containerRef.current) return;
 
-    const translateX = -index * slideWidth;
+    // Ensure we don't go beyond actual slides
+    const safeIndex = Math.max(0, Math.min(index, totalSlides - 1));
+    const translateX = -safeIndex * slideWidth;
     
     if (smooth) {
       gsap.to(containerRef.current, {
@@ -128,7 +130,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     } else {
       gsap.set(containerRef.current, { x: `${translateX}vw` });
     }
-  }, [slideWidth]);
+  }, [slideWidth, totalSlides]);
 
   // Navigation functions
   const goToSlide = useCallback((index: number) => {
