@@ -41,9 +41,8 @@
 .sliderWrapper {
   position: relative;
   width: 100%;
-  height: 80vh;
+  height: calc(100vh - 200px);
   min-height: 600px;
-  padding: 4rem 0;
 }
 
 .slider {
@@ -53,7 +52,6 @@
   overflow: hidden;
   cursor: grab;
   user-select: none;
-  padding: 4rem 0;
 }
 
 .slider:active {
@@ -74,10 +72,12 @@
   width: 50vw;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 4rem 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 /* Navigation */
@@ -156,8 +156,11 @@
   transform: scaleX(-1);
 }
 
-.navButton:hover .navPrev::after,
-.navButton:hover .navNext::after {
+.navPrev:hover::after {
+  background: var(--bleu);
+}
+
+.navNext:hover::after {
   background: var(--bleu);
 }
 
@@ -188,7 +191,7 @@
   }
   
   .sliderWrapper {
-    height: 70vh;
+    height: calc(100vh - 180px);
     min-height: 500px;
   }
 }
@@ -216,19 +219,14 @@
   }
   
   .sliderWrapper {
-    height: 60vh;
+    height: calc(100vh - 160px);
     min-height: 400px;
-    padding: 4.5rem 0;
-  }
-  
-  .slider {
-    padding: 4.5rem 0;
   }
   
   .slide {
     flex: 0 0 100vw;
     width: 100vw;
-    padding: 0;
+    padding: 4.5rem 0;
   }
   
   .navigation {
@@ -253,7 +251,7 @@
   }
   
   .sliderWrapper {
-    height: 50vh;
+    height: calc(100vh - 140px);
     min-height: 350px;
   }
 }
