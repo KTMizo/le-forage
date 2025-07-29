@@ -58,11 +58,13 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
+  // Update hover state for arrows
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredButton, setHoveredButton] = useState<'prev' | 'next' | null>(null);
 
   const totalMachines = data.machines.length;
-  const maxPositions = Math.max(1, totalMachines - 1); // Minimum 1 position
-  const slideWidth = 50; // 50vw per slide
+  const slideWidth = isMobile ? 100 : 50; // 100vw mobile, 50vw desktop
+  const maxPositions = isMobile ? totalMachines : Math.max(1, totalMachines - 1);
 
   // Mobile detection
   useEffect(() => {
@@ -273,7 +275,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
             ref={containerRef} 
             className={styles.slidesContainer}
             style={{
-              width: `${maxPositions * slideWidth}vw`
+              width: isMobile ? `${totalMachines * 100}vw` : `${maxPositions * 50}vw`
             }}
           >
             {data.machines.map((machine, index) => (
