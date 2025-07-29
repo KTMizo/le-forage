@@ -1,69 +1,133 @@
+/* Machine Section - Modern Slider */
 .section {
-  height: 100vh;
+  position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: column;
   background: #000;
   overflow: hidden;
-  z-index: 1000;
+  padding: 4rem 0;
 }
 
+/* Header */
 .sectionHeader {
-  padding: 64px 64px 40px 64px;
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 0 5rem 2.5rem 5rem;
+  z-index: 10;
 }
 
 .tagTitle {
   position: absolute;
-  left: 80px;
-  text-align: left;
+  left: 5rem;
   color: var(--blanc);
   font-family: "bebas_neueregular";
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 200;
   text-transform: uppercase;
   overflow: hidden;
 }
 
 .mainTitle {
-  width: 100%;
-  text-align: center;
-  font-size: 48px;
-  font-weight: 400;
   color: #fff;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
   margin: 0;
+  text-align: center;
+  overflow: hidden;
 }
 
-.horizontalSection {
-  flex: 1;
-  height: 100%;
+/* Slider Wrapper */
+.sliderWrapper {
   position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 600px;
 }
 
-.cardsContainer {
+.slider {
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
+  overflow: hidden;
+  cursor: grab;
   user-select: none;
 }
 
-.cardWrapper {
-  flex: 0 0 auto;
+.slider:active {
+  cursor: grabbing;
+}
+
+/* Slides Container */
+.slidesContainer {
+  display: flex;
+  width: fit-content;
+  height: 100%;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.slide {
+  flex: 0 0 50vw;
+  width: 50vw;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
-.tagTitle,
-.mainTitle {
-  overflow: hidden;
+/* Navigation */
+.navigation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 20;
+  pointer-events: none;
 }
 
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: #2563eb;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.navButton:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.navButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.navButton svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Text Animations */
 .animated-line {
   overflow: hidden;
   display: block;
@@ -74,66 +138,114 @@
   overflow: hidden;
 }
 
-.animatedWord {
-  display: inline-block;
-  overflow: hidden;
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
   .section {
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
+    padding: 3rem 0;
   }
-
+  
   .sectionHeader {
-    padding: 32px 20px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0 3rem 2rem 3rem;
   }
-
+  
   .tagTitle {
-    left: 20px;
-    font-size: 16px;
+    left: 3rem;
+    font-size: 1.125rem;
   }
-
-  .mainTitle {
-    font-size: 32px;
+  
+  .slide {
+    padding: 0 1.5rem;
   }
-
-  .horizontalSection {
-    overflow: visible;
-    position: relative;
-    height: auto;
-  }
-
-  .cardsContainer {
-    flex-wrap: wrap;
-    height: auto;
-    cursor: grab;
-    overflow: visible;
-    touch-action: pan-x pan-y;
-    will-change: transform;
-  }
-
-  .cardsContainer.dragging {
-    cursor: grabbing;
-  }
-
-  .cardWrapper {
-    width: 100%;
-    height: auto;
-    flex: 0 0 100%;
+  
+  .sliderWrapper {
+    height: 70vh;
+    min-height: 500px;
   }
 }
 
-/* Adjust MachineCard size for mobile */
-@media (max-width: 768px) {
-  .cardWrapper {
-    width: 100%;
-    min-width: 100%;
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 2rem 0;
+  }
+  
+  .sectionHeader {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  
+  .tagTitle {
+    position: relative;
+    left: auto;
+    font-size: 1rem;
+  }
+  
+  .mainTitle {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  
+  .sliderWrapper {
+    height: 60vh;
+    min-height: 400px;
+  }
+  
+  .slide {
+    flex: 0 0 100vw;
+    width: 100vw;
+    padding: 0 1rem;
+  }
+  
+
+  
+  .navigation {
+    bottom: 2rem;
+    top: auto;
+    transform: translateX(-50%);
+  }
+  
+  .navButton {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .navButton svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .section {
+    padding: 1.5rem 0;
+  }
+  
+  .sectionHeader {
+    padding: 0 1rem 1rem 1rem;
+  }
+  
+  .sliderWrapper {
+    height: 50vh;
+    min-height: 350px;
+  }
+  
+  .slide {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Performance optimizations */
+.slider,
+.slidesContainer,
+.slide {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth scrolling for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .navButton {
+    transition: none;
   }
 }

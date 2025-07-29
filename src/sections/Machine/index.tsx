@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styles from "./Machine.module.css";
 import MachineCard from "@/components/Cards/MachineCard/MachineCard";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import type { Machine as MachineType } from "@/types/modules/machine";
 import SplitType from "split-type";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -46,30 +47,35 @@ interface MachineProps {
 
 const Machine = ({ data = defaultData }: MachineProps) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const tagTitleRef = useRef<HTMLSpanElement>(null);
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
+
+  // Slider state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if we're on mobile
+  const totalSlides = data.machines.length;
+  const slideWidth = 50; // 50vw per slide
+
+  // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
+    
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Text animations
   useEffect(() => {
-    // Animation des textes
     const textElements = [
       { ref: tagTitleRef, start: "top 90%" },
       { ref: mainTitleRef, start: "top 90%" },
@@ -85,10 +91,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
 
       gsap.fromTo(
         ref.current.querySelectorAll(".animated-line"),
-        {
-          y: 100,
-          opacity: 0,
-        },
+        { y: 100, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -102,120 +105,142 @@ const Machine = ({ data = defaultData }: MachineProps) => {
           },
         }
       );
-
-      return () => {
-        splitText.revert();
-      };
     });
-  }, []);
-
-  useEffect(() => {
-    if (!tagTitleRef.current) return;
-
-    const splitTagTitle = new SplitType(tagTitleRef.current, {
-      types: "words",
-      wordClass: styles.animatedWord,
-    });
-
-    // Animation du tag title
-    gsap.fromTo(
-      `.${styles.animatedWord}`,
-      {
-        y: 100,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: tagTitleRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      }
-    );
 
     return () => {
-      splitTagTitle.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
-  const initScrollTrigger = useCallback(() => {
-    if (!sectionRef.current || !horizontalRef.current || isMobile) return;
+  // Slider position update
+  const updateSliderPosition = useCallback((index: number, smooth: boolean = true) => {
+    if (!containerRef.current) return;
 
-    const container = horizontalRef.current;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: () => `+=${container.scrollWidth - window.innerWidth}`,
-        pin: true,
-        anticipatePin: 1,
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    tl.to(container, {
-      x: () => -(container.scrollWidth - window.innerWidth),
-      ease: "none",
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, [isMobile]);
-
-  useEffect(() => {
-    initScrollTrigger();
-  }, [initScrollTrigger, isMobile]);
-
-  // Mobile drag handlers
-  const handleMouseDown = (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-  ) => {
-    if (!isMobile) return;
-
-    setIsDragging(true);
-    if ("touches" in e) {
-      setStartX(e.touches[0].pageX - (horizontalRef.current?.offsetLeft || 0));
+    const translateX = -index * slideWidth;
+    
+    if (smooth) {
+      gsap.to(containerRef.current, {
+        x: `${translateX}vw`,
+        duration: 0.6,
+        ease: "power2.out",
+        onComplete: () => setIsTransitioning(false),
+      });
     } else {
-      setStartX(e.pageX - (horizontalRef.current?.offsetLeft || 0));
+      gsap.set(containerRef.current, { x: `${translateX}vw` });
     }
-    setScrollLeft(horizontalRef.current?.scrollLeft || 0);
+  }, [slideWidth]);
+
+  // Navigation functions
+  const goToSlide = useCallback((index: number) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+    updateSliderPosition(index);
+  }, [isTransitioning, updateSliderPosition]);
+
+  const nextSlide = useCallback(() => {
+    const nextIndex = (currentIndex + 1) % totalSlides;
+    goToSlide(nextIndex);
+  }, [currentIndex, totalSlides, goToSlide]);
+
+  const prevSlide = useCallback(() => {
+    const prevIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
+    goToSlide(prevIndex);
+  }, [currentIndex, totalSlides, goToSlide]);
+
+  // Touch/Mouse handlers
+  const handleStart = useCallback((clientX: number) => {
+    if (isTransitioning) return;
+    
+    setIsDragging(true);
+    setStartX(clientX);
+    setCurrentX(clientX);
+    
+    if (containerRef.current) {
+      gsap.killTweensOf(containerRef.current);
+    }
+  }, [isTransitioning]);
+
+  const handleMove = useCallback((clientX: number) => {
+    if (!isDragging || !containerRef.current) return;
+    
+    setCurrentX(clientX);
+    const deltaX = clientX - startX;
+    const currentTranslateX = -currentIndex * slideWidth;
+    const newTranslateX = currentTranslateX + (deltaX / window.innerWidth) * 100;
+    
+    gsap.set(containerRef.current, { x: `${newTranslateX}vw` });
+  }, [isDragging, startX, currentIndex, slideWidth]);
+
+  const handleEnd = useCallback(() => {
+    if (!isDragging) return;
+    
+    setIsDragging(false);
+    const deltaX = currentX - startX;
+    const threshold = window.innerWidth * 0.1; // 10% threshold
+    
+    if (Math.abs(deltaX) > threshold) {
+      if (deltaX > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    } else {
+      // Snap back to current slide
+      updateSliderPosition(currentIndex);
+    }
+  }, [isDragging, currentX, startX, currentIndex, prevSlide, nextSlide, updateSliderPosition]);
+
+  // Mouse events
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleStart(e.clientX);
   };
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-  ) => {
-    if (!isDragging || !isMobile || !horizontalRef.current) return;
-
-    e.preventDefault();
-    let x;
-    if ("touches" in e) {
-      x = e.touches[0].pageX - (horizontalRef.current.offsetLeft || 0);
-    } else {
-      x = e.pageX - (horizontalRef.current.offsetLeft || 0);
-    }
-
-    const walk = (x - startX) * 2;
-    horizontalRef.current.scrollLeft = scrollLeft - walk;
+  const handleMouseMove = (e: React.MouseEvent) => {
+    handleMove(e.clientX);
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
+    handleEnd();
   };
 
+  // Touch events
+  const handleTouchStart = (e: React.TouchEvent) => {
+    handleStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    handleMove(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    handleEnd();
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        prevSlide();
+      } else if (e.key === "ArrowRight") {
+        nextSlide();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [prevSlide, nextSlide]);
+
+  // Initialize slider position
+  useEffect(() => {
+    updateSliderPosition(0, false);
+  }, [updateSliderPosition]);
+
   return (
-    <section
-      id="machines"
-      ref={sectionRef}
-      className={`${styles.section} ${isMobile ? styles.mobileMachine : ""}`}>
+    <section id="machines" ref={sectionRef} className={styles.section}>
+      {/* Header */}
       <div className={styles.sectionHeader}>
         <span className={styles.tagTitle} ref={tagTitleRef}>
           {data.machines_section_header.tag_title}
@@ -224,30 +249,55 @@ const Machine = ({ data = defaultData }: MachineProps) => {
           {data.machines_section_header.main_title}
         </h2>
       </div>
-      <div className={styles.horizontalSection}>
+
+      {/* Slider */}
+      <div className={styles.sliderWrapper}>
         <div
-          ref={horizontalRef}
-          className={`${styles.cardsContainer} ${
-            isDragging ? styles.dragging : ""
-          }`}
+          ref={sliderRef}
+          className={styles.slider}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
-          onTouchStart={handleMouseDown}
-          onTouchMove={handleMouseMove}
-          onTouchEnd={handleMouseUp}>
-          {data.machines.map((machine, index) => (
-            <div key={index} className={styles.cardWrapper}>
-              <MachineCard
-                image={machine.image}
-                title={machine.title}
-                technical_sheet={machine.technical_sheet}
-                boutton={machine.boutton}
-              />
-            </div>
-          ))}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div ref={containerRef} className={styles.slidesContainer}>
+            {data.machines.map((machine, index) => (
+              <div key={index} className={styles.slide}>
+                <MachineCard
+                  image={machine.image}
+                  title={machine.title}
+                  technical_sheet={machine.technical_sheet}
+                  boutton={machine.boutton}
+                />
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Navigation Arrows */}
+        {totalSlides > 1 && (
+          <div className={styles.navigation}>
+            <button
+              className={`${styles.navButton} ${styles.navPrev}`}
+              onClick={prevSlide}
+              disabled={isTransitioning}
+              aria-label="Slide précédent"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              className={`${styles.navButton} ${styles.navNext}`}
+              onClick={nextSlide}
+              disabled={isTransitioning}
+              aria-label="Slide suivant"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
