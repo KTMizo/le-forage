@@ -53,14 +53,15 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
 
   // Slider state
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentPosition, setCurrentPosition] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  const totalSlides = data.machines.length;
+  const totalMachines = data.machines.length;
+  const maxPositions = Math.max(1, totalMachines - 1); // Minimum 1 position
   const slideWidth = 50; // 50vw per slide
 
   // Mobile detection
@@ -113,12 +114,10 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   }, []);
 
   // Slider position update
-  const updateSliderPosition = useCallback((index: number, smooth: boolean = true) => {
+  const updateSliderPosition = useCallback((position: number, smooth: boolean = true) => {
     if (!containerRef.current) return;
 
-    // Ensure we don't go beyond actual slides
-    const safeIndex = Math.max(0, Math.min(index, totalSlides - 1));
-    const translateX = -safeIndex * slideWidth;
+    const translateX = -position * slideWidth;
     
     if (smooth) {
       gsap.to(containerRef.current, {
@@ -130,35 +129,35 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     } else {
       gsap.set(containerRef.current, { x: `${translateX}vw` });
     }
-  }, [slideWidth, totalSlides]);
+  }, [slideWidth]);
 
   // Navigation functions
-  const goToSlide = useCallback((index: number) => {
-    if (isTransitioning || totalSlides === 0) return;
+  const goToPosition = useCallback((position: number) => {
+    if (isTransitioning || totalMachines <= 1) return;
     
-    // Ensure index is within bounds
-    const validIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+    // Ensure position is within bounds
+    const validPosition = ((position % maxPositions) + maxPositions) % maxPositions;
     
     setIsTransitioning(true);
-    setCurrentIndex(validIndex);
-    updateSliderPosition(validIndex);
-  }, [isTransitioning, updateSliderPosition, totalSlides]);
+    setCurrentPosition(validPosition);
+    updateSliderPosition(validPosition);
+  }, [isTransitioning, updateSliderPosition, maxPositions, totalMachines]);
 
   const nextSlide = useCallback(() => {
-    if (totalSlides <= 1) return;
-    const nextIndex = (currentIndex + 1) % totalSlides;
-    goToSlide(nextIndex);
-  }, [currentIndex, totalSlides, goToSlide]);
+    if (totalMachines <= 1) return;
+    const nextPosition = (currentPosition + 1) % maxPositions;
+    goToPosition(nextPosition);
+  }, [currentPosition, maxPositions, goToPosition, totalMachines]);
 
   const prevSlide = useCallback(() => {
-    if (totalSlides <= 1) return;
-    const prevIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
-    goToSlide(prevIndex);
-  }, [currentIndex, totalSlides, goToSlide]);
+    if (totalMachines <= 1) return;
+    const prevPosition = currentPosition === 0 ? maxPositions - 1 : currentPosition - 1;
+    goToPosition(prevPosition);
+  }, [currentPosition, maxPositions, goToPosition, totalMachines]);
 
   // Touch/Mouse handlers
   const handleStart = useCallback((clientX: number) => {
-    if (isTransitioning) return;
+    if (isTransitioning || totalMachines <= 1) return;
     
     setIsDragging(true);
     setStartX(clientX);
@@ -167,21 +166,21 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     if (containerRef.current) {
       gsap.killTweensOf(containerRef.current);
     }
-  }, [isTransitioning]);
+  }, [isTransitioning, totalMachines]);
 
   const handleMove = useCallback((clientX: number) => {
-    if (!isDragging || !containerRef.current) return;
+    if (!isDragging || !containerRef.current || totalMachines <= 1) return;
     
     setCurrentX(clientX);
     const deltaX = clientX - startX;
-    const currentTranslateX = -currentIndex * slideWidth;
+    const currentTranslateX = -currentPosition * slideWidth;
     const newTranslateX = currentTranslateX + (deltaX / window.innerWidth) * 100;
     
     gsap.set(containerRef.current, { x: `${newTranslateX}vw` });
-  }, [isDragging, startX, currentIndex, slideWidth]);
+  }, [isDragging, startX, currentPosition, slideWidth, totalMachines]);
 
   const handleEnd = useCallback(() => {
-    if (!isDragging) return;
+    if (!isDragging || totalMachines <= 1) return;
     
     setIsDragging(false);
     const deltaX = currentX - startX;
@@ -194,10 +193,10 @@ const Machine = ({ data = defaultData }: MachineProps) => {
         nextSlide();
       }
     } else {
-      // Snap back to current slide
-      updateSliderPosition(currentIndex);
+      // Snap back to current position
+      updateSliderPosition(currentPosition);
     }
-  }, [isDragging, currentX, startX, currentIndex, prevSlide, nextSlide, updateSliderPosition]);
+  }, [isDragging, currentX, startX, currentPosition, prevSlide, nextSlide, updateSliderPosition, totalMachines]);
 
   // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -270,7 +269,13 @@ const Machine = ({ data = defaultData }: MachineProps) => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div ref={containerRef} className={styles.slidesContainer}>
+          <div 
+            ref={containerRef} 
+            className={styles.slidesContainer}
+            style={{
+              width: `${maxPositions * slideWidth}vw`
+            }}
+          >
             {data.machines.map((machine, index) => (
               <div key={index} className={styles.slide}>
                 <MachineCard
@@ -285,7 +290,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
         </div>
 
         {/* Navigation Arrows */}
-        {totalSlides > 1 && (
+        {totalMachines > 1 && (
           <div className={styles.navigation}>
             <button
               className={`${styles.navButton} ${styles.navPrev}`}
