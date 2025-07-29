@@ -43,6 +43,7 @@
   width: 100%;
   height: 80vh;
   min-height: 600px;
+  padding: 4rem 0;
 }
 
 .slider {
@@ -52,6 +53,7 @@
   overflow: hidden;
   cursor: grab;
   user-select: none;
+  padding: 4rem 0;
 }
 
 .slider:active {
@@ -216,6 +218,11 @@
   .sliderWrapper {
     height: 60vh;
     min-height: 400px;
+    padding: 4.5rem 0;
+  }
+  
+  .slider {
+    padding: 4.5rem 0;
   }
   
   .slide {
