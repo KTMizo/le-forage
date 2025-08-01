@@ -453,7 +453,7 @@ export async function getMachineData(): Promise<Machine> {
 }
 // lib/api.ts
 // Dans /src/lib/api.ts - Remplacer SEULEMENT cette fonction getServicesData
-
+// Dans /src/lib/api.ts - Modifier la fonction getServicesData pour le champ "img"
 
 export async function getServicesData(): Promise<ServicesSection> {
   try {
@@ -467,7 +467,7 @@ export async function getServicesData(): Promise<ServicesSection> {
           image: number;
           questions: Array<{ 
             question: string;
-            Url_mediatheque_de_limage?: string; // ✅ Nouveau champ URL
+            img?: any; // ✅ Champ "img" 
             zone_de_texte?: string;
           }>;
         }) => {
@@ -478,29 +478,50 @@ export async function getServicesData(): Promise<ServicesSection> {
           );
           const imageData = await imageResponse.json();
 
-          // Traitement des questions avec URL image et zone_de_texte
-          const processedQuestions = (service.questions || []).map((q) => {
-            let questionImage = undefined;
-            
-            // ✅ Si il y a une URL d'image, créer l'objet image
-            if (q.Url_mediatheque_de_limage && q.Url_mediatheque_de_limage.trim()) {
-              questionImage = {
-                ID: 0,
-                id: 0,
-                title: q.question || "Image prestation",
-                url: q.Url_mediatheque_de_limage,
-                alt: q.question || "Image prestation",
-                width: 800,
-                height: 600,
-              };
-            }
+          // Traitement des questions avec image et zone_de_texte
+          const processedQuestions = await Promise.all(
+            (service.questions || []).map(async (q) => {
+              let questionImage = undefined;
+              
+              // ✅ Vérifier différents formats du champ "img"
+              let imageId = null;
+              if (typeof q.img === 'number') {
+                imageId = q.img;
+              } else if (typeof q.img === 'object' && q.img?.ID) {
+                imageId = q.img.ID;
+              } else if (typeof q.img === 'object' && q.img?.id) {
+                imageId = q.img.id;
+              }
+              
+              if (imageId) {
+                try {
+                  const questionImageUrl = await getImageUrl(imageId);
+                  const questionImageResponse = await fetch(
+                    `${WP_API_URL}/media/${imageId}`
+                  );
+                  const questionImageData = await questionImageResponse.json();
+                  
+                  questionImage = {
+                    ID: questionImageData.id || 0,
+                    id: questionImageData.id || 0,
+                    title: questionImageData.title?.rendered || "",
+                    url: questionImageUrl || "/assets/images/default-question.jpg",
+                    alt: questionImageData.alt_text || q.question || "Image prestation",
+                    width: questionImageData.media_details?.width || 800,
+                    height: questionImageData.media_details?.height || 600,
+                  };
+                } catch (error) {
+                  console.error("Error fetching question image:", error);
+                }
+              }
 
-            return {
-              question: q.question || "",
-              image: questionImage,
-              zone_de_texte: q.zone_de_texte || "",
-            };
-          });
+              return {
+                question: q.question || "",
+                image: questionImage,
+                zone_de_texte: q.zone_de_texte || "",
+              };
+            })
+          );
 
           return {
             title: service.title || "",
@@ -531,6 +552,7 @@ export async function getServicesData(): Promise<ServicesSection> {
     };
   }
 }
+
 // lib/api.ts
 
 interface WordPressImageBreakRaw {
