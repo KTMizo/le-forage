@@ -452,12 +452,21 @@ export async function getMachineData(): Promise<Machine> {
   }
 }
 // lib/api.ts
-// lib/api.ts - Remplacer uniquement cette fonction getServicesData
-// Remplacer SEULEMENT cette fonction dans /src/lib/api.ts
+// Dans /src/lib/api.ts - Remplacer SEULEMENT cette fonction getServicesData
+
 export async function getServicesData(): Promise<ServicesSection> {
   try {
     const pageData = await getPageData("home");
     const acfData = pageData.acf;
+
+    // ✅ DEBUG : Afficher la structure des données
+    console.log("=== DEBUG ACF SERVICES ===");
+    console.log("Services data:", acfData?.services);
+    
+    if (acfData?.services && acfData.services[0] && acfData.services[0].questions) {
+      console.log("Première question:", acfData.services[0].questions[0]);
+      console.log("Champs disponibles:", Object.keys(acfData.services[0].questions[0]));
+    }
 
     const services = await Promise.all(
       (acfData?.services || []).map(
@@ -480,11 +489,17 @@ export async function getServicesData(): Promise<ServicesSection> {
           // Traitement des questions avec image et zone_de_texte
           const processedQuestions = await Promise.all(
             (service.questions || []).map(async (q) => {
+              // ✅ DEBUG : Afficher chaque question
+              console.log("Question data:", q);
+              console.log("Image field:", q.image);
+              console.log("Zone de texte:", q.zone_de_texte);
+              
               let questionImage = undefined;
               
               // Si la question a une image, la récupérer
               if (q.image) {
                 try {
+                  console.log("Fetching image ID:", q.image);
                   const questionImageUrl = await getImageUrl(q.image);
                   const questionImageResponse = await fetch(
                     `${WP_API_URL}/media/${q.image}`
@@ -500,9 +515,13 @@ export async function getServicesData(): Promise<ServicesSection> {
                     width: questionImageData.media_details?.width || 800,
                     height: questionImageData.media_details?.height || 600,
                   };
+                  
+                  console.log("Image processed:", questionImage);
                 } catch (error) {
                   console.error("Error fetching question image:", error);
                 }
+              } else {
+                console.log("No image field found for question:", q.question);
               }
 
               return {
@@ -543,7 +562,6 @@ export async function getServicesData(): Promise<ServicesSection> {
   }
 }
 
-// lib/api.ts
 // lib/api.ts
 
 interface WordPressImageBreakRaw {
