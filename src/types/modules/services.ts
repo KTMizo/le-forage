@@ -13,6 +13,8 @@ export interface ServiceImage {
 
 export interface ServiceQuestion {
   question: string;
+  image?: ServiceImage; // ✅ Nouveau champ image
+  zone_de_texte?: string; // ✅ Nouveau champ texte
 }
 
 export interface Service {

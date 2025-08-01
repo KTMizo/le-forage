@@ -452,6 +452,7 @@ export async function getMachineData(): Promise<Machine> {
   }
 }
 // lib/api.ts
+// lib/api.ts - Remplacer uniquement cette fonction getServicesData
 export async function getServicesData(): Promise<ServicesSection> {
   try {
     const pageData = await getPageData("home");
@@ -462,14 +463,54 @@ export async function getServicesData(): Promise<ServicesSection> {
         async (service: {
           title: string;
           image: number;
-          questions: Array<{ question: string }>;
+          questions: Array<{ 
+            question: string;
+            image?: number; // ✅ Nouveau champ image ACF
+            zone_de_texte?: string; // ✅ Nouveau champ texte ACF
+          }>;
         }) => {
-          // Récupérer les données de l'image depuis WordPress
+          // Récupérer les données de l'image principale du service
           const imageUrl = await getImageUrl(service.image);
           const imageResponse = await fetch(
             `${WP_API_URL}/media/${service.image}`
           );
           const imageData = await imageResponse.json();
+
+          // ✅ Traitement des questions avec image et zone_de_texte
+          const processedQuestions = await Promise.all(
+            (service.questions || []).map(async (q) => {
+              let questionImage = undefined;
+              
+              // Si la question a une image, la récupérer
+              if (q.image) {
+                try {
+                  const questionImageUrl = await getImageUrl(q.image);
+                  const questionImageResponse = await fetch(
+                    `${WP_API_URL}/media/${q.image}`
+                  );
+                  const questionImageData = await questionImageResponse.json();
+                  
+                  questionImage = {
+                    ID: questionImageData.id || 0,
+                    id: questionImageData.id || 0,
+                    title: questionImageData.title?.rendered || "",
+                    url: questionImageUrl || "/assets/images/default-question.jpg",
+                    alt: questionImageData.alt_text || q.question || "Image prestation",
+                    width: questionImageData.media_details?.width || 800,
+                    height: questionImageData.media_details?.height || 600,
+                  };
+                } catch (error) {
+                  console.error("Error fetching question image:", error);
+                }
+              }
+
+              return {
+                question: q.question || "",
+                image: questionImage, // ✅ Image de la prestation
+                zone_de_texte: q.zone_de_texte || "", // ✅ Texte de la prestation
+              };
+            })
+          );
 
           return {
             title: service.title || "",
@@ -482,10 +523,7 @@ export async function getServicesData(): Promise<ServicesSection> {
               width: imageData.media_details?.width || 800,
               height: imageData.media_details?.height || 600,
             },
-            questions:
-              service.questions?.map((q) => ({
-                question: q.question || "",
-              })) || [],
+            questions: processedQuestions, // ✅ Questions avec image et texte
           };
         }
       )
