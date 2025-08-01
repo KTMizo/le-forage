@@ -454,18 +454,28 @@ export async function getMachineData(): Promise<Machine> {
 // lib/api.ts
 // Dans /src/lib/api.ts - Remplacer SEULEMENT cette fonction getServicesData
 
+// Dans /src/lib/api.ts - Remplacer SEULEMENT cette fonction getServicesData
+
 export async function getServicesData(): Promise<ServicesSection> {
+  console.log("🔥 DEBUG START - getServicesData called");
+  
   try {
     const pageData = await getPageData("home");
+    console.log("🔥 Page data received:", pageData);
+    
     const acfData = pageData.acf;
+    console.log("🔥 ACF data:", acfData);
 
     // ✅ DEBUG : Afficher la structure des données
     console.log("=== DEBUG ACF SERVICES ===");
     console.log("Services data:", acfData?.services);
     
-    if (acfData?.services && acfData.services[0] && acfData.services[0].questions) {
-      console.log("Première question:", acfData.services[0].questions[0]);
-      console.log("Champs disponibles:", Object.keys(acfData.services[0].questions[0]));
+    if (acfData?.services && acfData.services[0]) {
+      console.log("Premier service:", acfData.services[0]);
+      if (acfData.services[0].questions && acfData.services[0].questions[0]) {
+        console.log("Première question:", acfData.services[0].questions[0]);
+        console.log("Champs disponibles:", Object.keys(acfData.services[0].questions[0]));
+      }
     }
 
     const services = await Promise.all(
@@ -475,10 +485,12 @@ export async function getServicesData(): Promise<ServicesSection> {
           image: number;
           questions: Array<{ 
             question: string;
-            image?: number;
+            image?: any; // Changé en any pour voir tous les types
             zone_de_texte?: string;
           }>;
         }) => {
+          console.log("🔥 Processing service:", service.title);
+          
           // Récupérer les données de l'image principale du service
           const imageUrl = await getImageUrl(service.image);
           const imageResponse = await fetch(
@@ -488,23 +500,37 @@ export async function getServicesData(): Promise<ServicesSection> {
 
           // Traitement des questions avec image et zone_de_texte
           const processedQuestions = await Promise.all(
-            (service.questions || []).map(async (q) => {
-              // ✅ DEBUG : Afficher chaque question
-              console.log("Question data:", q);
-              console.log("Image field:", q.image);
-              console.log("Zone de texte:", q.zone_de_texte);
+            (service.questions || []).map(async (q, index) => {
+              console.log(`🔥 Question ${index}:`, q);
+              console.log(`🔥 Question ${index} - image field:`, q.image);
+              console.log(`🔥 Question ${index} - image type:`, typeof q.image);
+              console.log(`🔥 Question ${index} - zone_de_texte:`, q.zone_de_texte);
               
               let questionImage = undefined;
               
-              // Si la question a une image, la récupérer
-              if (q.image) {
+              // Vérifier différents formats d'image
+              let imageId = null;
+              if (typeof q.image === 'number') {
+                imageId = q.image;
+              } else if (typeof q.image === 'object' && q.image?.ID) {
+                imageId = q.image.ID;
+              } else if (typeof q.image === 'object' && q.image?.id) {
+                imageId = q.image.id;
+              }
+              
+              console.log(`🔥 Question ${index} - extracted imageId:`, imageId);
+              
+              if (imageId) {
                 try {
-                  console.log("Fetching image ID:", q.image);
-                  const questionImageUrl = await getImageUrl(q.image);
+                  console.log("🔥 Fetching image ID:", imageId);
+                  const questionImageUrl = await getImageUrl(imageId);
+                  console.log("🔥 Image URL:", questionImageUrl);
+                  
                   const questionImageResponse = await fetch(
-                    `${WP_API_URL}/media/${q.image}`
+                    `${WP_API_URL}/media/${imageId}`
                   );
                   const questionImageData = await questionImageResponse.json();
+                  console.log("🔥 Image data:", questionImageData);
                   
                   questionImage = {
                     ID: questionImageData.id || 0,
@@ -516,12 +542,12 @@ export async function getServicesData(): Promise<ServicesSection> {
                     height: questionImageData.media_details?.height || 600,
                   };
                   
-                  console.log("Image processed:", questionImage);
+                  console.log("🔥 Image processed:", questionImage);
                 } catch (error) {
-                  console.error("Error fetching question image:", error);
+                  console.error("🔥 Error fetching question image:", error);
                 }
               } else {
-                console.log("No image field found for question:", q.question);
+                console.log(`🔥 No image found for question: ${q.question}`);
               }
 
               return {
@@ -549,12 +575,14 @@ export async function getServicesData(): Promise<ServicesSection> {
       )
     );
 
+    console.log("🔥 Final services data:", services);
+
     return {
       services_title: acfData?.services_title || "Nos services",
       services,
     };
   } catch (error) {
-    console.error("Error fetching services data:", error);
+    console.error("🔥 Error fetching services data:", error);
     return {
       services_title: "Nos services",
       services: [],
