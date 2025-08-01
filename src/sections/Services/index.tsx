@@ -10,7 +10,19 @@ import SplitType from "split-type";
 
 interface ServiceSectionProps {
   title: string;
-  questions: { question: string; answer?: string }[];
+  questions: Array<{
+    question: string;
+    image?: {
+      ID: number;
+      id: number;
+      title: string;
+      url: string;
+      alt: string;
+      width: number;
+      height: number;
+    };
+    zone_de_texte?: string;
+  }>;
   index: number;
 }
 
@@ -28,23 +40,18 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Register GSAP plugin first
     gsap.registerPlugin(ScrollTrigger);
 
-    // Check if the element exists
     if (!titleRef.current) return;
 
-    // Create split text
     const splitTitle = new SplitType(titleRef.current, {
       types: "lines",
       lineClass: "animated-line",
     });
 
-    // Get the animated lines
     const animatedLines = titleRef.current.querySelectorAll(".animated-line");
     if (!animatedLines.length) return;
 
-    // Create animation with error handling
     try {
       const animation = gsap.fromTo(
         animatedLines,
@@ -66,7 +73,6 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
         }
       );
 
-      // Cleanup function
       return () => {
         if (splitTitle) splitTitle.revert();
         if (animation) animation.kill();
@@ -74,7 +80,6 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
       };
     } catch (error) {
       console.error("GSAP animation error:", error);
-      // Clean up split text if animation fails
       if (splitTitle) splitTitle.revert();
     }
   }, []);
@@ -99,11 +104,18 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
             <ListAsk
               key={`${index}-${idx}`}
               question={item.question}
-              answer={item.answer || ""} // Assurez-vous que answer a une valeur par défaut
+              answer=""
               isOpen={openQuestionIndex === idx}
               onToggle={() => handleToggle(idx)}
               displayMode="modal"
               onClose={() => handleToggle(idx)}
+              questionImage={item.image ? {
+                url: item.image.url,
+                alt: item.image.alt,
+                width: item.image.width,
+                height: item.image.height,
+              } : undefined}
+              questionText={item.zone_de_texte}
             />
           ))}
         </div>
@@ -111,6 +123,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({
     </div>
   );
 };
+
 interface ServicesProps {
   data: ServicesSection;
 }
@@ -166,78 +179,6 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
     gsap.registerPlugin(ScrollTrigger);
 
     const services = servicesRef.current;
-    const imageContainer = imageContainerRef.current;
-    const scrollContent = scrollContentRef.current;
-
-    if (!services || !imageContainer || !scrollContent) return;
-
-    const sections = [...scrollContent.children];
-    const images = imagesRef.current.filter(
-      (img): img is HTMLDivElement => img !== null
-    );
-
-    gsap.set(images, { yPercent: 100 });
-    gsap.set(images[0], { yPercent: 0 });
-
-    const containerTrigger = ScrollTrigger.create({
-      trigger: scrollContent,
-      start: "top top",
-      end: () => `+=${scrollContent.offsetHeight - window.innerHeight}`,
-      pin: imageContainer,
-      pinSpacing: false,
-      scrub: true,
-      invalidateOnRefresh: true,
-    });
-
-    const sectionTriggers = sections.slice(1).map((section, index) => {
-      const prevImage = images[index];
-      const currentImage = images[index + 1];
-
-      if (!prevImage || !currentImage) return null;
-
-      return ScrollTrigger.create({
-        trigger: section,
-        start: "top center",
-        end: "bottom center",
-        onEnter: () => {
-          gsap.to(prevImage, {
-            scale: 1.3,
-            duration: 0.7,
-            ease: "power2.inOut",
-          });
-          gsap.to(currentImage, {
-            yPercent: 0,
-            duration: 0.7,
-            ease: "power2.inOut",
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(prevImage, {
-            scale: 1,
-            duration: 0.7,
-            ease: "power2.inOut",
-          });
-          gsap.to(currentImage, {
-            yPercent: 100,
-            duration: 0.7,
-            ease: "power2.inOut",
-          });
-        },
-      });
-    });
-
-    return () => {
-      if (containerTrigger) containerTrigger.kill();
-      sectionTriggers.forEach((trigger) => trigger?.kill());
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    const services = servicesRef.current;
     const lineDecor = lineDecorRef.current;
 
     if (!services || !lineDecor) return;
@@ -260,7 +201,6 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
 
   return (
     <section id="services" ref={servicesRef} className={styles.services}>
-      {/* Placer votre SVG ici */}
       <svg
         ref={lineDecorRef}
         className={styles.lineDecoration}

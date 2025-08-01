@@ -453,6 +453,7 @@ export async function getMachineData(): Promise<Machine> {
 }
 // lib/api.ts
 // lib/api.ts - Remplacer uniquement cette fonction getServicesData
+// Remplacer SEULEMENT cette fonction dans /src/lib/api.ts
 export async function getServicesData(): Promise<ServicesSection> {
   try {
     const pageData = await getPageData("home");
@@ -465,8 +466,8 @@ export async function getServicesData(): Promise<ServicesSection> {
           image: number;
           questions: Array<{ 
             question: string;
-            image?: number; // ✅ Nouveau champ image ACF
-            zone_de_texte?: string; // ✅ Nouveau champ texte ACF
+            image?: number;
+            zone_de_texte?: string;
           }>;
         }) => {
           // Récupérer les données de l'image principale du service
@@ -476,7 +477,7 @@ export async function getServicesData(): Promise<ServicesSection> {
           );
           const imageData = await imageResponse.json();
 
-          // ✅ Traitement des questions avec image et zone_de_texte
+          // Traitement des questions avec image et zone_de_texte
           const processedQuestions = await Promise.all(
             (service.questions || []).map(async (q) => {
               let questionImage = undefined;
@@ -506,8 +507,8 @@ export async function getServicesData(): Promise<ServicesSection> {
 
               return {
                 question: q.question || "",
-                image: questionImage, // ✅ Image de la prestation
-                zone_de_texte: q.zone_de_texte || "", // ✅ Texte de la prestation
+                image: questionImage,
+                zone_de_texte: q.zone_de_texte || "",
               };
             })
           );
@@ -523,7 +524,7 @@ export async function getServicesData(): Promise<ServicesSection> {
               width: imageData.media_details?.width || 800,
               height: imageData.media_details?.height || 600,
             },
-            questions: processedQuestions, // ✅ Questions avec image et texte
+            questions: processedQuestions,
           };
         }
       )
