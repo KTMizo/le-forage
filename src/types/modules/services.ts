@@ -13,6 +13,8 @@ export interface ServiceImage {
 
 export interface ServiceQuestion {
   question: string;
+  image?: ServiceImage; // ✅ Image optionnelle pour chaque question
+  zone_de_texte?: string; // ✅ Texte optionnel pour chaque question
 }
 
 export interface Service {

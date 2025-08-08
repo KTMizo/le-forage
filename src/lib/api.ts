@@ -455,6 +455,9 @@ export async function getMachineData(): Promise<Machine> {
   }
 }
 // lib/api.ts
+// Dans /src/lib/api.ts - Remplacer SEULEMENT cette fonction getServicesData
+// Dans /src/lib/api.ts - Modifier la fonction getServicesData pour le champ "img"
+
 export async function getServicesData(): Promise<ServicesSection> {
   try {
     const pageData = await getPageData("home");
@@ -468,6 +471,7 @@ export async function getServicesData(): Promise<ServicesSection> {
           questions: Array<{
             question: string;
             img?: any; // ✅ Champ "img"
+
             zone_de_texte?: string;
           }>;
         }) => {
@@ -500,7 +504,6 @@ export async function getServicesData(): Promise<ServicesSection> {
                     `${WP_API_URL}/media/${imageId}`,
                   );
                   const questionImageData = await questionImageResponse.json();
-
                   questionImage = {
                     ID: questionImageData.id || 0,
                     id: questionImageData.id || 0,
@@ -556,7 +559,6 @@ export async function getServicesData(): Promise<ServicesSection> {
     };
   }
 }
-// lib/api.ts
 // lib/api.ts
 
 interface WordPressImageBreakRaw {

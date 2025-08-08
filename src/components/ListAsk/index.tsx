@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import styles from "./Ask.module.css";
 import { ListAskProps } from "@/types/modules/faq";
 import gsap from "gsap";
@@ -13,6 +14,14 @@ if (typeof window !== "undefined") {
 interface ExtendedListAskProps extends ListAskProps {
   displayMode?: "inline" | "modal";
   onClose?: () => void;
+  // ✅ Nouveaux props pour image et texte
+  questionImage?: {
+    url: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  questionText?: string;
 }
 
 const ListAsk: React.FC<ExtendedListAskProps> = ({
@@ -22,6 +31,8 @@ const ListAsk: React.FC<ExtendedListAskProps> = ({
   onToggle,
   displayMode = "inline",
   onClose,
+  questionImage, // ✅ Image de la prestation
+  questionText,  // ✅ Texte de la prestation
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const questionRef = useRef<HTMLSpanElement>(null);
@@ -136,8 +147,39 @@ const ListAsk: React.FC<ExtendedListAskProps> = ({
               <button className={styles.closeButton} onClick={onClose}>
                 <X size={24} />
               </button>
+              
               <h2>{question}</h2>
-              <div dangerouslySetInnerHTML={{ __html: answer }} />
+              
+              {/* ✅ Affichage de l'image si présente */}
+              {questionImage && (
+                <div className={styles.modalImage}>
+                  <Image
+                    src={questionImage.url}
+                    alt={questionImage.alt}
+                    width={questionImage.width}
+                    height={questionImage.height}
+                    style={{ 
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                      marginBottom: "1.5rem"
+                    }}
+                    priority
+                  />
+                </div>
+              )}
+              
+              {/* ✅ Affichage du texte de la prestation */}
+              {questionText && (
+                <div 
+                  className={styles.modalText}
+                  dangerouslySetInnerHTML={{ __html: questionText }} 
+                />
+              )}
+              
+              {/* Texte answer original (si présent) */}
+              {answer && (
+                <div dangerouslySetInnerHTML={{ __html: answer }} />
+              )}
             </div>
           </div>
         )}
