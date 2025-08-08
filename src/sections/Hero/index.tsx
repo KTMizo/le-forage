@@ -35,6 +35,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const stickyWrapperRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef(null);
 
   useEffect(() => {
     // Vérification de la présence des éléments référencés
@@ -47,6 +48,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       return;
     }
 
+    console.log(heroRef.current.getBoundingClientRect());
     // Timeline pour les animations
     const tl = gsap.timeline();
 
@@ -87,7 +89,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         stagger: 0.1,
         ease: "power4.out",
         delay: 2,
-      }
+      },
     );
 
     // Animation des lignes de description
@@ -104,7 +106,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         stagger: 0.1,
         ease: "power3.out",
       },
-      "-=0.9"
+      "-=0.9",
     );
 
     // Animation du logo au scroll
@@ -144,11 +146,13 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       <div ref={stickyWrapperRef} className={styles.stickyWrapper}>
         <div ref={logoRef} className={styles.logo}>
           <svg
+            id="hero-logo"
             width="100%" // Au lieu de "auto"
             height="100%" // Au lieu de "auto"
             viewBox="0 0 351 161"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M104.853 160.551H160.551V0H115.527C112.251 3.83891 108.681 7.40569 104.853 10.6696V42.4285C108.171 41.5167 111.542 40.7835 114.951 40.2341C116.874 39.9242 118.162 42.1545 116.932 43.665C113.28 48.1498 109.236 52.2837 104.853 56.0205V87.7797C108.171 86.8678 111.542 86.1347 114.951 85.5853C116.874 85.2754 118.162 87.5057 116.932 89.0162C113.28 93.5009 109.236 97.6348 104.853 101.372V133.131C108.171 132.219 111.542 131.486 114.951 130.936C116.874 130.626 118.162 132.857 116.932 134.367C113.28 138.852 109.236 142.986 104.853 146.723V160.551Z"
               fill="#F9F1EA"
@@ -196,24 +200,32 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         </div>
       </div>
 
-      <section className={styles.hero}>
+      <section id="hero" ref={heroRef} className={styles.hero}>
         <div
           ref={containerRef}
           className={styles.container}
-          style={{ visibility: "hidden" }}>
+          style={{ visibility: "hidden" }}
+        >
           <div className={styles.content}>
-            <div className={styles.contentText}>
-              <h1 ref={titleRef} className={styles.title}>
+            <div className="grid gap-y-8 grid-cols-8 gap-x-4">
+              <h1
+                ref={titleRef}
+                className="font-articulate text-beige lg:text-desk-xxl text-38 leading-20 lg:leading-40 col-start-1 col-span-6 overflow-hidden"
+              >
                 {data.title}
               </h1>
-              <p ref={descriptionRef} className={styles.description}>
+              <p
+                ref={descriptionRef}
+                className="col-start-1 col-span-7 text-s lg:text-desk-s lg:max-w-362 font-articulate text-beige"
+              >
                 {data.description}
               </p>
             </div>
             <Button
               variant={buttonData.variant}
               href={buttonData.url}
-              showArrow={buttonData.showArrow}>
+              showArrow={buttonData.showArrow}
+            >
               {buttonData.text}
             </Button>
           </div>

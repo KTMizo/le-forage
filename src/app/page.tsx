@@ -8,6 +8,8 @@ import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
 import About from "@/sections/About";
 import Services from "@/sections/Services";
+import TAbout from "@/sections/t-about";
+import TServices from "@/sections/t-services";
 import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import FAQ from "@/sections/FAQ";
@@ -34,6 +36,7 @@ import {
   getFooterData,
   getFaqData,
 } from "@/lib/api";
+import TFAQ from "@/sections/t-faq";
 
 export const revalidate = 10;
 
@@ -101,7 +104,7 @@ const defaultFaqData: ACFFaqFields = {
 
 async function fetchWithFallback<T>(
   fetchFn: () => Promise<T>,
-  fallback: T
+  fallback: T,
 ): Promise<T> {
   try {
     return await fetchFn();
@@ -135,7 +138,7 @@ export default async function Home() {
     footerData,
     faqData,
   ] = results.map((result) =>
-    result.status === "fulfilled" ? result.value : result.reason
+    result.status === "fulfilled" ? result.value : result.reason,
   );
 
   return (
@@ -165,8 +168,13 @@ export default async function Home() {
           imageBreakData.hero_about_break.params.parallax_strength
         }
       />
+      <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
+      <TServices data={servicesData} />
+
+      {/*
       <About titleAboutData={titleAboutData} aboutData={aboutData} />
       <Services data={servicesData} />
+      */}
       <ImageBreak
         src={imageBreakData.services_rse_break.image.url}
         alt={imageBreakData.services_rse_break.alt}
@@ -180,7 +188,7 @@ export default async function Home() {
       />
       <RSE data={rseData} />
       <Machine data={machineData} />
-      <FAQ data={faqData} />
+      <TFAQ data={faqData} />
       <Footer data={footerData} />
     </main>
   );

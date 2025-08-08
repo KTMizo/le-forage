@@ -1,190 +1,174 @@
 /* Loader.module.css */
-
 .loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: var(--rouge);
-  position: fixed; /* Changer en fixed */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 99999;
-  transition: opacity 0.5s ease-out;
-  overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: var(--rouge);
+    position: fixed; /* Changer en fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    transition: opacity 0.5s ease-out;
+    overflow: hidden;
 }
-
 .loaderExit {
-  opacity: 0;
+    opacity: 0;
 }
-
 .noScroll {
-  overflow: hidden;
-  height: 100vh !important;
-  position: fixed !important;
-  width: 100% !important;
+    overflow: hidden;
+    height: 100vh !important;
+    position: fixed !important;
+    width: 100% !important;
 }
-
 .logo {
-  position: absolute;
-  top: 48px;
-  left: 80px;
-  animation: logoScale 1.5s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
-  transform-origin: left;
+    position: absolute;
+    top: 3rem; /* 48px */
+    left: 5rem; /* 80px */
+    animation: logoScale 1.5s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+    transform-origin: left;
 }
-
 /* Animation pour les symboles */
 .logo path:nth-child(2) {
-  animation: slideUpSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
-  opacity: 0;
+    animation: slideUpSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+    opacity: 0;
 }
-
 .logo path:nth-child(1) {
-  animation: slideDownSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
-  animation-delay: 0.2s;
-  opacity: 0;
+    animation: slideDownSymbol 1.2s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+    animation-delay: 0.2s;
+    opacity: 0;
 }
-
 /* Animation pour les lettres (les paths restants) */
 .logo path:nth-child(n + 3) {
-  animation: letterSlide 0.6s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
-  transform-origin: bottom;
-  opacity: 0;
+    animation: letterSlide 0.6s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
+    transform-origin: bottom;
+    opacity: 0;
 }
-
 /* Délais échelonnés pour chaque lettre dans l'ordre "LE FORAGE" */
 /* L */
 .logo path:nth-child(10) {
-  animation-delay: 0.4s;
+    animation-delay: 0.4s;
 }
 /* E */
 .logo path:nth-child(9) {
-  animation-delay: 0.45s;
+    animation-delay: 0.45s;
 }
 /* F */
 .logo path:nth-child(8) {
-  animation-delay: 0.5s;
+    animation-delay: 0.5s;
 }
 /* O */
 .logo path:nth-child(7) {
-  animation-delay: 0.55s;
+    animation-delay: 0.55s;
 }
 /* R */
 .logo path:nth-child(6) {
-  animation-delay: 0.6s;
+    animation-delay: 0.6s;
 }
 /* A */
 .logo path:nth-child(5) {
-  animation-delay: 0.65s;
+    animation-delay: 0.65s;
 }
 /* G */
 .logo path:nth-child(4) {
-  animation-delay: 0.7s;
+    animation-delay: 0.7s;
 }
 /* E */
 .logo path:nth-child(3) {
-  animation-delay: 0.75s;
+    animation-delay: 0.75s;
 }
-
 @keyframes logoScale {
-  0% {
-    transform: scale(0.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(0.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
-
 @keyframes slideUpSymbol {
-  0% {
-    transform: translateY(100%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
-
 @keyframes slideDownSymbol {
-  0% {
-    transform: translateY(-100%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
-
 @keyframes letterSlide {
-  0% {
-    transform: translateY(100%) scaleY(0);
-    opacity: 1;
-  }
-  60% {
-    transform: translateY(20%) scaleY(0.6);
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(0) scaleY(1);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(100%) scaleY(0);
+        opacity: 1;
+    }
+    60% {
+        transform: translateY(20%) scaleY(0.6);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
 }
-
 /* Ajoutez à votre Loader.module.css */
 .progressBar {
-  position: fixed;
-  bottom: 48px;
-  left: 80px;
-  width: 200px;
-  height: 2px;
-  background-color: rgba(249, 241, 234, 0.2);
-  overflow: hidden;
+    position: fixed;
+    bottom: 3rem; /* 48px */
+    left: 5rem; /* 80px */
+    width: 12.5rem; /* 200px */
+    height: 0.125rem; /* 2px */
+    background-color: rgba(249, 241, 234, 0.2);
+    overflow: hidden;
 }
-
 .progressFill {
-  height: 100%;
-  background-color: var(--beige);
-  transition: width 0.3s ease-out;
+    height: 100%;
+    background-color: var(--beige);
+    transition: width 0.3s ease-out;
 }
-
 /* Animation pour la barre de progression */
 .progressFill {
-  animation: progressPulse 1.5s ease-out infinite;
+    animation: progressPulse 1.5s ease-out infinite;
 }
-
 @keyframes progressPulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
 }
-
-@media screen and (max-width: 1024px) {
-  .progressBar {
-    bottom: 16px;
-    left: 16px;
-    width: 120px;
-  }
+@media screen and (max-width: 64rem) {
+    /* 1024px */
+    .progressBar {
+        bottom: 1rem; /* 16px */
+        left: 1rem; /* 16px */
+        width: 7.5rem; /* 120px */
+    }
 }
-
-@media screen and (max-width: 1024px) {
-  /* Loader.module.css */
-  .logo {
-    top: 16px;
-    left: 16px;
-  }
+@media screen and (max-width: 64rem) {
+    /* 1024px */
+    /* Loader.module.css */
+    .logo {
+        top: 1rem; /* 16px */
+        left: 1rem; /* 16px */
+    }
 }
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 48rem) {
+    /* 768px */
 }
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 30rem) {
+    /* 480px */
 }
