@@ -45,7 +45,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
             start: "top 80%",
             once: true,
           },
-        }
+        },
       );
 
       // Animation de l'opacité du texte principal au scroll
@@ -63,7 +63,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
             scrub: true,
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
     });
 
@@ -74,14 +74,19 @@ const TitleAbout: React.FC<TitleAboutData> = ({
   }, []);
 
   return (
-    <div className={styles.titleContent}>
-      <div className={styles.subtitleWapper}>
-        <h3 ref={subtitleRef} className={styles.subtitleAbout}>
-          {subtitle}
-        </h3>
-      </div>
-      <h2 ref={titleRef} className={styles.titleAbout}>
-        <span className={styles.hightLight}>{highlight}</span> {mainText}
+    <div className="grid gap-y-8 lg:grid-cols-[auto_1fr] lg:gap-x-40">
+      <h3
+        ref={subtitleRef}
+        className="text-tag   lg:text-desk-tag uppercase font-bebas text-bleu"
+      >
+        {subtitle}
+      </h3>
+      <h2
+        ref={titleRef}
+        className="text-black font-articulate text-m lg:text-desk-m lg:indent-[9.375rem] lg:max-w-657"
+      >
+        <span className="text-red">{highlight}&nbsp;</span>
+        <span>{mainText}</span>
       </h2>
     </div>
   );

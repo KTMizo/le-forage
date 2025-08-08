@@ -24,7 +24,7 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      window.history.scrollRestoration = 'manual';
+      window.history.scrollRestoration = "manual";
     }
 
     const lenis = new Lenis({
@@ -33,11 +33,23 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
+    window.lenis = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
+    lenis.on("scroll", (e) => {
+      const hero = document.querySelector("#hero");
+      if (!hero) return;
+      const sizeHero = hero.getBoundingClientRect().height;
+      console.log(e.targetScroll);
+      if (e.targetScroll > sizeHero) {
+        document.documentElement.classList.add("is-red");
+      } else {
+        document.documentElement.classList.remove("is-red");
+      }
+    });
 
     requestAnimationFrame(raf);
     lenis.scrollTo(0, { immediate: true });

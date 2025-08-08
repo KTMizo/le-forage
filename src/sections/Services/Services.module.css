@@ -1,229 +1,250 @@
 .services {
-  position: relative;
-  padding: 3rem 80px;
-  min-height: 100vh;
-  background-color: var(--beige);
+    position: relative;
+    padding: 3rem 80px;
+    min-height: 100vh;
+    background-color: var(--beige);
+    display: grid;
+    grid-template: auto auto / auto;
 }
 
 .servicesTitle {
-  width: 100%;
+    width: 100%;
+    grid-column: 1/-1;
+    grid-row: 1 / span 1;
+    padding-bottom: 72px;
+    min-height: 313px;
 }
 
 .title {
-  color: var(--bleu);
-  text-align: left;
-  font-family: "bebas_neueregular";
-  font-size: 20px;
-  font-weight: 200;
-  text-transform: uppercase;
-  overflow: hidden;
+    color: var(--bleu);
+    text-align: left;
+    font-family: "bebas";
+    font-size: 20px;
+    font-weight: 200;
+    text-transform: uppercase;
+    overflow: hidden;
+    position: sticky;
+    top: 231px;
 }
 
 .servicesContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
-  width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    width: 100%;
+    grid-column: 1/-1;
+    grid-row: 2 / span 1;
 }
 
 .scrollContent {
-  display: flex;
-  flex-direction: column;
+    display: grid;
+    gap: 200px;
 }
 
 .contentSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  padding-right: 80px;
+    display: grid;
+    min-height: 864px;
+    padding-right: 80px;
 }
 
 .sectionTitle {
-  padding-bottom: 48px;
+    padding-bottom: 48px;
 }
 
 .sectionTitle h2 {
-  color: var(--rouge);
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0;
+    position: sticky;
+    top: 0;
+    color: var(--rouge);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
 }
 
 .sectionDescription {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .fixedImageContainer {
-  padding: 140px 0 140px 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  position: relative;
+    /* padding: 140px 0 140px 80px;*/
+    max-width: 691px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding-left: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .imageWrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
 }
 
 .imageSlide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  transform-origin: center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    transform-origin: center center;
 }
 
 .servicesImage {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 691 / 864;
 }
 
 .services:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1px;
-  height: 100%;
-  background-color: #0000001a;
-  z-index: 1;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 100%;
+    background-color: #0000001a;
+    z-index: 1;
 }
-
+.containerLine {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    display: grid;
+    height: 100%;
+}
 .lineDecoration {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 32px;
-  z-index: 2;
-  pointer-events: none;
+    position: sticky;
+    left: 50%;
+    display: grid;
+    top: calc(50vh - 16px);
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .sectionTitle {
-  padding-bottom: 48px;
-  overflow: hidden;
+    padding-bottom: 48px;
+    overflow: hidden;
 }
 
 .sectionTitle h3 {
-  color: var(--rouge);
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0;
-  overflow: hidden;
+    color: var(--rouge);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    overflow: hidden;
 }
 
 .animated-line {
-  overflow: hidden;
-  display: block;
+    overflow: hidden;
+    display: block;
 }
 
 .animated-line > div {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1024px) {
-  .services {
-    padding: 2rem 1rem;
-  }
+    .services {
+        padding: 2rem 1rem;
+    }
 
-  .servicesContent {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-  }
+    .servicesContent {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+    }
 
-  .servicesTitle {
-    padding-bottom: 2rem;
-  }
+    .servicesTitle {
+        padding-bottom: 2rem;
+    }
 
-  .contentSection {
-    height: auto;
-    padding-right: 0;
-    margin-bottom: 6rem;
-  }
+    .contentSection {
+        height: auto;
+        padding-right: 0;
+        margin-bottom: 6rem;
+    }
 
-  .fixedImageContainer {
-    position: relative;
-    padding: 0;
-    height: auto;
-    min-height: 300px;
-  }
+    .fixedImageContainer {
+        position: relative;
+        padding: 0;
+        height: auto;
+        min-height: 300px;
+    }
 
-  .imageWrapper {
-    position: relative;
-    height: 300px;
-  }
+    .imageWrapper {
+        position: relative;
+        height: 300px;
+    }
 
-  .imageSlide {
-    position: relative;
-    height: 300px;
-  }
+    .imageSlide {
+        position: relative;
+        height: 300px;
+    }
 
-  .sectionTitle h3 {
-    font-size: 36px;
-  }
+    .sectionTitle h3 {
+        font-size: 36px;
+    }
 
-  .services:before {
-    display: none;
-  }
+    .services:before {
+        display: none;
+    }
 
-  .lineDecoration {
-    display: none;
-  }
+    .lineDecoration {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
-  .services {
-    padding: 1.5rem 1rem;
-  }
+    .services {
+        padding: 1.5rem 1rem;
+    }
 
-  .sectionTitle h2 {
-    font-size: 32px;
-  }
+    .sectionTitle h2 {
+        font-size: 32px;
+    }
 
-  .fixedImageContainer {
-    min-height: 250px;
-  }
+    .fixedImageContainer {
+        min-height: 250px;
+    }
 
-  .imageWrapper,
-  .imageSlide {
-    height: 250px;
-  }
+    .imageWrapper,
+    .imageSlide {
+        height: 250px;
+    }
 }
 
 @media screen and (max-width: 480px) {
-  .services {
-    padding: 48px 1rem;
-  }
+    .services {
+        padding: 48px 1rem;
+    }
 
-  .sectionTitle h2 {
-    font-size: 32px;
-  }
+    .sectionTitle h2 {
+        font-size: 32px;
+    }
 
-  .fixedImageContainer {
-    min-height: 200px;
-  }
+    .fixedImageContainer {
+        min-height: 200px;
+    }
 
-  .imageWrapper,
-  .imageSlide {
-    height: 200px;
-  }
+    .imageWrapper,
+    .imageSlide {
+        height: 200px;
+    }
 }

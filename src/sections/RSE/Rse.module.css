@@ -1,139 +1,120 @@
 /* Rse.module.css */
 .rse {
-  margin: 0 auto;
-  padding: 120px 80px;
+    margin: 0 auto;
+    padding: 7.5rem 5rem;
 }
-
 .rseHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 7.5rem;
 }
-
 .titleGroup {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
-
 .tagTitle {
-  position: absolute;
-  left: 80px;
-  text-align: left;
-  font-family: "bebas_neueregular";
-  font-size: 20px;
-  font-weight: 200;
-  text-transform: uppercase;
-  color: var(--bleu);
-  overflow: hidden;
+    position: absolute;
+    left: 5rem;
+    text-align: left;
+    font-family: "bebas";
+    font-size: 1.25rem;
+    font-weight: 200;
+    text-transform: uppercase;
+    color: var(--bleu);
+    overflow: hidden;
 }
-
 .mainTitle {
-  color: var(--rouge);
-  text-align: center;
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0;
-  max-width: 30rem;
+    color: var(--rouge);
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 30rem;
 }
-
 /* Rse.module.css modifications */
 .rseContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--padding-120);
-  align-items: stretch; /* Modifier ici pour s'assurer que les enfants s'étirent pour remplir l'espace vertical */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--padding-120);
+    align-items: stretch; /* Modifier ici pour s'assurer que les enfants s'étirent pour remplir l'espace vertical */
 }
-
 .rseLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  position: sticky;
-  height: 100%; /* Assurez-vous que rseLeft prend toute la hauteur disponible */
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    position: sticky;
+    height: 100%; /* Assurez-vous que rseLeft prend toute la hauteur disponible */
 }
-
 .textGroup {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Déjà en place, assurez-vous que ça fonctionne comme attendu */
-  gap: 40px;
-  width: 100%;
-  height: 100%; /* Ajout pour prendre toute la hauteur */
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between; /* Déjà en place, assurez-vous que ça fonctionne comme attendu */
+    gap: 2.5rem;
+    width: 100%;
+    height: 100%; /* Ajout pour prendre toute la hauteur */
 }
-
 .description {
-  font-size: 36px;
-  line-height: 150%;
-  color: var(--black);
-  margin: 0;
+    font-size: 2.25rem;
+    line-height: 150%;
+    color: var(--black);
+    margin: 0;
 }
-
 .methodNote {
-  font-size: 18px;
-  line-height: 150%;
-  color: var(--black);
-  margin: 0;
+    font-size: 1.125rem;
+    line-height: 150%;
+    color: var(--black);
+    margin: 0;
 }
-
 .rseCards {
-  display: flex;
-  flex-direction: column;
-  gap: 90px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5.625rem;
+    width: 100%;
 }
-
 .security {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
-
 .securityTitle {
-  text-align: left;
-  color: var(--bleu);
-  font-family: "bebas_neueregular";
-  font-size: 24px;
-  font-weight: 200;
-  text-transform: uppercase;
+    text-align: left;
+    color: var(--bleu);
+    font-family: "bebas";
+    font-size: 1.5rem;
+    font-weight: 200;
+    text-transform: uppercase;
 }
-
 .securityCards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.125rem;
 }
-
 .securityCards > div:last-child {
-  grid-column: 2;
-  grid-row: 1;
+    grid-column: 2;
+    grid-row: 1;
 }
-
 .qualifications {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
-
 .qualificationsTitle {
-  text-align: left;
-  color: var(--bleu);
-  font-family: "bebas_neueregular";
-  font-size: 24px;
-  font-weight: 200;
-  text-transform: uppercase;
+    text-align: left;
+    color: var(--bleu);
+    font-family: "bebas";
+    font-size: 1.5rem;
+    font-weight: 200;
+    text-transform: uppercase;
 }
-
 .qualificationsCards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.125rem;
 }
-
 /* Ajoutez ces styles à la fin de votre fichier Rse.module.css */
-
 /* Styles pour les animations */
 .tagTitle,
 .mainTitle,
@@ -141,78 +122,76 @@
 .methodNote,
 .securityTitle,
 .qualificationsTitle {
-  overflow: hidden;
+    overflow: hidden;
 }
-
 .animated-line {
-  overflow: hidden;
-  display: block;
+    overflow: hidden;
+    display: block;
 }
-
 .animated-line > div {
-  position: relative;
-  overflow: hidden;
-}
-
-.animatedWord {
-  display: inline-block;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 1024px) {
-  /* Rse.module.css */
-  .rse {
-    padding: 3rem 1rem;
-  }
-  .rseHeader {
-    margin-bottom: 3rem;
-  }
-  .titleGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 1.125rem;
-  }
-  .tagTitle {
     position: relative;
-    left: 0;
-  }
-  .mainTitle {
-    text-align: left;
-    font-size: 24px;
-  }
-  .rseContent {
-    display: flex;
-    flex-direction: column;
-    gap: 5rem;
-  }
-  .description {
-    font-size: 24px;
-  }
-
-  .methodNote {
-    font-size: 16px;
-    color: var(--black);
-    margin: 0;
-  }
-  .rseCards {
-    gap: 3rem;
-  }
-  .security {
-    gap: 1.5rem;
-  }
-  .securityCards {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  .qualifications {
-    gap: 1.5rem;
-  }
-  .qualificationsCards {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
+    overflow: hidden;
+}
+.animatedWord {
+    display: inline-block;
+    overflow: hidden;
+}
+@media screen and (max-width: 1024px) {
+    /* Rse.module.css */
+    .rse {
+        padding: 3rem 1rem;
+    }
+    .rseHeader {
+        margin-bottom: 2rem;
+    }
+    .titleGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 1.125rem;
+    }
+    .tagTitle {
+        position: relative;
+        left: 0;
+    }
+    .mainTitle {
+        text-align: left;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+    .rseContent {
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+    }
+    .description {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+    .methodNote {
+        font-size: 1rem;
+        color: var(--black);
+        margin: 0;
+        font-weight: 500;
+    }
+    .rseCards {
+        gap: 3rem;
+    }
+    .security {
+        gap: 1.5rem;
+    }
+    .securityCards {
+        display: flex;
+        flex-direction: column;
+        gap: 1.125rem;
+    }
+    .qualifications {
+        gap: 1.5rem;
+    }
+    .qualificationsCards {
+        display: flex;
+        flex-direction: column;
+        gap: 1.125rem;
+    }
 }
 @media screen and (max-width: 768px) {
 }

@@ -1,103 +1,103 @@
 .footer {
-  width: 100%;
-  background-color: var(--rouge);
-  align-items: flex-end;
-  padding: 48px 80px 20px 80px;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  will-change: transform; /* Optimisation pour les animations */
+    width: 100%;
+    background-color: var(--rouge);
+    align-items: flex-end;
+    padding: 48px 80px 20px 80px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    will-change: transform; /* Optimisation pour les animations */
 }
 
 .footerContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--padding-80);
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-80);
 }
 .footerInfos {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 24px;
-  width: 100%;
-  max-width: 70vw; /* Matching the max-width of FooterCards */
-  margin: 0 auto; /* Centering the footerInfos */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    max-width: 70vw; /* Matching the max-width of FooterCards */
+    margin: 0 auto; /* Centering the footerInfos */
 }
 
 .footerLeft {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .footerYear {
-  font-weight: 200;
-  font-size: 16px;
-  color: var(--beige);
+    font-weight: 200;
+    font-size: 1rem;
+    color: var(--beige);
 }
 
 .footerMentionslegales {
-  font-weight: 200;
-  text-decoration: none;
-  font-size: 16px;
-  color: var(--beige);
+    font-weight: 200;
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--beige);
 }
 
 .footerRight {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 24px;
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 24px;
+    width: 100%;
 }
 .footerCookie {
-  font-weight: 200;
-  font-size: 16px;
-  text-decoration: none;
-  color: var(--beige);
+    font-weight: 200;
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--beige);
 }
 .footerMentions {
-  font-weight: 200;
-  font-size: 16px;
-  text-decoration: none;
-  color: var(--beige);
+    font-weight: 200;
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--beige);
 }
 
 .pattern {
-  position: absolute;
-  top: 0;
-  right: 40px;
-  width: 200px;
-  height: 100%;
-  object-fit: cover;
+    position: absolute;
+    top: 0;
+    right: 40px;
+    width: 200px;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* 
+/*
 
 
-Responsive design 
+Responsive design
 
 
 */
 
 @media screen and (max-width: 1024px) {
-  .footer {
-    padding: 48px 1rem 48px 1rem;
-    flex-wrap: wrap;
-  }
-  .footerYear {
-    font-size: 12px;
-  }
+    .footer {
+        padding: 2.375rem 1rem 2.375rem 1rem;
+        flex-wrap: wrap;
+    }
+    .footerYear {
+        font-size: 0.75rem;
+    }
 
-  .footerMentionslegales {
-    font-size: 12px;
-  }
-  .footerCookie {
-    font-size: 12px;
-  }
-  .footerMentions {
-    font-size: 12px;
-  }
+    .footerMentionslegales {
+        font-size: 0.75rem;
+    }
+    .footerCookie {
+        font-size: 0.75rem;
+    }
+    .footerMentions {
+        font-size: 0.75rem;
+    }
 }

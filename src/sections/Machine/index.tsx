@@ -60,18 +60,22 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   const [currentX, setCurrentX] = useState(0);
   // Update hover state for arrows
   const [isMobile, setIsMobile] = useState(false);
-  const [hoveredButton, setHoveredButton] = useState<'prev' | 'next' | null>(null);
+  const [hoveredButton, setHoveredButton] = useState<"prev" | "next" | null>(
+    null,
+  );
 
   const totalMachines = data.machines.length;
   const slideWidth = isMobile ? 100 : 50; // 100vw mobile, 50vw desktop
-  const maxPositions = isMobile ? totalMachines : Math.max(1, totalMachines - 1);
+  const maxPositions = isMobile
+    ? totalMachines
+    : Math.max(1, totalMachines - 1);
 
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -106,7 +110,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
             start,
             once: true,
           },
-        }
+        },
       );
     });
 
@@ -116,34 +120,41 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   }, []);
 
   // Slider position update
-  const updateSliderPosition = useCallback((position: number, smooth: boolean = true) => {
-    if (!containerRef.current) return;
+  const updateSliderPosition = useCallback(
+    (position: number, smooth: boolean = true) => {
+      if (!containerRef.current) return;
 
-    const translateX = -position * slideWidth;
-    
-    if (smooth) {
-      gsap.to(containerRef.current, {
-        x: `${translateX}vw`,
-        duration: 0.6,
-        ease: "power2.out",
-        onComplete: () => setIsTransitioning(false),
-      });
-    } else {
-      gsap.set(containerRef.current, { x: `${translateX}vw` });
-    }
-  }, [slideWidth]);
+      const translateX = -position * slideWidth;
+
+      if (smooth) {
+        gsap.to(containerRef.current, {
+          x: `${translateX}vw`,
+          duration: 0.6,
+          ease: "power2.out",
+          onComplete: () => setIsTransitioning(false),
+        });
+      } else {
+        gsap.set(containerRef.current, { x: `${translateX}vw` });
+      }
+    },
+    [slideWidth],
+  );
 
   // Navigation functions
-  const goToPosition = useCallback((position: number) => {
-    if (isTransitioning || totalMachines <= 1) return;
-    
-    // Ensure position is within bounds
-    const validPosition = ((position % maxPositions) + maxPositions) % maxPositions;
-    
-    setIsTransitioning(true);
-    setCurrentPosition(validPosition);
-    updateSliderPosition(validPosition);
-  }, [isTransitioning, updateSliderPosition, maxPositions, totalMachines]);
+  const goToPosition = useCallback(
+    (position: number) => {
+      if (isTransitioning || totalMachines <= 1) return;
+
+      // Ensure position is within bounds
+      const validPosition =
+        ((position % maxPositions) + maxPositions) % maxPositions;
+
+      setIsTransitioning(true);
+      setCurrentPosition(validPosition);
+      updateSliderPosition(validPosition);
+    },
+    [isTransitioning, updateSliderPosition, maxPositions, totalMachines],
+  );
 
   const nextSlide = useCallback(() => {
     if (totalMachines <= 1) return;
@@ -153,41 +164,49 @@ const Machine = ({ data = defaultData }: MachineProps) => {
 
   const prevSlide = useCallback(() => {
     if (totalMachines <= 1) return;
-    const prevPosition = currentPosition === 0 ? maxPositions - 1 : currentPosition - 1;
+    const prevPosition =
+      currentPosition === 0 ? maxPositions - 1 : currentPosition - 1;
     goToPosition(prevPosition);
   }, [currentPosition, maxPositions, goToPosition, totalMachines]);
 
   // Touch/Mouse handlers
-  const handleStart = useCallback((clientX: number) => {
-    if (isTransitioning || totalMachines <= 1) return;
-    
-    setIsDragging(true);
-    setStartX(clientX);
-    setCurrentX(clientX);
-    
-    if (containerRef.current) {
-      gsap.killTweensOf(containerRef.current);
-    }
-  }, [isTransitioning, totalMachines]);
+  const handleStart = useCallback(
+    (clientX: number) => {
+      if (isTransitioning || totalMachines <= 1) return;
 
-  const handleMove = useCallback((clientX: number) => {
-    if (!isDragging || !containerRef.current || totalMachines <= 1) return;
-    
-    setCurrentX(clientX);
-    const deltaX = clientX - startX;
-    const currentTranslateX = -currentPosition * slideWidth;
-    const newTranslateX = currentTranslateX + (deltaX / window.innerWidth) * 100;
-    
-    gsap.set(containerRef.current, { x: `${newTranslateX}vw` });
-  }, [isDragging, startX, currentPosition, slideWidth, totalMachines]);
+      setIsDragging(true);
+      setStartX(clientX);
+      setCurrentX(clientX);
+
+      if (containerRef.current) {
+        gsap.killTweensOf(containerRef.current);
+      }
+    },
+    [isTransitioning, totalMachines],
+  );
+
+  const handleMove = useCallback(
+    (clientX: number) => {
+      if (!isDragging || !containerRef.current || totalMachines <= 1) return;
+
+      setCurrentX(clientX);
+      const deltaX = clientX - startX;
+      const currentTranslateX = -currentPosition * slideWidth;
+      const newTranslateX =
+        currentTranslateX + (deltaX / window.innerWidth) * 100;
+
+      gsap.set(containerRef.current, { x: `${newTranslateX}vw` });
+    },
+    [isDragging, startX, currentPosition, slideWidth, totalMachines],
+  );
 
   const handleEnd = useCallback(() => {
     if (!isDragging || totalMachines <= 1) return;
-    
+
     setIsDragging(false);
     const deltaX = currentX - startX;
     const threshold = window.innerWidth * 0.1; // 10% threshold
-    
+
     if (Math.abs(deltaX) > threshold) {
       if (deltaX > 0) {
         prevSlide();
@@ -198,7 +217,16 @@ const Machine = ({ data = defaultData }: MachineProps) => {
       // Snap back to current position
       updateSliderPosition(currentPosition);
     }
-  }, [isDragging, currentX, startX, currentPosition, prevSlide, nextSlide, updateSliderPosition, totalMachines]);
+  }, [
+    isDragging,
+    currentX,
+    startX,
+    currentPosition,
+    prevSlide,
+    nextSlide,
+    updateSliderPosition,
+    totalMachines,
+  ]);
 
   // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -249,11 +277,17 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   return (
     <section id="machines" ref={sectionRef} className={styles.section}>
       {/* Header */}
-      <div className={styles.sectionHeader}>
-        <span className={styles.tagTitle} ref={tagTitleRef}>
+      <div className="grid gap-y-8 lg:grid-cols-2 px-8 lg:px-40 lg:pb-28">
+        <span
+          className="text-tag lg:col-span-1 lg:col-start-1 lg:row-span-full lg:text-desk-tag text-white uppercase font-bebas"
+          ref={tagTitleRef}
+        >
           {data.machines_section_header.tag_title}
         </span>
-        <h2 className={styles.mainTitle} ref={mainTitleRef}>
+        <h2
+          className="lg:row-span-full lg:col-span-full  text-left lg:justify-self-center text-xl lg:text-desk-xl text-white"
+          ref={mainTitleRef}
+        >
           {data.machines_section_header.main_title}
         </h2>
       </div>
@@ -271,13 +305,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div 
-            ref={containerRef} 
-            className={styles.slidesContainer}
-            style={{
-              width: isMobile ? `${totalMachines * 100}vw` : `${maxPositions * 50}vw`
-            }}
-          >
+          <div ref={containerRef} className={styles.slidesContainer}>
             {data.machines.map((machine, index) => (
               <div key={index} className={styles.slide}>
                 <MachineCard
