@@ -193,7 +193,7 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
     gsap.set(images, { yPercent: 100 });
     gsap.set(images[0], { yPercent: 0 });
 
-    /*const containerTrigger = ScrollTrigger.create({
+    const containerTrigger = ScrollTrigger.create({
       trigger: scrollContent,
       start: "top top",
       end: () => `+=${scrollContent.offsetHeight - window.innerHeight}`,
@@ -201,7 +201,7 @@ const Services: React.FC<ServicesProps> = ({ data }) => {
       pinSpacing: false,
       scrub: true,
       invalidateOnRefresh: true,
-    });*/
+    });
 
     const sectionTriggers = sections.slice(1).map((section, index) => {
       const prevImage = images[index];

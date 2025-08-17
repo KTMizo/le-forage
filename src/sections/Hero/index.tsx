@@ -48,7 +48,6 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       return;
     }
 
-    console.log(heroRef.current.getBoundingClientRect());
     // Timeline pour les animations
     const tl = gsap.timeline();
 

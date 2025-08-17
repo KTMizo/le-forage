@@ -14,7 +14,7 @@ export default function TFAQ({ data }: FaqSectionProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
 
-  function handleToggle(id) {
+  function handleToggle(id: any) {
     setId(id);
   }
 

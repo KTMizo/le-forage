@@ -5,29 +5,32 @@ import Image from "next/image";
 import TServicesLine from "@/components/t-services-line";
 import TServicesRight from "@/components/t-services-right";
 interface ServicesProps {
-  data: ServicesSection;
+  data: any;
 }
 export default function TServices({ data }: ServicesProps) {
   const [popinOpen, setPopinOpen] = useState(false);
   const [cardActive, setCardActive] = useState(null);
 
-  function handleDesktop(parent, id) {
+  function handleDesktop(parent: any, id: any) {
     const elParent = document.querySelector(`#${parent}`);
+    //@ts-ignore
     window.lenis.scrollTo(elParent, {
       offset: 10,
     });
     if (cardActive == id) {
-      setCardActive("null");
+      setCardActive(null);
     } else {
       setCardActive(id);
     }
   }
-  function handlePopinClick(id) {
+  function handlePopinClick(id: any) {
     setPopinOpen(!popinOpen);
 
     if (!popinOpen) {
+      //@ts-ignore
       window.lenis.stop();
     } else {
+      //@ts-ignore
       window.lenis.start();
     }
     setCardActive(id);
@@ -44,7 +47,7 @@ export default function TServices({ data }: ServicesProps) {
           </div>
 
           <div className="grid gap-y-28 lg:gap-y-100">
-            {data.services.map((item, idx) => (
+            {data.services.map((item: any, idx: any) => (
               <div
                 id={item.title
                   .replaceAll(" ", "")
@@ -56,7 +59,7 @@ export default function TServices({ data }: ServicesProps) {
                     {item.title}
                   </h3>
                   <div>
-                    {item.questions.map((question, id) => (
+                    {item.questions.map((question: any, id: any) => (
                       <div
                         className={`t-accordeon ${
                           cardActive ==
@@ -228,14 +231,14 @@ export default function TServices({ data }: ServicesProps) {
         </button>
 
         <div className="grid col-span-full row-span-full px-8">
-          {data.services.map((item, idx) => (
+          {data.services.map((item: any, idx: any) => (
             <div key={`${item.title}-${idx}`}>
               <div
                 id={`popin-question-section-${item.title.replaceAll(" ", "")}-${idx}`}
                 className="grid col-span-full row-span-full"
               >
                 <>
-                  {item.questions.map((question, id) => (
+                  {item.questions.map((question: any, id: any) => (
                     <div
                       id={`popin-question-${question.question.replaceAll(" ", "")}-${id}`}
                       className={`${question.question.replaceAll(" ", "") + "-" + id == cardActive ? "grid" : "hidden"} col-span-full  gap-y-12 items-start content-start row-span-full grid-cols-8 grid gap-x-8`}

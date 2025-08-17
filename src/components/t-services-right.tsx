@@ -1,5 +1,11 @@
 import Image from "next/image";
-export default function TServicesRight({ data, cardActive }) {
+export default function TServicesRight({
+  data,
+  cardActive,
+}: {
+  data: any;
+  cardActive: any;
+}) {
   return (
     <div className="hidden lg:grid lg:col-start-2 lg:col-span-1  relative row-span-full pt-186">
       <div className=" col-span-full row-span-full grid  sticky top-0  z-10 max-h-432 pointer-events-none">
@@ -8,7 +14,7 @@ export default function TServicesRight({ data, cardActive }) {
 
       <div className=" col-span-full row-span-full grid relative pb-100 ">
         <div className="relative h-1496 overflow-visible grid gap-y-100">
-          {data.services.map((item, idx) => (
+          {data.services.map((item: any, idx: any) => (
             <div
               className={`${idx == 1 ? " z-2 " : ""} ${idx == 2 ? " z-3 " : ""} top-0 sticky grid `}
               key={`${item.title.replaceAll(" ", "")}-${idx}`}
@@ -24,7 +30,7 @@ export default function TServicesRight({ data, cardActive }) {
                 />
               </figure>
               <div className="col-span-full overflow-hidden  row-span-full grid">
-                {item.questions.map((question, id) => (
+                {item.questions.map((question: any, id: any) => (
                   <div
                     className={`${
                       question.question

@@ -33,6 +33,7 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
+    //@ts-ignore
     window.lenis = lenis;
 
     function raf(time: number) {
