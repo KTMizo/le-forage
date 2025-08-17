@@ -83,7 +83,7 @@ export default function TAboutSkill({
           {title}
         </h3>
       </div>
-      <div className="max-w-[42rem] inline-grid justify-self-end">
+      <div className="max-w-[42rem] lg:w-full inline-grid justify-self-end">
         <p
           ref={descriptionRef}
           className="font-articulate text-xs lg:text-desk-xs"
