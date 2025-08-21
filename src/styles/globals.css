@@ -224,3 +224,15 @@ body {
 html.is-red #hero-logo path {
     fill: var(--color-red);
 }
+html.is-red #t-menu line {
+    stroke: var(--color-white);
+}
+html.is-red #t-menu span {
+    color: white;
+}
+html.is-red #t-menu span#close {
+    color: var(--color-black);
+}
+html.is-red #t-menu button {
+    background-color: var(--color-red);
+}

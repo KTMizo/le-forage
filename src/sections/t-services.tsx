@@ -13,6 +13,7 @@ export default function TServices({ data }: ServicesProps) {
 
   function handleDesktop(parent: any, id: any) {
     const elParent = document.querySelector(`#${parent}`);
+    console.log(elParent);
     //@ts-ignore
     window.lenis.scrollTo(elParent, {
       offset: 10,
@@ -37,7 +38,10 @@ export default function TServices({ data }: ServicesProps) {
   }
 
   return (
-    <section className="px-8 grid-cols-8 gap-x-4 lg:grid-cols-2  lg:gap-x-136 py-20 grid gap-y-20 lg:px-40 lg:gap-y-96 lg:py-44">
+    <section
+      id="services"
+      className="px-8 grid-cols-8 gap-x-4 lg:grid-cols-2  lg:gap-x-136 py-20 grid gap-y-20 lg:px-40 lg:gap-y-96 lg:py-44"
+    >
       <div className="col-start-1 col-span-7 lg:col-span-1 lg:col-start-1 row-span-full">
         <div className="grid gap-y-8 lg:gap-y-36 ">
           <div className="lg:h-143">

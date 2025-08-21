@@ -8,7 +8,7 @@ export default function TServicesRight({
 }) {
   return (
     <div className="hidden lg:grid lg:col-start-2 lg:col-span-1  relative row-span-full pt-186">
-      <div className=" col-span-full row-span-full grid  sticky top-0  z-10 max-h-432 pointer-events-none">
+      <div className=" col-span-full row-span-full grid  sticky top-[calc((100vh_-_54rem)_/_2)] z-10 max-h-432 pointer-events-none">
         <div className="absolute h-[calc(100vw_-_54rem)] w-[102%] -left-1 z-0 top-432 bg-beige"></div>
       </div>
 
@@ -16,7 +16,7 @@ export default function TServicesRight({
         <div className="relative h-1496 overflow-visible grid gap-y-100">
           {data.services.map((item: any, idx: any) => (
             <div
-              className={`${idx == 1 ? " z-2 " : ""} ${idx == 2 ? " z-3 " : ""} top-0 sticky grid `}
+              className={`${idx == 1 ? " z-2 " : ""} ${idx == 2 ? " z-3 " : ""} top-[calc((100vh_-_54rem)_/_2)] sticky grid `}
               key={`${item.title.replaceAll(" ", "")}-${idx}`}
             >
               <figure className="col-span-full row-span-full ">

@@ -43,7 +43,10 @@ export default function TAbout({ titleAboutData, aboutData }: AboutProps) {
     };
   }, []);
   return (
-    <section className="px-8 py-20 grid gap-y-20 lg:px-40 lg:gap-y-96 lg:py-44">
+    <section
+      id="a-propos"
+      className="px-8 py-20 grid gap-y-20 lg:px-40 lg:gap-y-96 lg:py-44"
+    >
       <div className="grid gap-y-8 lg:grid-cols-[auto_1fr] lg:gap-x-40">
         <TitleAbout
           subtitle={titleAboutData.subtitle}

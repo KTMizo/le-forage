@@ -14,8 +14,12 @@ export default function TFAQ({ data }: FaqSectionProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
 
-  function handleToggle(id: any) {
-    setId(id);
+  function handleToggle(idd: any) {
+    if (idd === id) {
+      setId("null");
+    } else {
+      setId(idd);
+    }
   }
 
   useEffect(() => {
@@ -80,7 +84,10 @@ export default function TFAQ({ data }: FaqSectionProps) {
     };
   }, []);
   return (
-    <section className="grid lg:grid-rows-[auto_auto] lg:grid-cols-[auto_/_1fr] lg:gap-x-84 gap-y-16 px-8 lg:px-40 py-20  lg:pb-40 lg:pt-56">
+    <section
+      id="faq"
+      className="grid lg:grid-rows-[auto_auto] lg:grid-cols-[auto_/_1fr] lg:gap-x-84 gap-y-16 px-8 lg:px-40 py-20  lg:pb-40 lg:pt-56"
+    >
       <div className="lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1">
         <h2
           ref={titleRef}
