@@ -42,14 +42,25 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     }
     lenis.on("scroll", (e) => {
       const hero = document.querySelector("#hero");
+      const allImage = [...document.querySelectorAll(".image-services")];
       if (!hero) return;
       const sizeHero = hero.getBoundingClientRect().height;
-      console.log(e.targetScroll);
       if (e.targetScroll > sizeHero) {
         document.documentElement.classList.add("is-red");
       } else {
         document.documentElement.classList.remove("is-red");
       }
+      allImage.forEach((el, index) => {
+        const size = el.getBoundingClientRect();
+        if (size.top < window.innerHeight) {
+          console.log(window.innerHeight - size.top);
+          console.log(size.top - window.innerHeight / 100);
+
+          if (index - 1 >= 0) {
+            allImage[index - 1].style.scale = `1`;
+          }
+        }
+      });
     });
 
     requestAnimationFrame(raf);

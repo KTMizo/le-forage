@@ -13,7 +13,6 @@ export default function TServices({ data }: ServicesProps) {
 
   function handleDesktop(parent: any, id: any) {
     const elParent = document.querySelector(`#${parent}`);
-    console.log(elParent);
     //@ts-ignore
     window.lenis.scrollTo(elParent, {
       offset: 10,

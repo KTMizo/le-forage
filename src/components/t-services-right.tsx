@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 export default function TServicesRight({
   data,
   cardActive,
@@ -16,7 +17,7 @@ export default function TServicesRight({
         <div className="relative h-1496 overflow-visible grid gap-y-100">
           {data.services.map((item: any, idx: any) => (
             <div
-              className={`${idx == 1 ? " z-2 " : ""} ${idx == 2 ? " z-3 " : ""} top-[calc((100vh_-_54rem)_/_2)] sticky grid `}
+              className={`${idx == 1 ? " z-2 " : ""} ${idx == 2 ? " z-3 " : ""} top-[calc((100vh_-_54rem)_/_2)] sticky grid image-services`}
               key={`${item.title.replaceAll(" ", "")}-${idx}`}
             >
               <figure className="col-span-full row-span-full ">
