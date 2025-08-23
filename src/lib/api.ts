@@ -307,7 +307,6 @@ export async function getRSERelatedData(slug: string): Promise<RSEModules> {
 export async function getFooterData(): Promise<Footer> {
   try {
     const pageData = await getPageData("home");
-    console.log("ACF Footer Data:", pageData.acf?.footer_card); // Debug log
 
     return {
       footer_card: {

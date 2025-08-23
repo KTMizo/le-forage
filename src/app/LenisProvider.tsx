@@ -52,12 +52,26 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       }
       allImage.forEach((el, index) => {
         const size = el.getBoundingClientRect();
-        if (size.top < window.innerHeight) {
-          console.log(window.innerHeight - size.top);
-          console.log(size.top - window.innerHeight / 100);
+        const height = size.height + (window.innerHeight - size.height) / 2;
+        if (size.top < height) {
+          const nbr = (size.top / height) * 100;
+          const result = Math.abs(nbr - 100);
+
+          // Définir vos limites
+          const min = 0;
+          const max = 100; // ou la valeur max attendue
+
+          // Normalisation
+          const normalized = Math.max(
+            0,
+            Math.min(1, (result - min) / (max - min)),
+          );
 
           if (index - 1 >= 0) {
-            allImage[index - 1].style.scale = `1`;
+            const image = allImage[index - 1].querySelector("img");
+            gsap.set(image, {
+              scale: 1 + normalized * 0.5, // Scale de 1 à 1.5 par exemple
+            });
           }
         }
       });

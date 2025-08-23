@@ -20,7 +20,7 @@ export default function TServicesRight({
               className={`${idx == 1 ? " z-2 " : ""} ${idx == 2 ? " z-3 " : ""} top-[calc((100vh_-_54rem)_/_2)] sticky grid image-services`}
               key={`${item.title.replaceAll(" ", "")}-${idx}`}
             >
-              <figure className="col-span-full row-span-full ">
+              <figure className="col-span-full row-span-full overflow-hidden">
                 <Image
                   src={item.image.url}
                   alt={item.image.alt}
@@ -39,7 +39,7 @@ export default function TServicesRight({
                         .replaceAll(/[^a-zA-Z ]/g, "") == cardActive
                         ? " visible"
                         : " invisible"
-                    } col-span-full grid row-span-full bg-white transition-transform
+                    } col-span-full grid row-span-full z-10 bg-white transition-transform
   duration-300 ease-in-out
  p-20  gap-y-24 items-start content-start  grid-cols-8  gap-x-8`}
                     key={`${question.question.replaceAll(" ", "")}-${id}`}
