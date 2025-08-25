@@ -3,10 +3,92 @@ import { useEffect, useRef } from "react";
 export default function TServicesRight({
   data,
   cardActive,
+  setCardActive,
 }: {
   data: any;
   cardActive: any;
+  setCardActive: any;
 }) {
+  function extractQuestionsWithItemTitle(data) {
+    const questionsWithItemTitle = [];
+
+    data.forEach((obj) => {
+      const itemTitle = obj.title;
+      obj.questions.forEach((question) => {
+        questionsWithItemTitle.push({
+          ...question,
+          itemTitle: itemTitle,
+        });
+      });
+    });
+
+    return questionsWithItemTitle;
+  }
+
+  function handlePrev() {
+    const allQuestions = extractQuestionsWithItemTitle(data.services);
+
+    const currentIndex = allQuestions.findIndex(
+      (q) =>
+        q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
+        cardActive,
+    );
+
+    if (currentIndex !== 0) {
+      const currentParent = allQuestions[currentIndex].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      const prevParent = allQuestions[currentIndex - 1].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      if (currentParent !== prevParent) {
+        const elParent = document.querySelector(`#${prevParent}`);
+        //@ts-ignore
+        window.lenis.scrollTo(elParent, {
+          offset: -50,
+        });
+      }
+      setCardActive(
+        allQuestions[currentIndex - 1].question
+          .replaceAll(" ", "")
+          .replaceAll(/[^a-zA-Z ]/g, ""),
+      );
+    } else {
+      setCardActive("null");
+    }
+  }
+  function handleNext() {
+    const allQuestions = extractQuestionsWithItemTitle(data.services);
+
+    const currentIndex = allQuestions.findIndex(
+      (q) =>
+        q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
+        cardActive,
+    );
+
+    if (currentIndex !== allQuestions.length - 1) {
+      const currentParent = allQuestions[currentIndex].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      const nextParent = allQuestions[currentIndex + 1].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      if (currentParent !== nextParent) {
+        const elParent = document.querySelector(`#${nextParent}`);
+        //@ts-ignore
+        window.lenis.scrollTo(elParent, {
+          offset: -50,
+        });
+      }
+      setCardActive(
+        allQuestions[currentIndex + 1].question
+          .replaceAll(" ", "")
+          .replaceAll(/[^a-zA-Z ]/g, ""),
+      );
+    } else {
+      setCardActive("null");
+    }
+  }
   return (
     <div className="hidden lg:grid lg:col-start-2 lg:col-span-1  relative row-span-full pt-186">
       <div className=" col-span-full row-span-full grid  sticky top-[calc((100vh_-_54rem)_/_2)] z-10 max-h-432 pointer-events-none">
@@ -41,7 +123,7 @@ export default function TServicesRight({
                         : " invisible"
                     } col-span-full grid row-span-full z-10 bg-white transition-transform
   duration-300 ease-in-out
- p-20  gap-y-24 items-start content-start  grid-cols-8  gap-x-8`}
+ p-20  gap-y-24 items-start content-start  grid-cols-8 relative  gap-x-8`}
                     key={`${question.question.replaceAll(" ", "")}-${id}`}
                   >
                     <div
@@ -52,8 +134,8 @@ export default function TServicesRight({
                           ? " translate-y-0 opacity-100 pointer-events-auto"
                           : " translate-y-10 opacity-0 pointer-events-none"
                       } col-span-full grid row-span-full bg-white transition-transform
-  duration-300 ease-in-out
- p-20  gap-y-24 items-start content-start  grid-cols-8  gap-x-8`}
+                        duration-300 ease-in-out
+                      p-20  gap-y-24 items-start content-start  grid-cols-8  gap-x-8`}
                     >
                       {question?.image ? (
                         <div className="flex gap-x-16">
@@ -93,6 +175,64 @@ export default function TServicesRight({
                           />
                         ) : null}
                       </div>
+                    </div>
+                    <div className="absolute bottom-20 left-20  self-end z-20 ">
+                      <button
+                        onClick={() => handlePrev()}
+                        className="p-8 cursor-pointer bg-bleu"
+                      >
+                        <svg
+                          className="w-9"
+                          viewBox="0 0 18 19"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7.17773 4.94727L2.62523 9.49977L7.17773 14.0523"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M15.375 9.5H2.7525"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handleNext()}
+                        className="p-8 cursor-pointer bg-bleu"
+                      >
+                        <svg
+                          className="w-9"
+                          viewBox="0 0 18 19"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10.8223 4.94727L15.3748 9.49977L10.8223 14.0523"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M2.625 9.5H15.2475"
+                            stroke="white"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 ))}

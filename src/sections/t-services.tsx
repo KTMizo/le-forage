@@ -15,7 +15,7 @@ export default function TServices({ data }: ServicesProps) {
     const elParent = document.querySelector(`#${parent}`);
     //@ts-ignore
     window.lenis.scrollTo(elParent, {
-      offset: 10,
+      offset: -50,
     });
     if (cardActive == id) {
       setCardActive(null);
@@ -285,7 +285,11 @@ export default function TServices({ data }: ServicesProps) {
         </div>
       </div>
       <TServicesLine />
-      <TServicesRight data={data} cardActive={cardActive} />
+      <TServicesRight
+        data={data}
+        cardActive={cardActive}
+        setCardActive={setCardActive}
+      />
     </section>
   );
 }
