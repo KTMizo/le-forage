@@ -15,7 +15,7 @@ export default function TServices({ data }: ServicesProps) {
     const elParent = document.querySelector(`#${parent}`);
     //@ts-ignore
     window.lenis.scrollTo(elParent, {
-      offset: -50,
+      offset: -20,
     });
     if (cardActive == id) {
       setCardActive(null);
@@ -34,6 +34,95 @@ export default function TServices({ data }: ServicesProps) {
       window.lenis.start();
     }
     setCardActive(id);
+  }
+  function extractQuestionsWithItemTitle(data: any) {
+    const questionsWithItemTitle: any = [];
+
+    data.forEach((obj: any) => {
+      const itemTitle = obj.title;
+      console.log(itemTitle);
+      obj.questions.forEach((question: any) => {
+        questionsWithItemTitle.push({
+          ...question,
+          itemTitle: itemTitle,
+        });
+      });
+    });
+
+    return questionsWithItemTitle;
+  }
+  function handlePrevMobile() {
+    const allQuestions = extractQuestionsWithItemTitle(data.services);
+    console.log(cardActive);
+    const currentIndex = allQuestions.findIndex(
+      (q: any) =>
+        q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
+        cardActive,
+    );
+    if (currentIndex > 0) {
+      console.log(allQuestions[currentIndex]);
+      const currentParent = allQuestions[currentIndex].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      const prevParent = allQuestions[currentIndex - 1].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      if (currentParent !== prevParent) {
+        const elParent = document.querySelector(`#${prevParent}`);
+        //@ts-ignore
+        window.lenis.scrollTo(elParent, {
+          offset: -20,
+        });
+      }
+      setCardActive(
+        allQuestions[currentIndex - 1].question
+          .replaceAll(" ", "")
+          .replaceAll(/[^a-zA-Z ]/g, ""),
+      );
+    } else {
+      //@ts-ignore
+      setCardActive("null");
+      setPopinOpen(!popinOpen);
+      //@ts-ignore
+      window.lenis.start();
+    }
+  }
+
+  function handleNextMobile() {
+    const allQuestions = extractQuestionsWithItemTitle(data.services);
+
+    const currentIndex = allQuestions.findIndex(
+      (q: any) =>
+        q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
+        cardActive,
+    );
+
+    if (currentIndex !== allQuestions.length - 1) {
+      const currentParent = allQuestions[currentIndex].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      const nextParent = allQuestions[currentIndex + 1].itemTitle
+        .replaceAll(" ", "")
+        .replaceAll(/[^a-zA-Z ]/g, "");
+      if (currentParent !== nextParent) {
+        const elParent = document.querySelector(`#${nextParent}`);
+        //@ts-ignore
+        window.lenis.scrollTo(elParent, {
+          offset: -20,
+        });
+      }
+      setCardActive(
+        allQuestions[currentIndex + 1].question
+          .replaceAll(" ", "")
+          .replaceAll(/[^a-zA-Z ]/g, ""),
+      );
+    } else {
+      //@ts-ignore
+      setCardActive("null");
+      setPopinOpen(!popinOpen);
+      //@ts-ignore
+      window.lenis.start();
+    }
   }
 
   return (
@@ -78,7 +167,9 @@ export default function TServices({ data }: ServicesProps) {
                           data-id={`${question.question.replaceAll(" ", "")}-${id}`}
                           onClick={() =>
                             handlePopinClick(
-                              `${question.question.replaceAll(" ", "")}-${id}`,
+                              `${question.question
+                                .replaceAll(" ", "")
+                                .replaceAll(/[^a-zA-Z ]/g, "")}`,
                             )
                           }
                           className={` lg:hidden flex cursor-pointer py-12 lg:py-18 justify-between w-full border-t border-black-10 ${id + 1 === item.questions.length ? "border-b" : ""}`}
@@ -234,6 +325,64 @@ export default function TServices({ data }: ServicesProps) {
         </button>
 
         <div className="grid col-span-full row-span-full px-8">
+          <div className="absolute bottom-20 left-8  self-end z-20 ">
+            <button
+              onClick={() => handlePrevMobile()}
+              className="p-8 cursor-pointer bg-bleu"
+            >
+              <svg
+                className="w-9"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.17773 4.94727L2.62523 9.49977L7.17773 14.0523"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M15.375 9.5H2.7525"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={() => handleNextMobile()}
+              className="p-8 cursor-pointer bg-bleu"
+            >
+              <svg
+                className="w-9"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.8223 4.94727L15.3748 9.49977L10.8223 14.0523"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2.625 9.5H15.2475"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
           {data.services.map((item: any, idx: any) => (
             <div key={`${item.title}-${idx}`}>
               <div
@@ -244,7 +393,13 @@ export default function TServices({ data }: ServicesProps) {
                   {item.questions.map((question: any, id: any) => (
                     <div
                       id={`popin-question-${question.question.replaceAll(" ", "")}-${id}`}
-                      className={`${question.question.replaceAll(" ", "") + "-" + id == cardActive ? "grid" : "hidden"} col-span-full  gap-y-12 items-start content-start row-span-full grid-cols-8 grid gap-x-8`}
+                      className={`${
+                        question.question
+                          .replaceAll(" ", "")
+                          .replaceAll(/[^a-zA-Z ]/g, "") == cardActive
+                          ? "grid"
+                          : "hidden"
+                      } col-span-full  gap-y-12 items-start content-start row-span-full grid-cols-8 grid gap-x-8`}
                       key={`${question.question.replaceAll(" ", "")}-${id}`}
                     >
                       {question?.image ? (

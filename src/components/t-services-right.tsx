@@ -9,12 +9,12 @@ export default function TServicesRight({
   cardActive: any;
   setCardActive: any;
 }) {
-  function extractQuestionsWithItemTitle(data) {
-    const questionsWithItemTitle = [];
+  function extractQuestionsWithItemTitle(data: any) {
+    const questionsWithItemTitle: any = [];
 
-    data.forEach((obj) => {
+    data.forEach((obj: any) => {
       const itemTitle = obj.title;
-      obj.questions.forEach((question) => {
+      obj.questions.forEach((question: any) => {
         questionsWithItemTitle.push({
           ...question,
           itemTitle: itemTitle,
@@ -29,7 +29,7 @@ export default function TServicesRight({
     const allQuestions = extractQuestionsWithItemTitle(data.services);
 
     const currentIndex = allQuestions.findIndex(
-      (q) =>
+      (q: any) =>
         q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
         cardActive,
     );
@@ -45,7 +45,7 @@ export default function TServicesRight({
         const elParent = document.querySelector(`#${prevParent}`);
         //@ts-ignore
         window.lenis.scrollTo(elParent, {
-          offset: -50,
+          offset: -20,
         });
       }
       setCardActive(
@@ -61,7 +61,7 @@ export default function TServicesRight({
     const allQuestions = extractQuestionsWithItemTitle(data.services);
 
     const currentIndex = allQuestions.findIndex(
-      (q) =>
+      (q: any) =>
         q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
         cardActive,
     );
@@ -77,7 +77,7 @@ export default function TServicesRight({
         const elParent = document.querySelector(`#${nextParent}`);
         //@ts-ignore
         window.lenis.scrollTo(elParent, {
-          offset: -50,
+          offset: -20,
         });
       }
       setCardActive(
