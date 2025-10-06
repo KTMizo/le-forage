@@ -51,7 +51,7 @@ const RSE = ({ data }: RSEProps) => {
           start: "top 80%",
           once: true,
         },
-      }
+      },
     );
 
     // Liste des paragraphes à animer
@@ -82,7 +82,7 @@ const RSE = ({ data }: RSEProps) => {
             scrub: true,
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
 
       // Cleanup
@@ -129,21 +129,32 @@ const RSE = ({ data }: RSEProps) => {
   return (
     <section id="rse" className={styles.rse}>
       <div className={styles.rseHeader}>
-        <div className={styles.titleGroup}>
-          <span ref={tagTitleRef} className={styles.tagTitle}>
+        <div className="grid lg:grid-cols-2 gap-y-8">
+          <span
+            ref={tagTitleRef}
+            className="text-tag  lg:col-span-1 lg:col-start-1 lg:row-span-full lg:text-desk-tag uppercase font-bebas text-bleu"
+          >
             {data.rse_header.tag_title}
           </span>
-          <h2 className={styles.mainTitle}>{data.rse_header.main_title}</h2>
+          <h2 className="text-xl lg:row-span-full lg:col-span-full lg:justify-self-center lg:text-desk-xl text-red font-articulate max-w-124 lg:max-w-312 lg:text-center">
+            {data.rse_header.main_title}
+          </h2>
         </div>
       </div>
 
       <div className={styles.rseContent}>
         <div className={styles.rseLeft}>
           <div className={styles.textGroup}>
-            <p className={styles.description} ref={descriptionRef}>
+            <p
+              className="font-articulate text-m text-black lg:text-desk-m"
+              ref={descriptionRef}
+            >
               {data.rse_content.description}
             </p>
-            <p className={styles.methodNote} ref={methodNoteRef}>
+            <p
+              className="font-articulate text-m text-black lg:text-desk-m"
+              ref={methodNoteRef}
+            >
               {data.rse_content.method_note}
             </p>
           </div>
@@ -151,7 +162,7 @@ const RSE = ({ data }: RSEProps) => {
 
         <div className={styles.rseCards}>
           <div className={styles.security}>
-            <h3 className={styles.securityTitle}>
+            <h3 className="uppercase font-bebas text-18 text-bleu lg:text-24 ">
               Nos engagements pour la sécurité
             </h3>
             <div className={styles.securityCards}>
@@ -160,7 +171,9 @@ const RSE = ({ data }: RSEProps) => {
           </div>
 
           <div className={styles.qualifications}>
-            <h3 className={styles.qualificationsTitle}>Nos qualifications</h3>
+            <h3 className="uppercase font-bebas text-18 text-bleu lg:text-24">
+              Nos qualifications
+            </h3>
             <div className={styles.qualificationsCards}>
               {renderCards(data.qualifications_cards)}
             </div>

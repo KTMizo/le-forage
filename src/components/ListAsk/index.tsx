@@ -68,13 +68,13 @@ const ListAsk: React.FC<ExtendedListAskProps> = ({
       .fromTo(
         elements,
         { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power4.out" }
+        { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power4.out" },
       )
       .fromTo(
         line,
         { scaleX: 0 },
         { scaleX: 1, duration: 1, ease: "power4.out" },
-        "-=0.5"
+        "-=0.5",
       );
 
     return () => {
@@ -91,7 +91,7 @@ const ListAsk: React.FC<ExtendedListAskProps> = ({
         gsap.fromTo(
           modalRef.current,
           { opacity: 0 },
-          { opacity: 1, duration: 0.2, ease: "power2.out" }
+          { opacity: 1, duration: 0.2, ease: "power2.out" },
         );
       }
     }
@@ -102,13 +102,15 @@ const ListAsk: React.FC<ExtendedListAskProps> = ({
       <div
         className={`${styles.questionItem} ${
           isOpen ? styles.hasOpenAnswer : ""
-        }`}>
+        }`}
+      >
         <div className={styles.animatedLine} ref={lineRef}></div>
 
         <button
           className={`${styles.questionButton} ${isOpen ? styles.open : ""}`}
           onClick={onToggle}
-          type="button">
+          type="button"
+        >
           <span className={styles.questionText} ref={questionRef}>
             {question}
           </span>
@@ -119,7 +121,8 @@ const ListAsk: React.FC<ExtendedListAskProps> = ({
               height="18"
               viewBox="0 0 16 18"
               fill="none"
-              className={`${styles.toggleIcon} ${isOpen ? styles.open : ""}`}>
+              className={`${styles.toggleIcon} ${isOpen ? styles.open : ""}`}
+            >
               <path
                 d="M0 9.00052L16 9.00051M8 17.1485L8 0.852539"
                 stroke="#AB2325"

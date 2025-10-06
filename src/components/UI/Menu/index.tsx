@@ -35,13 +35,14 @@ const MenuButton = () => {
   };
 
   return (
-    <div className={styles.menu}>
+    <div id="t-menu" className={styles.menu}>
       <button
         onClick={handleMenuToggle}
         className={`${styles.menu__button} ${
           isVisible ? styles.menu__button_visible : ""
         }`}
-        aria-label="Menu">
+        aria-label="Menu"
+      >
         <span className={styles.menu__buttonText}>Menu</span>
         <svg
           className={`${styles.menu__buttonIcon} ${
@@ -51,7 +52,8 @@ const MenuButton = () => {
           height="16"
           viewBox="0 0 16 16"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <line
             x1="0"
             y1="8"
@@ -78,17 +80,22 @@ const MenuButton = () => {
           isMenuOpen ? styles.menu__overlay_active : ""
         } ${isAnimating ? styles.menu__overlay_animating : ""}`}
         onAnimationEnd={handleAnimationEnd}
-        aria-hidden={!isMenuOpen}>
+        aria-hidden={!isMenuOpen}
+      >
         <div
           className={`${styles.menu__panel} ${
             isMenuOpen ? styles.menu__panel_active : ""
-          }`}>
+          }`}
+        >
           <div className={styles.menu__header}>
-            <span className={styles.menu__headerText}>Fermer</span>
+            <span id="close" className={styles.menu__headerText}>
+              Fermer
+            </span>
             <button
               onClick={handleMenuToggle}
               className={styles.menu__closeButton}
-              aria-label="Fermer le menu">
+              aria-label="Fermer le menu"
+            >
               <svg
                 width="24"
                 height="24"
@@ -96,7 +103,8 @@ const MenuButton = () => {
                 fill="none"
                 stroke="#000000"
                 strokeWidth="2"
-                className={styles.menu__closeIcon}>
+                className={styles.menu__closeIcon}
+              >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -106,7 +114,8 @@ const MenuButton = () => {
           <nav
             className={`${styles.menu__nav} ${
               isMenuOpen ? styles.menu__nav_active : ""
-            }`}>
+            }`}
+          >
             {[
               "À propos",
               "Nos services",
@@ -118,17 +127,20 @@ const MenuButton = () => {
                 href="#"
                 key={item}
                 className={styles.menu__navLink}
-                style={{ animationDelay: `${index * 0.1}s` }}>
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 {item}
               </Link>
             ))}
             <div
               className={styles.menu__contactWrapper}
-              style={{ animationDelay: "0.5s" }}>
+              style={{ animationDelay: "0.5s" }}
+            >
               <Button
                 variant="secondary"
                 href="/destination"
-                className={styles.menu__contactButton}>
+                className={styles.menu__contactButton}
+              >
                 Nous contacter
               </Button>
             </div>

@@ -10,20 +10,15 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
   const { footer_card, footer_info } = data;
 
   return (
-    <section className={styles.footer}>
+    <footer className="py-19 px-8 bg-red relative lg:py-50 lg:px-40">
       <div className={styles.pattern}>
         <Fore />
       </div>
 
-      <div className={styles.footerContent}>
+      <div className="grid gap-y-15  lg:gap-y-40">
         <FooterCards title={footer_card.title} button={footer_card.button} />
-        <div className={styles.footerInfos}>
-          <div className={styles.footerLeft}>
-            <div className={styles.footerYear}>
-              © 2025 {footer_info.company}
-            </div>
-          </div>
-          <div className={styles.footerRight}>
+        <div className="grid gap-y-12 text-center lg:flex lg:items-center lg:justify-between lg:max-w-657">
+          <div className="flex justify-center gap-x-8 lg:gap-x-12 lg:order-2">
             {footer_info.legal_links.map((link, index) => (
               <Link
                 key={index}
@@ -32,14 +27,20 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
                   index === 0
                     ? styles.footerCookie
                     : styles.footerMentionslegales
-                }>
+                }
+              >
                 {link.text}
               </Link>
             ))}
           </div>
+          <div className="flex justify-center lg:order-1">
+            <div className={styles.footerYear}>
+              © 2025 {footer_info.company}
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </footer>
   );
 };
 

@@ -24,7 +24,7 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      window.history.scrollRestoration = 'manual';
+      window.history.scrollRestoration = "manual";
     }
 
     const lenis = new Lenis({
@@ -33,11 +33,49 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
+    //@ts-ignore
+    window.lenis = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
+    lenis.on("scroll", (e) => {
+      const hero = document.querySelector("#hero");
+      const allImage = [...document.querySelectorAll(".image-services")];
+      if (!hero) return;
+      const sizeHero = hero.getBoundingClientRect().height;
+      if (e.targetScroll > sizeHero) {
+        document.documentElement.classList.add("is-red");
+      } else {
+        document.documentElement.classList.remove("is-red");
+      }
+      allImage.forEach((el, index) => {
+        const size = el.getBoundingClientRect();
+        const height = size.height + (window.innerHeight - size.height) / 2;
+        if (size.top < height) {
+          const nbr = (size.top / height) * 100;
+          const result = Math.abs(nbr - 100);
+
+          // Définir vos limites
+          const min = 0;
+          const max = 100; // ou la valeur max attendue
+
+          // Normalisation
+          const normalized = Math.max(
+            0,
+            Math.min(1, (result - min) / (max - min)),
+          );
+
+          if (index - 1 >= 0) {
+            const image = allImage[index - 1].querySelector("img");
+            gsap.set(image, {
+              scale: 1 + normalized * 0.5, // Scale de 1 à 1.5 par exemple
+            });
+          }
+        }
+      });
+    });
 
     requestAnimationFrame(raf);
     lenis.scrollTo(0, { immediate: true });

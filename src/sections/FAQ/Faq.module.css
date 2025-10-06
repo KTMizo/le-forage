@@ -1,96 +1,98 @@
 .faq {
-  display: flex;
-  flex-direction: row;
-  padding: 120px 80px;
-  width: 100%;
-  height: 90vh;
-  gap: 168px;
-  background-color: var(--beige);
+    display: flex;
+    flex-direction: row;
+    padding: 120px 80px;
+    width: 100%;
+    min-height: 90vh;
+    gap: 168px;
+    background-color: var(--beige);
 }
 
 .faqContent {
-  display: flex;
-  flex-direction: column;
-  gap: 4.25rem;
-  width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 4.25rem;
+    width: 30vw;
 }
 
 .subtitle {
-  width: 100%;
+    width: 100%;
 }
 
 .subtitle h2 {
-  text-align: left;
-  color: var(--bleu);
-  font-family: "bebas_neueregular";
-  font-size: 20px;
-  font-weight: 200;
-  text-transform: uppercase;
+    text-align: left;
+    color: var(--bleu);
+    font-family: "bebas_neueregular";
+    font-size: 20px;
+    font-weight: 200;
+    text-transform: uppercase;
 }
 
 .imageWrapper {
-  position: relative;
-  width: 100%; /* Utilise maintenant toute la largeur disponible */
-  min-height: 500px;
-  flex: 1;
+    position: relative;
+    width: 100%; /* Utilise maintenant toute la largeur disponible */
+    min-height: 500px;
+    flex: 1;
 }
 
 .faqList {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 /* Ajoutez ces styles à votre Faq.module.css */
 
 /* Animation du titre */
 .subtitle h2 {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .animated-line {
-  overflow: hidden;
-  display: block;
+    overflow: hidden;
+    display: block;
 }
 
 .animated-line > div {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Animation de l'image */
 .imageWrapper {
-  position: relative;
-  width: 100%;
-  min-height: 500px;
-  flex: 1;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    flex: none;
+    min-width: 21.5rem;
 }
 
 .image {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.5s cubic-bezier(0.6, 0, 0.3, 0.9);
+    clip-path: inset(0 100% 0 0);
+    aspect-ratio: 344/100;
+
+    transition: clip-path 1.5s cubic-bezier(0.6, 0, 0.3, 0.9);
 }
 
 .imageWrapper.visible .image {
-  clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
 }
 
 @media screen and (max-width: 1024px) {
-  .faq {
-    flex-direction: column-reverse;
-    padding: 1rem;
-    gap: 32px;
-    height: 100%;
-  }
+    .faq {
+        flex-direction: column-reverse;
+        padding: 1rem;
+        gap: 32px;
+        height: 100%;
+    }
 
-  .faqContent {
-    width: 100%; /* Prend toute la largeur en mobile */
-    padding: 0 0 3.5rem 0;
-  }
+    .faqContent {
+        width: 100%; /* Prend toute la largeur en mobile */
+        padding: 0 0 3.5rem 0;
+    }
 
-  .imageWrapper {
-    min-height: 500px;
-  }
+    .imageWrapper {
+        min-height: 500px;
+    }
 }
