@@ -51,7 +51,7 @@
         width: 100%;
         max-width: 20rem; /* 320px ÷ 16 */
         height: auto;
-        aspect-ratio: 420/518;
+        /*aspect-ratio: 420/518;*/
     }
     .title {
         font-size: 1.125rem; /* 18px ÷ 16 */

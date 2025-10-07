@@ -277,7 +277,7 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   return (
     <section id="machines" ref={sectionRef} className={styles.section}>
       {/* Header */}
-      <div className="grid gap-y-8 lg:grid-cols-2 px-8 lg:px-40 lg:pb-28">
+      <div className="grid gap-y-8 lg:grid-cols-2 px-8 lg:px-40 pb-14 lg:pb-28">
         <span
           className="text-tag lg:col-span-1 lg:col-start-1 lg:row-span-full lg:text-desk-tag text-white uppercase font-bebas"
           ref={tagTitleRef}

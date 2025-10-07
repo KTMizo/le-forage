@@ -198,7 +198,7 @@
     }
 
     .sliderWrapper {
-        height: calc(100vh - 11.25rem); /* 180px */
+        height: 100dvh; /* 180px */
         min-height: 31.25rem; /* 500px */
     }
 }
@@ -227,7 +227,7 @@
     }
 
     .sliderWrapper {
-        height: calc(100vh - 10rem); /* 160px */
+        height: 100dvh;
         min-height: 25rem; /* 400px */
     }
 
