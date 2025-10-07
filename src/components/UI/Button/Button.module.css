@@ -77,7 +77,43 @@
     background-color: var(--rouge);
     color: var(--blanc);
 }
+.blue {
+    background-color: transparent;
+    color: var(--bleu);
+    border: 1px solid var(--bleu);
+    position: relative;
+    transition: color 0.5s cubic-bezier(0.4, 0, 0, 1);
+    isolation: isolate;
+    overflow: hidden;
+}
+.blue::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--bleu);
+    width: 101%;
+    height: 101%;
+    /*border-radius: var(--border-6);*/
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+    z-index: -1;
+}
+.blue:hover {
+    border-radius: var(--border-6);
+    color: var(--blanc);
+    border-color: var(--bleu);
+}
 
+.blue:hover::before {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.blue:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
 .secondary .arrow {
     color: var(--rouge);
 }

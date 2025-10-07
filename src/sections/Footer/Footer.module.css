@@ -36,6 +36,8 @@
     font-weight: 200;
     font-size: 1rem;
     color: var(--beige);
+    display: flex;
+    gap: 1rem;
 }
 
 .footerMentionslegales {
