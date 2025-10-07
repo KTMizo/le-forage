@@ -8,6 +8,7 @@ import type { RSEModules, RSECard } from "@/types/modules/rse";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import { SplitText } from "gsap/SplitText";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -61,24 +62,32 @@ const RSE = ({ data }: RSEProps) => {
     elements.forEach(({ ref }) => {
       if (!ref.current) return;
 
-      // Split le texte
-      const splitText = new SplitType(ref.current, {
-        types: "lines",
-        lineClass: "animated-line",
+      const splitText = SplitText.create(ref.current, {
+        type: "lines,words",
+        //mask: "lines",
+        wordsClass: "inline!",
+        linesClass: "inline!", // adds extra wrapper element around lines with overflow: clip (v3.13.0+)
       });
 
+      // THOMAS
       // Animation d'opacité au scroll
       gsap.fromTo(
-        ref.current.querySelectorAll(".animated-line"),
+        splitText.words,
         {
           opacity: 0.2,
         },
         {
           opacity: 1,
+          stagger: {
+            each: 0.1,
+            amount: 1,
+            from: "random",
+          },
           scrollTrigger: {
             trigger: ref.current,
             start: "top center",
             end: "bottom center",
+            markers: true,
             scrub: true,
             toggleActions: "play none none reverse",
           },
@@ -87,8 +96,8 @@ const RSE = ({ data }: RSEProps) => {
 
       // Cleanup
       return () => {
-        splitText.revert();
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        //splitText.revert();
+        //ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     });
 

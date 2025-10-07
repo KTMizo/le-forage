@@ -15,7 +15,7 @@ export default function TServices({ data }: ServicesProps) {
     const elParent = document.querySelector(`#${parent}`);
     //@ts-ignore
     window.lenis.scrollTo(elParent, {
-      offset: -20,
+      offset: 20,
     });
     if (cardActive == id) {
       setCardActive(null);
@@ -146,7 +146,7 @@ export default function TServices({ data }: ServicesProps) {
                   .replaceAll(/[^a-zA-Z ]/g, "")}
                 key={idx}
               >
-                <div className="grid gap-y-16 lg:gap-y-36 lg:min-h-432 content-start">
+                <div className="grid gap-y-16 lg:gap-y-36 lg:min-h-432 content-center">
                   <h3 className="text-xl lg:text-desk-xl text-red font-articulate">
                     {item.title}
                   </h3>
