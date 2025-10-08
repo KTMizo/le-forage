@@ -73,7 +73,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
       gsap.fromTo(
         [splitTitle.words, splitTitleRed.words],
         {
-          opacity: 0,
+          opacity: 0.2,
         },
         {
           opacity: 1,
