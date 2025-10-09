@@ -75,7 +75,7 @@ const FooterCards: React.FC<FooterCardsProps> = ({ title, button }) => {
         >
           {title}
         </h2>
-        <div className="col-span-6 flex gap-x-8 pl-12 lg:pl-37 col-start-1">
+        <div className="col-span-6  grid lg:flex gap-8 pl-12 lg:pl-37 col-start-1">
           <Button
             variant={button.variant}
             href={button.url}

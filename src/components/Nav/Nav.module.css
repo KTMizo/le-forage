@@ -1,10 +1,6 @@
 /* Nav.module.css */
 .navbar {
     z-index: 1000;
-    position: absolute;
-    top: 2.5rem; /* 40px */
-    left: 50%;
-    transform: translateX(-50%); /* Centrer horizontalement */
     width: fit-content;
     display: flex;
     flex-direction: row;
@@ -17,6 +13,7 @@
     border-radius: 0.25rem; /* 4px */
     border: 1px solid var(--beige-30);
 }
+
 .navItems {
     display: flex;
     gap: 2.875rem; /* 46px */

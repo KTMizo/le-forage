@@ -87,7 +87,6 @@ const RSE = ({ data }: RSEProps) => {
             trigger: ref.current,
             start: "top center",
             end: "bottom center",
-            markers: true,
             scrub: true,
             toggleActions: "play none none reverse",
           },

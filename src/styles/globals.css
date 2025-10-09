@@ -220,6 +220,13 @@ body {
 .t-accordeon-body.is-open svg {
     transform: rotate(90deg) scale(1);
 }
+html.is-red #navbar {
+    border: 1px solid var(--color-red);
+    background-color: var(--color-white);
+    & a {
+        color: var(--color-red);
+    }
+}
 
 html.is-red #hero-logo path {
     fill: var(--color-red);
@@ -235,4 +242,36 @@ html.is-red #t-menu span#close {
 }
 html.is-red #t-menu button {
     background-color: var(--color-red);
+}
+#t-menu {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+#t-menu.is-scroll-down {
+    transform: translateY(-7.25rem);
+    pointer-events: none;
+}
+#nav-sticky {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+#nav-sticky.is-scroll-down {
+    transform: translateY(-7.25rem);
+    pointer-events: none;
+}
+html.is-red #contact-btn a {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+html.is-red #contact-btn a:hover {
+    background-color: var(--color-red);
+    color: var(--color-black);
+}
+html.is-red #contact-btn a::before {
+    background-color: var(--color-white);
+}
+
+#contact-btn {
+    display: none;
+    @media (min-width: 768px) {
+        display: block;
+    }
 }

@@ -144,14 +144,6 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <ScrollProgress />
-      <div className={styles.nav}>
-        <Nav />
-      </div>
-      <div className={styles.contact}>
-        <Button variant="primary" href="mailto:bonjour@antoinepiney.fr">
-          Nous contacter
-        </Button>
-      </div>
 
       <div className={styles.menu}>
         <Menu />

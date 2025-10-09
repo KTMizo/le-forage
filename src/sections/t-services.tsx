@@ -15,8 +15,12 @@ export default function TServices({ data }: ServicesProps) {
     const elParent = document.querySelector(`#${parent}`);
     //@ts-ignore
     window.lenis.scrollTo(elParent, {
-      offset: 20,
+      offset: 0,
+      onComplete: () => {
+        document.querySelector("#nav-sticky")?.classList.add("is-scroll-down");
+      },
     });
+    document.querySelector("#nav-sticky")?.classList.add("is-scroll-down");
     if (cardActive == id) {
       setCardActive(null);
     } else {
@@ -339,18 +343,18 @@ export default function TServices({ data }: ServicesProps) {
                 <path
                   d="M7.17773 4.94727L2.62523 9.49977L7.17773 14.0523"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M15.375 9.5H2.7525"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>
@@ -367,18 +371,18 @@ export default function TServices({ data }: ServicesProps) {
                 <path
                   d="M10.8223 4.94727L15.3748 9.49977L10.8223 14.0523"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M2.625 9.5H15.2475"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>

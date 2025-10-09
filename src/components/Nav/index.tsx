@@ -5,7 +5,7 @@ import styles from "./Nav.module.css";
 const Nav = () => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.navbar}>
+      <div id="navbar" className={styles.navbar}>
         <div className={styles.navItems}>
           <a data-text="À propos" href="#a-propos">
             À propos

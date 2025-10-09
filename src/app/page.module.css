@@ -12,6 +12,9 @@
     top: 2.5rem; /* 40px */
     right: 5rem; /* 80px */
     z-index: 99; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
+    @media screen and (min-width: 48rem) {
+        display: none;
+    }
 }
 @media screen and (max-width: 64rem) {
     /* 1024px */

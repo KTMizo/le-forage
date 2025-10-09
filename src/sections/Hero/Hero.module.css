@@ -25,11 +25,16 @@
 
 .stickyWrapper {
     position: fixed;
-    top: 3rem;
-    left: 5rem;
-    width: 15.625rem;
-    height: 7.5rem;
+    padding-inline: 1rem;
+    top: 1rem;
+    width: 100%;
     z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    @media screen and (min-width: 48rem) {
+        padding-inline: 5rem;
+        top: 3rem;
+    }
 }
 
 .logo {
@@ -134,10 +139,6 @@
         will-change: transform, opacity;
         z-index: 1;
     }
-    .stickyWrapper {
-        top: 16px;
-        left: 16px;
-    }
 }
 @media screen and (max-width: 480px) {
     .pattern {
@@ -149,9 +150,5 @@
         object-fit: cover;
         will-change: transform, opacity;
         z-index: 1;
-    }
-    .stickyWrapper {
-        top: 16px;
-        left: 16px;
     }
 }

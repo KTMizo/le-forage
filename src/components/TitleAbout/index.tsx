@@ -62,7 +62,6 @@ const TitleAbout: React.FC<TitleAboutData> = ({
             end: "bottom center",
             id: "animation 1",
             scrub: true,
-            markers: true,
             toggleActions: "play none none reverse",
           },
         },

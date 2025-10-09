@@ -8,6 +8,8 @@ import Fore from "@/components/Fore";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import Nav from "@/components/Nav";
+
 // Dans votre fichier Hero.tsx
 
 import { HeroData, ButtonVariant } from "@/types/modules/hero"; // Assurez-vous que le chemin est correct
@@ -142,7 +144,11 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
     <>
       {/* Logo sticky */}
-      <div ref={stickyWrapperRef} className={styles.stickyWrapper}>
+      <div
+        id="nav-sticky"
+        ref={stickyWrapperRef}
+        className={styles.stickyWrapper}
+      >
         <div ref={logoRef} className={styles.logo}>
           <svg
             id="hero-logo"
@@ -196,6 +202,14 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
               />
             </g>
           </svg>
+        </div>
+        <div className={styles.nav}>
+          <Nav />
+        </div>
+        <div id="contact-btn" className={styles.contact}>
+          <Button variant="primary" href="mailto:bonjour@antoinepiney.fr">
+            Nous contacter
+          </Button>
         </div>
       </div>
 

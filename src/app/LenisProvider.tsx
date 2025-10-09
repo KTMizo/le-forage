@@ -50,6 +50,20 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       } else {
         document.documentElement.classList.remove("is-red");
       }
+      if (
+        e.direction === 1 &&
+        document.documentElement.classList.contains("is-red")
+      ) {
+        document.querySelector("#t-menu")?.classList.add("is-scroll-down");
+
+        document.querySelector("#nav-sticky")?.classList.add("is-scroll-down");
+      } else {
+        document.querySelector("#t-menu")?.classList.remove("is-scroll-down");
+
+        document
+          .querySelector("#nav-sticky")
+          ?.classList.remove("is-scroll-down");
+      }
       allImage.forEach((el, index) => {
         const size = el.getBoundingClientRect();
         const height = size.height + (window.innerHeight - size.height) / 2;
