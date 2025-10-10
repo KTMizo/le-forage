@@ -74,3 +74,12 @@ html.is-red .navItems a:hover {
 @media screen and (max-width: 30rem) {
     /* 480px */
 }
+
+/* Styles pour le menu sticky (quand html a la classe is-red) */
+:global(html.is-red) .navItems a {
+    color: #000000;
+}
+
+:global(html.is-red) .navItems a:hover {
+    color: #003b87;
+}
