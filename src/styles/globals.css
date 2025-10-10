@@ -277,17 +277,8 @@ html.is-red #t-menu button {
     transform: translateY(-7.25rem);
     pointer-events: none;
 }
-
 #nav-sticky {
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-#nav-sticky.is-scroll-down {
-    transform: translateY(-10rem);
-    opacity: 0;
-    pointer-events: none;
-    background-color: transparent !important;
-    border-bottom: none !important;
 }
 
 html.is-red #nav-sticky:not(.is-scroll-down) {
@@ -300,6 +291,14 @@ html.is-red #nav-sticky:not(.is-scroll-down) {
     left: 0;
     right: 0;
     width: 100%;
+}
+
+#nav-sticky.is-scroll-down {
+    transform: translateY(-5rem);
+    opacity: 0;
+    pointer-events: none;
+    background-color: transparent !important;
+    border-bottom: none !important;
 }
 
 html.is-red #navbar a {
@@ -336,7 +335,7 @@ html.is-red #t-menu button {
 }
 
 #t-menu.is-scroll-down {
-    transform: translateY(-100%);
+    transform: translateY(-5rem);
     opacity: 0;
     pointer-events: none;
 }
