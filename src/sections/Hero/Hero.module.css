@@ -41,7 +41,7 @@
 :global(html.is-red) .stickyWrapper {
     padding-inline: 0;
     top: 0;
-    height: 5rem;
+    align-items: center;
 }
 
 .logo {
