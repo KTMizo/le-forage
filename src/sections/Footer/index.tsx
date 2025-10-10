@@ -36,7 +36,7 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
           <div className="flex justify-center lg:order-1">
             <div className={styles.footerYear}>
               <span>© 2025 {footer_info.company}</span>
-              <a target="_blank" href="https://www.linkedin.com">
+              <a target="_blank" href="https://www.linkedin.com/company/le-forage/">
                 Linkedin
               </a>
             </div>

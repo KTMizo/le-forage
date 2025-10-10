@@ -78,12 +78,12 @@ const FooterCards: React.FC<FooterCardsProps> = ({ title, button }) => {
         <div className="col-span-6  grid lg:flex gap-8 pl-12 lg:pl-37 col-start-1">
           <Button
             variant={button.variant}
-            href={button.url}
+            href={https://share.google/1bkRVXJnEzysTFXns}
             showArrow={button.showArrow}
           >
             {button.text}
           </Button>
-          <Button variant="blue" href={button.url} showMap={button.showArrow}>
+          <Button variant="blue" href={https://share.google/1bkRVXJnEzysTFXns} showMap={button.showArrow}>
             Notre adresse
           </Button>
         </div>
