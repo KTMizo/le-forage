@@ -221,17 +221,20 @@ body {
     transform: rotate(90deg) scale(1);
 }
 html.is-red #navbar {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    background-color: var(--color-beige);
+    background-color: #f9f1ea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 0;
 }
 
 html.is-red #navbar a {
-    color: var(--color-noir) !important;
+    color: #000000;
     transition: color 0.3s ease;
 }
 
 html.is-red #navbar a:hover {
-    color: var(--color-bleu) !important;
+    color: #003b87;
 }
 
 html.is-red #hero-logo path {
