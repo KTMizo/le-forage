@@ -38,10 +38,10 @@
     }
 }
 
-/* Quand html.is-red, on enlève le padding-inline car il est géré dans globals.css */
 :global(html.is-red) .stickyWrapper {
     padding-inline: 0;
     top: 0;
+    height: 5rem;
 }
 
 .logo {
@@ -160,6 +160,3 @@
     }
 }
 
-:global(html.is-red) .logo {
-    height: 3rem;
-}
