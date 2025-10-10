@@ -220,15 +220,31 @@ body {
 .t-accordeon-body.is-open svg {
     transform: rotate(90deg) scale(1);
 }
-/* Fond beige sur tout le conteneur sticky */
+
+/* Par défaut, #nav-sticky reste transparent */
+#nav-sticky {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#nav-sticky.is-scroll-down {
+    transform: translateY(-7.25rem);
+    pointer-events: none;
+}
+
+/* Quand html.is-red, on ajoute le fond beige sur tout le header */
 html.is-red #nav-sticky {
     background-color: #f9f1ea;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    left: 0;
+    right: 0;
+    width: 100%;
 }
 
-/* Texte noir dans le menu */
+/* Texte noir dans le menu quand sticky */
 html.is-red #navbar a {
     color: #000000;
     transition: color 0.3s ease;
