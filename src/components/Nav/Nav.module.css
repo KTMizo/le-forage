@@ -26,6 +26,14 @@
 .navItems a:hover {
     color: #ccc;
 }
+
+/* Quand le menu est sticky (classe is-red active) */
+html.is-red .navItems a {
+    color: #000000;
+}
+html.is-red .navItems a:hover {
+    color: #003b87;
+}
 .navIcon {
     display: none;
     transition: 0.5s ease-in-out;
