@@ -232,8 +232,8 @@ body {
 }
 
 /* Quand html.is-red, on ajoute le fond beige sur tout le header */
-html.is-red #nav-sticky {
-    background-color: #f9f1ea;
+html.is-red #nav-sticky:not(.is-scroll-down) {
+    background-color: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -277,21 +277,80 @@ html.is-red #t-menu button {
     transform: translateY(-7.25rem);
     pointer-events: none;
 }
+
 #nav-sticky {
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 #nav-sticky.is-scroll-down {
-    transform: translateY(-7.25rem);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+
+html.is-red #nav-sticky:not(.is-scroll-down) {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+html.is-red #navbar a {
+    color: #000000;
+    transition: color 0.3s ease;
+}
+
+html.is-red #navbar a:hover {
+    color: #003b87;
+}
+
+html.is-red #hero-logo path {
+    fill: var(--color-red);
+}
+
+html.is-red #t-menu line {
+    stroke: var(--color-white);
+}
+
+html.is-red #t-menu span {
+    color: white;
+}
+
+html.is-red #t-menu span#close {
+    color: var(--color-black);
+}
+
+html.is-red #t-menu button {
+    background-color: var(--color-red);
+}
+
+#t-menu {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#t-menu.is-scroll-down {
+    transform: translateY(-100%);
+    opacity: 0;
     pointer-events: none;
 }
+
 html.is-red #contact-btn a {
     background-color: var(--color-red);
     color: var(--color-white);
 }
+
 html.is-red #contact-btn a:hover {
     background-color: var(--color-red);
     color: var(--color-black);
 }
+
 html.is-red #contact-btn a::before {
     background-color: var(--color-white);
 }
