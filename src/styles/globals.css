@@ -221,10 +221,10 @@ body {
     transform: rotate(90deg) scale(1);
 }
 html.is-red #navbar {
-    border: 1px solid var(--color-red);
-    background-color: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: var(--color-beige);
     & a {
-        color: var(--color-red);
+        color: var(--color-noir);
     }
 }
 
