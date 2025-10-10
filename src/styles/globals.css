@@ -220,19 +220,21 @@ body {
 .t-accordeon-body.is-open svg {
     transform: rotate(90deg) scale(1);
 }
-html.is-red #navbar {
+/* Fond beige sur tout le conteneur sticky */
+html.is-red #nav-sticky {
     background-color: #f9f1ea;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     padding-top: 16px;
     padding-bottom: 16px;
-    border-radius: 0;
 }
 
+/* Texte noir dans le menu */
 html.is-red #navbar a {
     color: #000000;
     transition: color 0.3s ease;
 }
 
+/* Hover bleu sur les liens */
 html.is-red #navbar a:hover {
     color: #003b87;
 }
