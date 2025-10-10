@@ -161,6 +161,7 @@
 }
 
 :global(html.is-red) .logo {
+    transform: scale(1) !important;
     height: 3rem;
     width: 6.25rem;
 }
