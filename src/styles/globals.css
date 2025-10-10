@@ -283,7 +283,7 @@ html.is-red #t-menu button {
 }
 
 #nav-sticky.is-scroll-down {
-    transform: translateY(-100%);
+    transform: translateY(-10rem);
     opacity: 0;
     pointer-events: none;
     background-color: transparent !important;
