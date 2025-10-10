@@ -223,9 +223,15 @@ body {
 html.is-red #navbar {
     border: 1px solid rgba(0, 0, 0, 0.08);
     background-color: var(--color-beige);
-    & a {
-        color: var(--color-noir);
-    }
+}
+
+html.is-red #navbar a {
+    color: var(--color-noir) !important;
+    transition: color 0.3s ease;
+}
+
+html.is-red #navbar a:hover {
+    color: var(--color-bleu) !important;
 }
 
 html.is-red #hero-logo path {
