@@ -159,3 +159,7 @@
         z-index: 1;
     }
 }
+
+:global(html.is-red) .logo {
+    height: 3rem;
+}
