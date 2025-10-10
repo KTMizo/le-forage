@@ -160,3 +160,7 @@
     }
 }
 
+:global(html.is-red) .logo {
+    height: 3rem;
+    width: 6.25rem;
+}
