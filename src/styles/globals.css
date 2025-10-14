@@ -141,7 +141,6 @@ html {
 html,
 body {
     font-family: var(--font-display);
-
     background-color: var(--beige);
 }
 
@@ -191,12 +190,7 @@ body {
     color: var(--color-red);
 }
 .t-accordeon:hover svg.plus {
-    /*transform: rotate(90deg) scale(1);*/
     color: var(--color-bleu);
-}
-.t-accordeon:hover::before {
-    /*transform: scaleX(1);
-    transform-origin: left;*/
 }
 
 .t-accordeon:hover .t-accordeon-head,
@@ -209,7 +203,6 @@ body {
     opacity: 0;
     transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
     padding-bottom: 0rem;
-
     padding-inline: 2rem;
 }
 .t-accordeon-body.is-open {
@@ -221,9 +214,9 @@ body {
     transform: rotate(90deg) scale(1);
 }
 
-/* Par défaut, #nav-sticky reste transparent */
+/* Menu sticky */
 #nav-sticky {
-    transition: transform 5s cubic-bezier(.6, 0, .6, 1);
+    transition: transform 0.5s cubic-bezier(0.6, 0, 0.6, 1);
 }
 
 #nav-sticky.is-scroll-down {
@@ -234,7 +227,6 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0) !important;
 }
 
-/* Quand html.is-red, on ajoute le fond beige sur tout le header */
 html.is-red #nav-sticky:not(.is-scroll-down) {
     background-color: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -252,13 +244,11 @@ html.is-red #nav-sticky:not(.is-scroll-down) {
     }
 }
 
-/* Texte noir dans le menu quand sticky */
 html.is-red #navbar a {
     color: #000000;
     transition: color 0.3s ease;
 }
 
-/* Hover bleu sur les liens */
 html.is-red #navbar a:hover {
     color: #003b87;
 }
@@ -266,51 +256,16 @@ html.is-red #navbar a:hover {
 html.is-red #hero-logo path {
     fill: var(--color-red);
 }
-html.is-red #t-menu line {
-    stroke: var(--color-white);
-}
-html.is-red #t-menu span {
-    color: white;
-}
-html.is-red #t-menu span#close {
-    color: var(--color-black);
-}
-html.is-red #t-menu button {
-    background-color: var(--color-red);
-}
+
+/* Menu hamburger */
 #t-menu {
     transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
 }
+
 #t-menu.is-scroll-down {
-    transform: translateY(-7.25rem);
-    pointer-events: none;
-}
-#nav-sticky {
-    transition: transform 5s 
-cubic-bezier(.6, 0, .6, 1);
-}
-
-
-
-#nav-sticky.is-scroll-down {
     transform: translateY(-5rem);
     opacity: 0;
     pointer-events: none;
-    background-color: transparent !important;
-    border-bottom: none !important;
-}
-
-html.is-red #navbar a {
-    color: #000000;
-    transition: color 0.3s ease;
-}
-
-html.is-red #navbar a:hover {
-    color: #003b87;
-}
-
-html.is-red #hero-logo path {
-    fill: var(--color-red);
 }
 
 html.is-red #t-menu line {
@@ -329,14 +284,15 @@ html.is-red #t-menu button {
     background-color: var(--color-red);
 }
 
-#t-menu {
-   transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+/* Bouton contact */
+#contact-btn {
+    display: none;
 }
 
-#t-menu.is-scroll-down {
-    transform: translateY(-5rem);
-    opacity: 0;
-    pointer-events: none;
+@media (min-width: 768px) {
+    #contact-btn {
+        display: block;
+    }
 }
 
 html.is-red #contact-btn a {
@@ -351,11 +307,4 @@ html.is-red #contact-btn a:hover {
 
 html.is-red #contact-btn a::before {
     background-color: var(--color-white);
-}
-
-#contact-btn {
-    display: none;
-    @media (min-width: 768px) {
-        display: block;
-    }
 }
