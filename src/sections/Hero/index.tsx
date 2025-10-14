@@ -7,21 +7,19 @@ import Button from "@/components/UI/Button";
 import Fore from "@/components/Fore";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 import SplitType from "split-type";
 import Nav from "@/components/Nav";
 
-// Dans votre fichier Hero.tsx
-
-import { HeroData, ButtonVariant } from "@/types/modules/hero"; // Assurez-vous que le chemin est correct
+import { HeroData, ButtonVariant } from "@/types/modules/hero";
 
 interface HeroProps {
   data: HeroData;
 }
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
-  // S'assurer que variant est du bon type
   const buttonVariant = (data?.button?.variant || "outline") as ButtonVariant;
 
   const buttonData = {
@@ -39,8 +37,44 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   const stickyWrapperRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef(null);
 
+  // Fonction de forage (wizz + scroll)
+  const handleDrillClick = () => {
+    const aboutSection = document.getElementById("about");
+    if (!aboutSection) return;
+
+    const scrollDuration = 1200; // 1.2 secondes
+
+    // Vibration continue pendant le scroll
+    const shakeInterval = setInterval(() => {
+      gsap.to(document.body, {
+        x: gsap.utils.random(-15, 15),
+        y: gsap.utils.random(-12, 12),
+        duration: 0.05,
+        ease: "none",
+      });
+    }, 50);
+
+    // Scroll vers la section About
+    gsap.to(window, {
+      scrollTo: {
+        y: aboutSection,
+        offsetY: 0,
+      },
+      duration: scrollDuration / 1000,
+      ease: "power2.inOut",
+      onComplete: () => {
+        clearInterval(shakeInterval);
+        gsap.to(document.body, {
+          x: 0,
+          y: 0,
+          duration: 0.15,
+          ease: "power2.out",
+        });
+      },
+    });
+  };
+
   useEffect(() => {
-    // Vérification de la présence des éléments référencés
     if (
       !titleRef.current ||
       !descriptionRef.current ||
@@ -50,7 +84,6 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       return;
     }
 
-    // Timeline pour les animations
     const tl = gsap.timeline();
 
     // Configuration de SplitType pour le titre
@@ -90,7 +123,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         stagger: 0.1,
         ease: "power4.out",
         delay: 2,
-      },
+      }
     );
 
     // Animation des lignes de description
@@ -107,7 +140,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         stagger: 0.1,
         ease: "power3.out",
       },
-      "-=0.9",
+      "-=0.9"
     );
 
     // Animation du logo au scroll
@@ -152,8 +185,8 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         <div ref={logoRef} className={styles.logo}>
           <svg
             id="hero-logo"
-            width="100%" // Au lieu de "auto"
-            height="100%" // Au lieu de "auto"
+            width="100%"
+            height="100%"
             viewBox="0 0 351 161"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +199,6 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
               d="M56.4893 0H0V160.551H54.1458C58.4383 156.932 63.0509 153.692 67.9332 150.873L81.2016 143.213C76.5715 143.501 66.6093 144.99 56.4893 148.82V128.336C52.2894 129.626 47.9972 130.628 43.6423 131.33C41.7192 131.64 40.4316 129.41 41.6615 127.899C48.9853 118.905 57.8882 111.322 67.9332 105.522L81.2016 97.8617C76.5715 98.15 66.6093 99.639 56.4893 103.469V82.9844C52.2894 84.2753 47.9972 85.277 43.6423 85.9788C41.7192 86.2887 40.4316 84.0584 41.6615 82.5479C48.9853 73.5536 57.8882 65.9705 67.9332 60.171L81.2016 52.5105C76.5715 52.7988 66.6093 54.2878 56.4893 58.1177V37.6335C52.2894 38.9244 47.9972 39.926 43.6423 40.6278C41.7192 40.9377 40.4316 38.7075 41.6615 37.197C48.9853 28.2026 57.8882 20.6196 67.9332 14.8201L81.2016 7.15961C76.5715 7.44788 66.6093 8.9369 56.4893 12.7667V0Z"
               fill="#F9F1EA"
             />
-            {/* Les lettres du logo avec la classe logo-letter */}
             <g className="logo-letter">
               <path
                 d="M329.619 109.531H351V116.659H337.459V129.844H348.221V136.971H337.459V152.295H351V159.422H329.619V109.531Z"
@@ -246,9 +278,13 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             <Fore />
           </div>
           <div className={styles.footer}>
-            <Link href="/" className={styles.tag}>
+            <button
+              onClick={handleDrillClick}
+              className={styles.tag}
+              style={{ background: "none", border: "none", cursor: "pointer" }}
+            >
               [Forer la page]
-            </Link>
+            </button>
           </div>
         </div>
       </section>
