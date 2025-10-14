@@ -247,6 +247,13 @@ html.is-red #nav-sticky:not(.is-scroll-down) {
     width: 100%;
 }
 
+@media (min-width: 768px) {
+    html.is-red #nav-sticky:not(.is-scroll-down) {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+
 /* Texte noir dans le menu quand sticky */
 html.is-red #navbar a {
     color: #000000;
