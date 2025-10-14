@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
 
   // Fonction de forage (wizz + scroll)
   const handleDrillClick = () => {
-    const aboutSection = document.getElementById("about");
+ const aboutSection = document.getElementById("a-propos");
     if (!aboutSection) return;
 
     const scrollDuration = 1200; // 1.2 secondes
