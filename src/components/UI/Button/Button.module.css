@@ -194,7 +194,7 @@ Accent Outline
     content: "";
     position: absolute;
     inset: 0;
-    background-color: var(--noir);
+    background-color: var(--rouge);
     transform: scaleY(0);
     transform-origin: bottom;
     border-radius: var(--border-6);
