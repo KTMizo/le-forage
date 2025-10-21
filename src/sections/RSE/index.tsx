@@ -86,7 +86,7 @@ const RSE = ({ data }: RSEProps) => {
           scrollTrigger: {
             trigger: ref.current,
               start: "bottom bottom",
-              end: "bottom center",
+              end: "bottom 70%",
             scrub: true,
             toggleActions: "play none none reverse",
           },
