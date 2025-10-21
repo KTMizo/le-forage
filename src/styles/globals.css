@@ -308,10 +308,3 @@ html.is-red #contact-btn a:hover {
 html.is-red #contact-btn a::before {
     background-color: var(--color-white);
 }
-
-/* Hover rouge pour bouton footer */
-footer .bg-beige button:hover,
-footer .bg-beige a:hover {
-    background-color: var(--rouge) !important;
-    border-color: var(--rouge) !important;
-}
