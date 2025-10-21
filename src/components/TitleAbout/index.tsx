@@ -58,7 +58,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
           ease: "power4.out",
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top center",
+            start: "bottom bottom",
             end: "bottom center",
             id: "animation 1",
             scrub: true,
@@ -83,7 +83,7 @@ const TitleAbout: React.FC<TitleAboutData> = ({
           },
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top center",
+            start: "bottom bottom",
             end: "bottom center",
             scrub: true,
             toggleActions: "play none none reverse",

@@ -49,7 +49,7 @@ const RSE = ({ data }: RSEProps) => {
         ease: "power4.out",
         scrollTrigger: {
           trigger: tagTitleRef.current,
-          start: "top 80%",
+          start: "bottom bottom",
           once: true,
         },
       },
@@ -85,8 +85,8 @@ const RSE = ({ data }: RSEProps) => {
           },
           scrollTrigger: {
             trigger: ref.current,
-            start: "top center",
-            end: "bottom center",
+              start: "bottom bottom",
+              end: "bottom center",
             scrub: true,
             toggleActions: "play none none reverse",
           },
