@@ -78,7 +78,7 @@ const FooterCards: React.FC<FooterCardsProps> = ({ title, button }) => {
         <div className="col-span-6  grid lg:flex gap-8 pl-12 lg:pl-37 col-start-1">
      <Button
   variant={button.variant}
-  href="contact@leforage.fr"
+  href="mailto:contact@leforage.fr"
   showArrow={button.showArrow}
 >
   {button.text}

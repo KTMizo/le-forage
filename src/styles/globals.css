@@ -310,8 +310,8 @@ html.is-red #contact-btn a::before {
 }
 
 /* Hover rouge pour bouton footer */
-footer button:hover,
-footer a[href^="mailto"]:hover {
+footer .bg-beige button:hover,
+footer .bg-beige a:hover {
     background-color: var(--rouge) !important;
-    color: var(--beige) !important;
+    border-color: var(--rouge) !important;
 }
