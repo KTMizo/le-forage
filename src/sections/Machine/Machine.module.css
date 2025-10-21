@@ -240,7 +240,7 @@
     }
 
     .navigation {
-        top: 25%;
+        top: 1rem;
         bottom: auto;
         transform: translateX(-50%);
     }
