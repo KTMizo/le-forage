@@ -121,3 +121,14 @@ Responsive
 
 @media screen and (max-width: 480px) {
 }
+
+/* Hover rouge pour les boutons dans le footer */
+:global(.bg-red) .corner ~ div button,
+:global(.bg-red) a[href^="mailto"] {
+    transition: all 0.3s ease;
+}
+
+:global(.bg-red) .corner ~ div button:hover {
+    background-color: var(--rouge) !important;
+    color: var(--beige) !important;
+}

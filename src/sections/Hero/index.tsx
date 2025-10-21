@@ -239,7 +239,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           <Nav />
         </div>
         <div id="contact-btn" className={styles.contact}>
-          <Button variant="primary" href="mailto:bonjour@antoinepiney.fr">
+          <Button variant="primary" href="mailto:contact@leforage.fr">
             Nous contacter
           </Button>
         </div>
