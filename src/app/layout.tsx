@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export const metadata = {
   title: "Le Forage : Spécialistes en Sondage Géotechnique",
@@ -18,6 +19,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+        <head>
+        <GoogleAnalytics />
+      </head>
         <LenisProvider>
           <Loader />
           {children}
