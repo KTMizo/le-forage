@@ -1,119 +1,64 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+import React, { useEffect, useRef, useState } from "react";
 import type { TitleAboutData } from "@/types/modules/titleAbout";
-
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(SplitText);
 
 const TitleAbout: React.FC<TitleAboutData> = ({
   subtitle,
   highlight,
   mainText,
 }) => {
-  const subtitleRef = useRef<HTMLHeadingElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!subtitleRef.current || !titleRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    const splitSubtitle = SplitText.create(subtitleRef.current, {
-      type: "lines,words",
-      //mask: "lines",
-      wordsClass: "inline!",
-      linesClass: "inline!", // adds extra wrapper element around lines with overflow: clip (v3.13.0+)
-    });
-
-    const splitTitle = SplitText.create(".textrnormal", {
-      type: "lines,words",
-      //mask: "lines",
-      wordsClass: "inline!",
-      linesClass: "inline!", // adds extra wrapper element around lines with overflow: clip (v3.13.0+)
-    });
-    const splitTitleRed = SplitText.create(".textred", {
-      type: "lines,words",
-      wordsClass: "inline!",
-      linesClass: "inline!",
-      //mask: "lines", // adds extra wrapper element around lines with overflow: clip (v3.13.0+)
-      //linesClass: "indent-0", // adds extra wrapper element around lines with overflow: clip (v3.13.0+)
-    });
-    console.log(splitSubtitle);
-
-    // Attendre que les éléments soient dans le DOM
-    // THOMAS
-    requestAnimationFrame(() => {
-      // Animation du sous-titre
-      gsap.fromTo(
-        splitSubtitle.words,
-        {
-          opacity: 0.2,
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "bottom bottom",
-            end: "bottom 70%",
-            id: "animation 1",
-            scrub: true,
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-
-      // THOMAS
-      // Animation de l'opacité du texte principal au scroll
-      gsap.fromTo(
-        [splitTitle.words, splitTitleRed.words],
-        {
-          opacity: 0.2,
-        },
-        {
-          opacity: 1,
-          stagger: {
-            each: 0.1,
-            amount: 1,
-            from: "random",
-          },
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "bottom bottom",
-            end: "bottom 70%",
-            scrub: true,
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    });
+    const currentRef = containerRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
 
     return () => {
-      //splitTitle.revert();
-      //ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
     };
   }, []);
 
   return (
-    <div className="grid gap-y-8 lg:grid-cols-[auto_1fr] lg:gap-x-40">
-      <h3
-        ref={subtitleRef}
-        className="text-tag   lg:text-desk-tag uppercase font-bebas text-bleu"
-      >
+    <div 
+      ref={containerRef}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transition: 'opacity 300ms ease-out'
+      }}
+    >
+      <h2 style={{ 
+        color: 'var(--bleu)', 
+        fontSize: '20px', 
+        fontFamily: 'bebas_neueregular', 
+        textTransform: 'uppercase',
+        marginBottom: '1rem'
+      }}>
         {subtitle}
-      </h3>
-      <h2
-        id="test"
-        ref={titleRef}
-        className="text-black  font-articulate text-m lg:text-desk-m lg:indent-[9.375rem] lg:max-w-657"
-      >
-        <span className="text-red textred inline">{highlight}&nbsp;</span>
-        <span className="textrnormal inline"> {mainText}</span>
       </h2>
+      <h1 style={{ 
+        fontSize: 'clamp(32px, 5vw, 48px)', 
+        lineHeight: '1.2',
+        margin: 0
+      }}>
+        <span style={{ color: 'var(--rouge)' }}>{highlight}</span>{' '}
+        <span style={{ color: 'var(--noir)' }}>{mainText}</span>
+      </h1>
     </div>
   );
 };
