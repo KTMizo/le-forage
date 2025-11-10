@@ -69,6 +69,22 @@
     align-items: flex-start;
     flex-direction: column;
     overflow: hidden; /* Pour masquer le débordement des animations */
+  }  .description {
+    text-align: left !important;
+    width: 100%;
+  }
+  
+  .title {
+    text-align: left !important;
+  }
+  
+  .content {
+    width: 100%;
+  }
+  
+  .cardTitle {
+    width: 100%;
+    align-items: flex-start;
   }
 }
 @media screen and (max-width: 480px) {
@@ -78,5 +94,22 @@
     align-items: flex-start;
     flex-direction: column;
     overflow: hidden; /* Pour masquer le débordement des animations */
+  }
+  .description {
+    text-align: left !important;
+    width: 100%;
+  }
+  
+  .title {
+    text-align: left !important;
+  }
+  
+  .content {
+    width: 100%;
+  }
+  
+  .cardTitle {
+    width: 100%;
+    align-items: flex-start;
   }
 }
