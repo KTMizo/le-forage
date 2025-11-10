@@ -52,12 +52,18 @@
 .description {
   color: #374151;
   overflow: hidden; /* Pour masquer le débordement des animations */
+  text-align: left;
 }
 
 /* Styles pour les lignes animées */
 .animatedLine {
   display: block;
   overflow: hidden;
+  text-align: left !important;
+}
+
+.animatedLine > * {
+  text-align: left !important;
 }
 
 @media screen and (max-width: 1024px) {
@@ -68,25 +74,36 @@
     padding: 16px 0;
     align-items: flex-start;
     flex-direction: column;
-    overflow: hidden; /* Pour masquer le débordement des animations */
-  }  .description {
-    text-align: left !important;
-    width: 100%;
+    overflow: hidden;
   }
   
-  .title {
-    text-align: left !important;
+  .cardTitle {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
   }
   
   .content {
     width: 100%;
   }
   
-  .cardTitle {
+  .description {
+    text-align: left !important;
     width: 100%;
-    align-items: flex-start;
+  }
+  
+  /* IMPORTANT : Force l'alignement des lignes animées sur mobile */
+  .animatedLine {
+    text-align: left !important;
+    display: block;
+    width: 100%;
+  }
+  
+  .animatedLine > * {
+    text-align: left !important;
   }
 }
+
 @media screen and (max-width: 480px) {
   .card {
     gap: 16px;
