@@ -1,3 +1,4 @@
+/* AboutCards.module.css */
 .card {
   height: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -6,7 +7,7 @@
   align-items: center;
   gap: 1.5rem;
   padding: 2.5rem 0;
-  overflow: hidden; /* Pour masquer le débordement des animations */
+  overflow: hidden;
 }
 
 .cardTitle {
@@ -36,7 +37,7 @@
 
 .content {
   flex: 1;
-  overflow: hidden; /* Pour masquer le débordement des animations */
+  overflow: hidden;
 }
 
 .title {
@@ -46,28 +47,52 @@
   font-size: 20px;
   font-weight: 200;
   text-transform: uppercase;
-  overflow: hidden; /* Pour masquer le débordement des animations */
+  overflow: hidden;
 }
 
 .description {
   color: #374151;
-  overflow: hidden; /* Pour masquer le débordement des animations */
+  overflow: hidden;
   text-align: left;
+  width: 100%;
 }
 
-/* Styles pour les lignes animées */
+/* IMPORTANT: Styles pour les lignes animées créées par SplitType */
 .animatedLine {
-  display: block;
+  display: block !important;
   overflow: hidden;
   text-align: left !important;
+  width: 100% !important;
+  /* Reset des marges et paddings qui pourraient causer des décalages */
+  margin: 0 !important;
+  padding: 0 !important;
+  /* Force l'alignement du contenu */
+  justify-content: flex-start !important;
 }
 
-.animatedLine > * {
+/* Force l'alignement sur tous les éléments enfants */
+.animatedLine * {
   text-align: left !important;
+}
+
+/* Pour s'assurer que les paragraphes gardent leur style */
+.description .animatedLine {
+  line-height: 1.6;
+  margin-bottom: 0.2rem;
 }
 
 @media screen and (max-width: 1024px) {
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .cardTitle {
+    width: 100%;
+    align-items: flex-start;
+  }
 }
+
 @media screen and (max-width: 768px) {
   .card {
     gap: 16px;
@@ -81,26 +106,51 @@
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
   }
   
   .content {
+    width: 100%;
+    padding-left: 0; /* Reset du padding */
+  }
+  
+  .title {
+    text-align: left !important;
     width: 100%;
   }
   
   .description {
     text-align: left !important;
     width: 100%;
+    padding: 0; /* Reset du padding */
+    margin: 0; /* Reset de la marge */
   }
   
-  /* IMPORTANT : Force l'alignement des lignes animées sur mobile */
+  /* CRITIQUE: Force l'alignement des lignes SplitType sur mobile */
   .animatedLine {
+    display: block !important;
     text-align: left !important;
-    display: block;
-    width: 100%;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    /* Force le contenu à commencer au début */
+    text-indent: 0 !important;
+    white-space: normal !important;
   }
   
+  /* S'assure que le texte dans les lignes animées est aligné à gauche */
+  .description .animatedLine {
+    text-align: left !important;
+    padding-left: 0 !important;
+    text-indent: 0 !important;
+  }
+  
+  /* Force l'alignement même sur les éléments inline créés par SplitType */
   .animatedLine > * {
     text-align: left !important;
+    display: inline !important;
   }
 }
 
@@ -110,23 +160,62 @@
     padding: 16px 0;
     align-items: flex-start;
     flex-direction: column;
-    overflow: hidden; /* Pour masquer le débordement des animations */
-  }
-  .description {
-    text-align: left !important;
-    width: 100%;
-  }
-  
-  .title {
-    text-align: left !important;
-  }
-  
-  .content {
-    width: 100%;
+    overflow: hidden;
   }
   
   .cardTitle {
     width: 100%;
+    flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .iconContainer {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .content {
+    width: 100%;
+    padding-left: 0;
+  }
+  
+  .title {
+    text-align: left !important;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .description {
+    text-align: left !important;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .animatedLine {
+    display: block !important;
+    text-align: left !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-indent: 0 !important;
+    white-space: normal !important;
+  }
+  
+  .description .animatedLine {
+    text-align: left !important;
+    padding-left: 0 !important;
+    text-indent: 0 !important;
+    margin-bottom: 0.3rem;
+  }
+  
+  .animatedLine > * {
+    text-align: left !important;
+    display: inline !important;
   }
 }
