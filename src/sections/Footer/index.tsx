@@ -1,4 +1,4 @@
-// components/Footer/index.tsx
+"use client";
 import React from "react";
 import styles from "./Footer.module.css";
 import FooterCards from "@/components/Cards/FooterCards/FooterCards";
@@ -11,7 +11,13 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
 
   const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // @ts-ignore
+    if (window.lenis) {
+      // @ts-ignore
+      window.lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -20,7 +26,7 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
         <Fore />
       </div>
 
-      <div className="grid gap-y-15  lg:gap-y-40">
+      <div className="grid gap-y-15 lg:gap-y-40">
         <FooterCards title={footer_card.title} button={footer_card.button} />
         <div className="grid gap-y-12 text-center lg:flex lg:items-center lg:justify-between lg:max-w-657">
           <div className="flex justify-center gap-x-8 lg:gap-x-12 lg:order-1">
@@ -32,10 +38,9 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
             </div>
           </div>
           
-          {/* Nouveau bouton centré */}
           <div className="flex justify-center lg:order-2">
             <a 
-              href="#" 
+              href="#top" 
               onClick={handleScrollToTop}
               className={styles.scrollToTopBtn}
             >
