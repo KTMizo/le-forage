@@ -26,14 +26,10 @@ const AboutSkill = ({ iconSrc, title, description }: CardProps) => {
     );
 
     const currentRef = cardRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 

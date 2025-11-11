@@ -23,42 +23,29 @@ const TitleAbout: React.FC<TitleAboutData> = ({
     );
 
     const currentRef = containerRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
   return (
-    <div 
-      ref={containerRef}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transition: 'opacity 300ms ease-out'
-      }}
-    >
-      <h2 style={{ 
-        color: 'var(--bleu)', 
-        fontSize: '20px', 
-        fontFamily: 'bebas_neueregular', 
-        textTransform: 'uppercase',
-        marginBottom: '1rem'
-      }}>
+    <div className="grid gap-y-8 lg:grid-cols-[auto_1fr] lg:gap-x-40">
+      <h3
+        className="text-tag lg:text-desk-tag uppercase font-bebas text-bleu"
+        style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 300ms ease-out' }}
+      >
         {subtitle}
+      </h3>
+      <h2
+        ref={containerRef}
+        className="text-black font-articulate text-m lg:text-desk-m lg:indent-[9.375rem] lg:max-w-657"
+        style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 300ms ease-out' }}
+      >
+        <span className="text-red inline">{highlight}&nbsp;</span>
+        <span className="inline">{mainText}</span>
       </h2>
-      <h1 style={{ 
-        fontSize: 'clamp(32px, 5vw, 48px)', 
-        lineHeight: '1.2',
-        margin: 0
-      }}>
-        <span style={{ color: 'var(--rouge)' }}>{highlight}</span>{' '}
-        <span style={{ color: 'var(--noir)' }}>{mainText}</span>
-      </h1>
     </div>
   );
 };
