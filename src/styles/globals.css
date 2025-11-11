@@ -180,8 +180,8 @@ body {
     z-index: 0;
 }
 .t-accordeon svg {
-    position: relative;
-    transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+   position: relative;
+    transition: color 0.3s ease;
     color: var(--bleu);
 }
 
@@ -194,7 +194,7 @@ body {
 
 .t-accordeon:hover .t-accordeon-head,
 .t-accordeon.is-open .t-accordeon-head {
-    @apply px-16 text-bleu;
+    @apply text-bleu;
 }
 
 .t-accordeon-body {
