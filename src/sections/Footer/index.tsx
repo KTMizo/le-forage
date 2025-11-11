@@ -9,17 +9,6 @@ import { Footer as FooterType } from "@/types/modules/footer";
 const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
   const { footer_card, footer_info } = data;
 
-  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    // @ts-ignore
-    if (window.lenis) {
-      // @ts-ignore
-      window.lenis.scrollTo(0, { duration: 1.2 });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   return (
     <footer className="py-19 px-8 bg-red relative lg:py-50 lg:px-40">
       <div className={styles.pattern}>
@@ -39,13 +28,9 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
           </div>
           
           <div className="flex justify-center lg:order-2">
-            <a 
-              href="#top" 
-              onClick={handleScrollToTop}
-              className={styles.scrollToTopBtn}
-            >
+            <Link href="#top" className={styles.scrollToTopBtn}>
               [Forer la page]
-            </a>
+            </Link>
           </div>
 
           <div className="flex justify-center gap-x-8 lg:gap-x-12 lg:order-3">
