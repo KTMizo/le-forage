@@ -406,6 +406,9 @@ export default function TServices({ data }: ServicesProps) {
                       } col-span-full  gap-y-12 items-start content-start row-span-full grid-cols-8 grid gap-x-8`}
                       key={`${question.question.replaceAll(" ", "")}-${id}`}
                     >
+                        <h3 className="col-span-full text-xl text-red font-articulate" style={{ marginTop: '2rem' }}>
+    {item.title}
+  </h3>
                       {question?.image ? (
                         <figure className="col-start-1 col-span-4">
                           <Image
