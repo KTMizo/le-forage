@@ -1,3 +1,4 @@
+
 .container {
     width: 100%;
     margin: 0 auto;
@@ -24,15 +25,6 @@
     z-index: 0;
 }
 
-.questionItem:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-.questionItem:hover {
-    padding: 0rem 2rem;
-}
-
 .questionItem.hasOpenAnswer {
     background-color: var(--blanc);
     padding: 2rem 2rem;
@@ -42,7 +34,6 @@
     position: relative;
     width: 100%;
     padding: 2rem 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -58,13 +49,7 @@
     color: var(--noir);
     overflow: hidden;
     display: block;
-    transition:
-        transform 0.5s cubic-bezier(0.7, 0, 0.2, 1),
-        color 0.3s ease;
-}
-
-.questionItem:hover .questionText {
-    transform: translateX(10px);
+    transition: color 0.3s ease;
 }
 
 .questionItem.hasOpenAnswer .questionText {
@@ -81,11 +66,6 @@
     position: relative;
     transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
     color: var(--rouge);
-    transform: scale(1);
-}
-
-.questionItem:hover .toggleIcon {
-    transform: rotate(90deg) scale(1);
 }
 
 .toggleIcon.open {
@@ -99,7 +79,6 @@
     display: block;
 }
 
-/* Style pour l'affichage inline */
 .answer {
     position: relative;
     max-height: 0;
@@ -117,7 +96,6 @@
     opacity: 1;
 }
 
-/* Style pour le modal */
 .modal {
     padding: 140px 80px 140px 80px;
     position: fixed;
@@ -152,86 +130,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s ease;
-}
-
-.closeButton:hover {
-    color: var(--rouge);
-}
-
-.animatedLine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.1);
-    transform-origin: left;
-    z-index: 999999;
-}
-
-.animated-line {
-    overflow: hidden;
-    display: block;
-}
-
-.animated-line > div {
-    position: relative;
-    overflow: hidden;
-}
-
-@media screen and (max-width: 768px) {
-    .modal {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .modal {
-        padding: 0;
-    }
-}
-
-/* Ajouter à la fin de src/components/ListAsk/Ask.module.css */
-
-.modalImage {
-  width: 100%;
-  max-width: 600px;
-  margin: 1.5rem 0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.modalImage img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.modalText {
-  margin: 1.5rem 0;
-  line-height: 1.6;
-  color: var(--noir);
-}
-
-.modalText p {
-  margin-bottom: 1rem;
-}
-
-.modalText h3,
-.modalText h4 {
-  color: var(--bleu);
-  margin: 1.5rem 0 1rem 0;
-}
-
-.modalText ul,
-.modalText ol {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-}
-
-.modalText li {
-  margin-bottom: 0.5rem;
 }
 
 /* Responsive pour mobile */
@@ -246,3 +144,5 @@
     margin: 1rem 0;
   }
 }
+
+

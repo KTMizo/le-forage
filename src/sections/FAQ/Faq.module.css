@@ -3,7 +3,6 @@
     flex-direction: row;
     padding: 120px 80px;
     width: 100%;
-    min-height: 90vh;
     gap: 168px;
     background-color: var(--beige);
 }
@@ -29,10 +28,14 @@
 }
 
 .imageWrapper {
-    position: relative;
-    width: 100%; /* Utilise maintenant toute la largeur disponible */
-    min-height: 500px;
+    position: sticky;
+    top: 120px;
+    width: 100%;
+    height: fit-content;
     flex: 1;
+    min-height: 500px;
+    overflow: hidden;
+    min-width: 21.5rem;
 }
 
 .faqList {
@@ -40,13 +43,6 @@
     flex-direction: column;
     justify-content: flex-end;
     width: 100%;
-}
-
-/* Ajoutez ces styles à votre Faq.module.css */
-
-/* Animation du titre */
-.subtitle h2 {
-    overflow: hidden;
 }
 
 .animated-line {
@@ -59,19 +55,9 @@
     overflow: hidden;
 }
 
-/* Animation de l'image */
-.imageWrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    flex: none;
-    min-width: 21.5rem;
-}
-
 .image {
     clip-path: inset(0 100% 0 0);
     aspect-ratio: 344/100;
-
     transition: clip-path 1.5s cubic-bezier(0.6, 0, 0.3, 0.9);
 }
 
@@ -88,11 +74,12 @@
     }
 
     .faqContent {
-        width: 100%; /* Prend toute la largeur en mobile */
+        width: 100%;
         padding: 0 0 3.5rem 0;
     }
 
     .imageWrapper {
+        position: relative;
         min-height: 500px;
     }
 }
