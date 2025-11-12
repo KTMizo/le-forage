@@ -36,7 +36,6 @@ async function getPageData(slug: string) {
     const endpoints = [
       `${WP_API_URL}/pages?slug=${slug}`,
       `${WP_API_URL}/posts?slug=${slug}`,
-      `${WP_API_URL}/${slug}`,
     ];
 
     let data = null;
@@ -78,15 +77,17 @@ async function getPageData(slug: string) {
   }
 }
 
-// 2. Modifier la fonction fetchFromAPI pour gérer les erreurs plus gracieusement
 async function fetchFromAPI(endpoint: string) {
   try {
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    // Ajout conditionnel du token uniquement s’il existe
+    if (process.env.WP_API_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.WP_API_TOKEN}`;
+    }
+
     const res = await fetch(endpoint, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${process.env.WP_API_TOKEN}`,
-        "Content-Type": "application/json",
-      },
+      headers,
       next: { revalidate: 10 },
     });
 
