@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60 * 60;
 
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button";
