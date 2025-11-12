@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button";
 import Nav from "@/components/Nav";
