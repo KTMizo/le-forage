@@ -1,3 +1,7 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+
 // app/mentions-legales/page.tsx
 import { Metadata } from "next";
 import Link from "next/link";
