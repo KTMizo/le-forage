@@ -41,7 +41,6 @@ import {
 } from "@/lib/api";
 import TFAQ from "@/sections/t-faq";
 
-export const revalidate = 10;
 
 // Créer des valeurs par défaut typées
 const defaultHeroData: HeroData = {
