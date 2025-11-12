@@ -182,7 +182,7 @@
         gap: 1.5rem;
     }
     .securityCards {
-        display: flex;
+        display: grid;
         flex-direction: column;
         gap: 1.125rem;
     }
@@ -190,7 +190,7 @@
         gap: 1.5rem;
     }
     .qualificationsCards {
-        display: flex;
+        display: grid;
         flex-direction: column;
         gap: 1.125rem;
     }
