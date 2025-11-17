@@ -8,7 +8,6 @@ import type { RSEModules, RSECard } from "@/types/modules/rse";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import { SplitText } from "gsap/SplitText";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -62,42 +61,24 @@ const RSE = ({ data }: RSEProps) => {
     elements.forEach(({ ref }) => {
       if (!ref.current) return;
 
-      const splitText = SplitText.create(ref.current, {
-        type: "lines,words",
-        //mask: "lines",
-        wordsClass: "inline!",
-        linesClass: "inline!", // adds extra wrapper element around lines with overflow: clip (v3.13.0+)
-      });
-
-      // THOMAS
       // Animation d'opacité au scroll
       gsap.fromTo(
-        splitText.words,
+        ref.current,
         {
-          opacity: 0.2,
+          opacity: 0,
         },
         {
           opacity: 1,
-          stagger: {
-            each: 0.1,
-            amount: 1,
-            from: "random",
-          },
+          duration: 1,
           scrollTrigger: {
             trigger: ref.current,
-              start: "bottom bottom",
-              end: "bottom 70%",
+            start: "bottom bottom",
+            end: "bottom 70%",
             scrub: true,
             toggleActions: "play none none reverse",
           },
         },
       );
-
-      // Cleanup
-      return () => {
-        //splitText.revert();
-        //ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      };
     });
 
     return () => {

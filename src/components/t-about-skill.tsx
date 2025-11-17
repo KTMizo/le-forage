@@ -1,5 +1,4 @@
 import Image from "next/image";
-import SplitType from "split-type";
 import React, { useRef, useEffect } from "react";
 
 import gsap from "gsap";
@@ -22,30 +21,34 @@ export default function TAboutSkill({
     if (!titleRef.current || !descriptionRef.current || !cardRef.current)
       return;
 
-    // Split le texte du titre
-    const splitTitle = new SplitType(titleRef.current, {
-      types: "lines",
-      lineClass: "overflow-hidden inline-block",
-    });
-
-    // Split le texte de la description
-    const splitDescription = new SplitType(descriptionRef.current, {
-      types: "lines",
-      lineClass: "overflow-hidden inline-block",
-    });
-
-    // Animation pour le titre et la description
+    // Animation d'opacité pour le titre
     gsap.fromTo(
-      cardRef.current.querySelectorAll(`.overflow-hidden.inline-block`),
+      titleRef.current,
       {
-        y: 100,
         opacity: 0,
       },
       {
-        y: 0,
         opacity: 1,
         duration: 1,
-        stagger: 0.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: "top 90%",
+          once: true,
+        },
+      },
+    );
+
+    // Animation d'opacité pour la description
+    gsap.fromTo(
+      descriptionRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 0.1,
         ease: "power4.out",
         scrollTrigger: {
           trigger: cardRef.current,
@@ -56,8 +59,6 @@ export default function TAboutSkill({
     );
 
     return () => {
-      splitTitle.revert();
-      splitDescription.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
