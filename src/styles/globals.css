@@ -135,8 +135,7 @@ html {
 
 :root {
     overscroll-behavior: none;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 
 html,
