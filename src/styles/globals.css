@@ -135,7 +135,7 @@ html {
 
 :root {
     overscroll-behavior: none;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 html,
@@ -159,12 +159,10 @@ body {
 .t-accordeon {
     position: relative;
     transition: all 0.5s cubic-bezier(0.31, 0.2, 0, 1);
-    overflow: hidden;
 }
 .t-accordeon-head {
     position: relative;
     transition: all 0.5s cubic-bezier(0.31, 0.2, 0, 1);
-    overflow: hidden;
 }
 .t-accordeon::before {
     content: "";
