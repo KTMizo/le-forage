@@ -70,12 +70,11 @@ const RSE = ({ data }: RSEProps) => {
         {
           opacity: 1,
           duration: 1,
+          ease: "power4.out",
           scrollTrigger: {
             trigger: ref.current,
-            start: "bottom bottom",
-            end: "bottom 70%",
-            scrub: true,
-            toggleActions: "play none none reverse",
+            start: "top 90%",
+            once: true,
           },
         },
       );
