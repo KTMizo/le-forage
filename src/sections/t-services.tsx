@@ -307,7 +307,7 @@ export default function TServices({ data }: ServicesProps) {
       </div>
       <div
         id="popin-question"
-        className={`${popinOpen ? "grid" : "hidden"} fixed top-0   left-0 bg-white w-full h-[100svh] z-100 overflow-hidden gap-x-4 py-16 `}
+        className={`${popinOpen ? "grid" : "hidden"} fixed top-0   left-0 bg-white w-full h-[100svh] z-100 overflow-y-auto gap-x-4 py-16 lg:overflow-hidden`}
       >
         <button
           onClick={() => handlePopinClick(`null`)}
@@ -328,8 +328,8 @@ export default function TServices({ data }: ServicesProps) {
           </svg>
         </button>
 
-        <div className="grid col-span-full row-span-full px-8">
-          <div className="absolute bottom-20 left-8  self-end z-20 ">
+        <div className="grid col-span-full lg:row-span-full px-8 pb-42 lg:pb-0">
+          <div className="absolute bottom-8 left-8 lg:bottom-20 self-end z-20 ">
             <button
               onClick={() => handlePrevMobile()}
               className="p-8 cursor-pointer bg-bleu"
