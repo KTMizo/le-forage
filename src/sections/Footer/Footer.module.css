@@ -71,14 +71,17 @@
 }
 
 .scrollToTopBtn {
-    font-weight: 200;
-    font-size: 1rem;
-    text-decoration: none;
-    color: var(--beige);
-    cursor: pointer;
+    color: var(--blanc);
     font-family: "bebas";
     text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
     transition: transform 0.3s ease;
+    padding: 10px 10px 20px;
+    background: none;
+    border: none;
 }
 
 .scrollToTopBtn:hover {
@@ -119,6 +122,6 @@
     }
     
     .scrollToTopBtn {
-        font-size: 0.75rem;
+        padding: 8px 8px 16px;
     }
 }
