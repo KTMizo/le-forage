@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/admin/"],
+      disallow: ["/api/"],
     },
-    sitemap: "https://le-forage.vercel.app/sitemap.xml",
+    sitemap: "https://www.leforage.fr/sitemap.xml",
   };
 }

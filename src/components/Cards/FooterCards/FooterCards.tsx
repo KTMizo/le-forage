@@ -83,7 +83,12 @@ const FooterCards: React.FC<FooterCardsProps> = ({ title, button }) => {
 >
   {button.text}
 </Button>
-<Button variant="blue" href="https://share.google/1bkRVXJnEzysTFXns" showMap={button.showArrow}>
+<Button
+            variant="blue"
+            href="https://share.google/1bkRVXJnEzysTFXns"
+            target="_blank"
+            showMap={button.showArrow}
+          >
   Notre adresse
 </Button>
         </div>

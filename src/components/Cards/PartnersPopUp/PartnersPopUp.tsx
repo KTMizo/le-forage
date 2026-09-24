@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import styles from "./PartnersPopUp.module.css";
+import CloseIcon from "@/components/UI/CloseIcon";
 
 interface PartnersPopUpProps {
   isOpen: boolean;
@@ -61,13 +62,13 @@ export default function PartnersPopUp({
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay} onClick={onClose} data-lenis-prevent>
       <div className={styles.popup} onClick={handlePopupClick}>
         <button
-          className={styles.closeButton}
+          className={`t-close ${styles.closeButton}`}
           onClick={onClose}
           aria-label="Fermer">
-          ×
+          <CloseIcon />
         </button>
 
         <div className={styles.contentWrapper}>

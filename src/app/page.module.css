@@ -11,7 +11,7 @@
     position: fixed;
     top: 2.5rem; /* 40px */
     right: 5rem; /* 80px */
-    z-index: 99; /* Pour s'assurer que le bouton reste au-dessus des autres éléments */
+    z-index: 1001; /* Au-dessus de la barre de progression (1000) */
     @media screen and (min-width: 48rem) {
         display: none;
     }

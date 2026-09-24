@@ -15,10 +15,3 @@ export interface FaqItem {
 export interface FaqSectionProps {
   data: FaqData;
 }
-
-export interface ListAskProps {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  onToggle: () => void;
-}

@@ -2,6 +2,8 @@
 
 import { ReactNode, useEffect } from "react";
 import Lenis from "lenis";
+// CSS officiel : bloque le scroll natif quand Lenis est stoppé (menu, popins)
+import "lenis/dist/lenis.css";
 import { usePathname } from "next/navigation";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
@@ -32,6 +34,8 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
+      // Liens d'ancre (#faq, #rse…) : scroll fluide géré par Lenis
+      anchors: true,
     });
     //@ts-ignore
     window.lenis = lenis;
