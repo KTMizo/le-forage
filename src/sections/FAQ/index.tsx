@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Faq.module.css";
 import ListAsk from "@/components/ListAsk";
-import { FaqSectionProps, ACFFaqItem } from "@/types/modules/faq";
+import { FaqSectionProps, FaqItem } from "@/types/modules/faq";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-interface FaqItemWithState extends ACFFaqItem {
+interface FaqItemWithState extends FaqItem {
   isOpen: boolean;
 }
 

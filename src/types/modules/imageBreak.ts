@@ -1,5 +1,4 @@
 // types/modules/imageBreak.ts
-import type { WordPressACF } from "@/types/wordpress";
 
 export interface ImageBreakParams {
   quality: number;
@@ -22,12 +21,6 @@ export interface ImageBreakData {
 }
 
 export interface ImageBreakSection {
-  hero_about_break: ImageBreakData;
-  services_rse_break: ImageBreakData;
-}
-
-// Types pour l'ACF
-export interface ImageBreakACF extends WordPressACF {
   hero_about_break: ImageBreakData;
   services_rse_break: ImageBreakData;
 }

@@ -1,5 +1,4 @@
 // types/modules/services.ts
-import type { WordPressACF } from "@/types/wordpress";
 
 export interface ServiceImage {
   ID: number;
@@ -24,12 +23,6 @@ export interface Service {
 }
 
 export interface ServicesSection {
-  services_title: string;
-  services: Service[];
-}
-
-// Types pour l'ACF
-export interface ServicesACF extends WordPressACF {
   services_title: string;
   services: Service[];
 }

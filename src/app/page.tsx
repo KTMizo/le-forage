@@ -25,19 +25,19 @@ import type { Machine as MachineType } from "@/types/modules/machine";
 import type { ServicesSection } from "@/types/modules/services";
 import type { ImageBreakSection } from "@/types/modules/imageBreak";
 import type { Footer as FooterType } from "@/types/modules/footer";
-import type { ACFFaqFields } from "@/types/modules/faq";
+import type { FaqData } from "@/types/modules/faq";
 
 import {
   getHeroData,
   getTitleAboutData,
   getAboutData,
-  getRSEData,
+  getRSERelatedData,
   getMachineData,
   getServicesData,
   getImageBreakData,
   getFooterData,
   getFaqData,
-} from "@/lib/cms";
+} from "@/lib/prismic";
 import TFAQ from "@/sections/t-faq";
 
 
@@ -97,7 +97,7 @@ const defaultFooterData: FooterType = {
   footer_info: { company: "", legal_links: [] },
 };
 
-const defaultFaqData: ACFFaqFields = {
+const defaultFaqData: FaqData = {
   faq_title: "",
   faq_cover_image: "",
   faq_items: [],
@@ -120,7 +120,7 @@ export default async function Home() {
     fetchWithFallback(getHeroData, defaultHeroData),
     fetchWithFallback(getTitleAboutData, defaultTitleAboutData),
     fetchWithFallback(getAboutData, defaultAboutData),
-    fetchWithFallback(getRSEData, defaultRSEData),
+    fetchWithFallback(getRSERelatedData, defaultRSEData),
     fetchWithFallback(getMachineData, defaultMachineData),
     fetchWithFallback(getServicesData, defaultServicesData),
     fetchWithFallback(getImageBreakData, defaultImageBreakData),

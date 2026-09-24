@@ -1,6 +1,5 @@
-// Source de contenu Prismic.
-// Chaque fonction renvoie exactement la même forme de données que son
-// équivalent WordPress dans src/lib/api.ts : les composants ne changent pas.
+// Contenu du site, lu dans Prismic (repository le-forage).
+// Chaque fonction renvoie la forme de données attendue par les sections.
 import { cache } from "react";
 import {
   asHTML,
@@ -16,7 +15,7 @@ import type { TitleAboutData } from "@/types/modules/titleAbout";
 import type { AboutData } from "@/types/modules/about";
 import type { RSECard, RSEModules } from "@/types/modules/rse";
 import type { Footer } from "@/types/modules/footer";
-import type { ACFFaqFields } from "@/types/modules/faq";
+import type { FaqData } from "@/types/modules/faq";
 import type { Machine } from "@/types/modules/machine";
 import type { ServiceImage, ServicesSection } from "@/types/modules/services";
 import type {
@@ -156,7 +155,7 @@ export async function getFooterData(): Promise<Footer> {
   };
 }
 
-export async function getFaqData(): Promise<ACFFaqFields> {
+export async function getFaqData(): Promise<FaqData> {
   const d = await getHome();
   return {
     faq_title: d.faq_title || "FAQ",

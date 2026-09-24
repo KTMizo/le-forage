@@ -37,6 +37,3 @@ export interface Footer {
   footer_info: FooterInfo;
 }
 
-export interface ACFFooter {
-  acf: Footer;
-}

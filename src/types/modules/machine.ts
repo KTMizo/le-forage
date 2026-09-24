@@ -1,7 +1,5 @@
 // types/modules/machine.ts
 
-import type { WordPressACF } from "@/types/wordpress";
-
 export type ButtonVariant =
   | "primary"
   | "secondary"
@@ -42,35 +40,4 @@ export interface MachinesSectionHeader {
 export interface Machine {
   machines_section_header: MachinesSectionHeader;
   machines: MachineItem[];
-}
-
-// Extend WordPressACF interface
-export interface MachineACF extends WordPressACF {
-  machines_section_header: MachinesSectionHeader;
-  machines: MachineItem[];
-}
-
-export interface WordPressMachineRaw {
-  image: number;
-  title: string;
-  technical_sheet: number;
-  button: {
-    text: string;
-    url: string;
-    variant: ButtonVariant;
-    showArrow: boolean;
-  };
-}
-
-export interface WordPressMediaResponse {
-  id: number;
-  title: {
-    rendered: string;
-  };
-  source_url: string;
-  alt_text: string;
-  media_details: {
-    width: number;
-    height: number;
-  };
 }
