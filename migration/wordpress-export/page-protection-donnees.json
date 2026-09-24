@@ -1,0 +1,207 @@
+[
+    {
+        "id": 29,
+        "date": "2025-02-08T20:27:02",
+        "date_gmt": "2025-02-08T19:27:02",
+        "guid": {
+            "rendered": "http://localhost:8888/le-forage/?page_id=29"
+        },
+        "modified": "2025-02-08T20:31:01",
+        "modified_gmt": "2025-02-08T19:31:01",
+        "slug": "protection-donnees",
+        "status": "publish",
+        "type": "page",
+        "link": "https://admin.leforage.fr/protection-donnees/",
+        "title": {
+            "rendered": "Protection des donn\u00e9es"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 4,
+        "featured_media": 0,
+        "parent": 0,
+        "menu_order": 0,
+        "comment_status": "closed",
+        "ping_status": "closed",
+        "template": "",
+        "meta": {
+            "_acf_changed": false,
+            "inline_featured_image": false,
+            "footnotes": ""
+        },
+        "class_list": [
+            "post-29",
+            "page",
+            "type-page",
+            "status-publish",
+            "hentry"
+        ],
+        "acf": {
+            "subtile": "Test",
+            "sections": [
+                {
+                    "title": "Test 1",
+                    "content": "Test 1"
+                },
+                {
+                    "title": "Test 2",
+                    "content": "Test 2"
+                },
+                {
+                    "title": "Test 3",
+                    "content": "Test 3"
+                }
+            ]
+        },
+        "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.2 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Protection des donn\u00e9es - Le Forage</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://admin.leforage.fr/protection-donnees/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Protection des donn\u00e9es - Le Forage\" />\n<meta property=\"og:url\" content=\"https://admin.leforage.fr/protection-donnees/\" />\n<meta property=\"og:site_name\" content=\"Le Forage\" />\n<meta property=\"article:modified_time\" content=\"2025-02-08T19:31:01+00:00\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https:\\/\\/admin.leforage.fr\\/protection-donnees\\/\",\"url\":\"https:\\/\\/admin.leforage.fr\\/protection-donnees\\/\",\"name\":\"Protection des donn\u00e9es - Le Forage\",\"isPartOf\":{\"@id\":\"http:\\/\\/admin.leforage.fr\\/#website\"},\"datePublished\":\"2025-02-08T19:27:02+00:00\",\"dateModified\":\"2025-02-08T19:31:01+00:00\",\"breadcrumb\":{\"@id\":\"https:\\/\\/admin.leforage.fr\\/protection-donnees\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https:\\/\\/admin.leforage.fr\\/protection-donnees\\/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/admin.leforage.fr\\/protection-donnees\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/admin.leforage.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Protection des donn\u00e9es\"}]},{\"@type\":\"WebSite\",\"@id\":\"http:\\/\\/admin.leforage.fr\\/#website\",\"url\":\"http:\\/\\/admin.leforage.fr\\/\",\"name\":\"Le Forage\",\"description\":\"Sp\u00e9cialistes en Sondage G\u00e9otechnique\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"http:\\/\\/admin.leforage.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+        "yoast_head_json": {
+            "title": "Protection des donn\u00e9es - Le Forage",
+            "robots": {
+                "index": "index",
+                "follow": "follow",
+                "max-snippet": "max-snippet:-1",
+                "max-image-preview": "max-image-preview:large",
+                "max-video-preview": "max-video-preview:-1"
+            },
+            "canonical": "https://admin.leforage.fr/protection-donnees/",
+            "og_locale": "fr_FR",
+            "og_type": "article",
+            "og_title": "Protection des donn\u00e9es - Le Forage",
+            "og_url": "https://admin.leforage.fr/protection-donnees/",
+            "og_site_name": "Le Forage",
+            "article_modified_time": "2025-02-08T19:31:01+00:00",
+            "twitter_card": "summary_large_image",
+            "schema": {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "WebPage",
+                        "@id": "https://admin.leforage.fr/protection-donnees/",
+                        "url": "https://admin.leforage.fr/protection-donnees/",
+                        "name": "Protection des donn\u00e9es - Le Forage",
+                        "isPartOf": {
+                            "@id": "http://admin.leforage.fr/#website"
+                        },
+                        "datePublished": "2025-02-08T19:27:02+00:00",
+                        "dateModified": "2025-02-08T19:31:01+00:00",
+                        "breadcrumb": {
+                            "@id": "https://admin.leforage.fr/protection-donnees/#breadcrumb"
+                        },
+                        "inLanguage": "fr-FR",
+                        "potentialAction": [
+                            {
+                                "@type": "ReadAction",
+                                "target": [
+                                    "https://admin.leforage.fr/protection-donnees/"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "@type": "BreadcrumbList",
+                        "@id": "https://admin.leforage.fr/protection-donnees/#breadcrumb",
+                        "itemListElement": [
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Accueil",
+                                "item": "https://admin.leforage.fr/"
+                            },
+                            {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "Protection des donn\u00e9es"
+                            }
+                        ]
+                    },
+                    {
+                        "@type": "WebSite",
+                        "@id": "http://admin.leforage.fr/#website",
+                        "url": "http://admin.leforage.fr/",
+                        "name": "Le Forage",
+                        "description": "Sp\u00e9cialistes en Sondage G\u00e9otechnique",
+                        "potentialAction": [
+                            {
+                                "@type": "SearchAction",
+                                "target": {
+                                    "@type": "EntryPoint",
+                                    "urlTemplate": "http://admin.leforage.fr/?s={search_term_string}"
+                                },
+                                "query-input": {
+                                    "@type": "PropertyValueSpecification",
+                                    "valueRequired": true,
+                                    "valueName": "search_term_string"
+                                }
+                            }
+                        ],
+                        "inLanguage": "fr-FR"
+                    }
+                ]
+            }
+        },
+        "_links": {
+            "self": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages/29",
+                    "targetHints": {
+                        "allow": [
+                            "GET"
+                        ]
+                    }
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/types/page"
+                }
+            ],
+            "author": [
+                {
+                    "embeddable": true,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/users/4"
+                }
+            ],
+            "replies": [
+                {
+                    "embeddable": true,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/comments?post=29"
+                }
+            ],
+            "version-history": [
+                {
+                    "count": 2,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages/29/revisions"
+                }
+            ],
+            "predecessor-version": [
+                {
+                    "id": 31,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages/29/revisions/31"
+                }
+            ],
+            "wp:attachment": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/media?parent=29"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]

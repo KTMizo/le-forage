@@ -31,13 +31,13 @@ import {
   getHeroData,
   getTitleAboutData,
   getAboutData,
-  getRSERelatedData,
+  getRSEData,
   getMachineData,
   getServicesData,
   getImageBreakData,
   getFooterData,
   getFaqData,
-} from "@/lib/api";
+} from "@/lib/cms";
 import TFAQ from "@/sections/t-faq";
 
 
@@ -120,12 +120,12 @@ export default async function Home() {
     fetchWithFallback(getHeroData, defaultHeroData),
     fetchWithFallback(getTitleAboutData, defaultTitleAboutData),
     fetchWithFallback(getAboutData, defaultAboutData),
-    fetchWithFallback(() => getRSERelatedData("home"), defaultRSEData),
+    fetchWithFallback(getRSEData, defaultRSEData),
     fetchWithFallback(getMachineData, defaultMachineData),
     fetchWithFallback(getServicesData, defaultServicesData),
     fetchWithFallback(getImageBreakData, defaultImageBreakData),
     fetchWithFallback(getFooterData, defaultFooterData),
-    fetchWithFallback(() => getFaqData("home"), defaultFaqData),
+    fetchWithFallback(getFaqData, defaultFaqData),
   ]);
 
   const [

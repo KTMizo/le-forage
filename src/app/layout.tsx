@@ -4,6 +4,9 @@ import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { PrismicPreview } from "@prismicio/next";
+import { repositoryName } from "@/prismicio";
+import { cmsSource } from "@/lib/cms";
 
 export const metadata = {
   title: "Le Forage : Spécialistes en Sondage Géotechnique",
@@ -19,13 +22,14 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <head>
         <GoogleAnalytics />
-      </head>
         <LenisProvider>
           <Loader />
           {children}
         </LenisProvider>
+        {cmsSource === "prismic" && (
+          <PrismicPreview repositoryName={repositoryName} />
+        )}
       </body>
     </html>
   );

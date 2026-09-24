@@ -1,0 +1,13 @@
+{
+  "repositoryName": "le-forage",
+  "routes": [
+    {
+      "type": "home",
+      "path": "/"
+    },
+    {
+      "type": "legal_page",
+      "path": "/:uid"
+    }
+  ]
+}
