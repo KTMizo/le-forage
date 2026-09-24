@@ -11,7 +11,8 @@
 
 **Le Forage** est un site web vitrine pour une entreprise française de forage géotechnique.
 
-**Architecture:** WordPress Headless + Next.js 15 + Vercel  
+**Architecture:** WordPress Headless + Next.js 15 + Vercel + OVH  
+**Site en production:** https://www.leforage.fr/  
 **Repository:** https://github.com/KTMizo/le-forage  
 **Documentation:** `CLAUDE.md` à la racine du projet
 
@@ -53,18 +54,24 @@
 **Version:** 0.1.0 (private)  
 **Langue:** TypeScript 5.x strict
 
-**Hébergement prévu:** Vercel (à configurer)
+**Hébergement:** Vercel (✅ DÉJÀ CONFIGURÉ)
 - Déploiement automatique depuis GitHub
 - ISR (Incremental Static Regeneration) - revalidation toutes les heures
 - Edge Functions
 - Optimisation automatique des images
+- URL Vercel: (domaine par défaut Vercel)
 
 ### Domaine & DNS
 
-**À configurer:**
-- Domaine principal (à déterminer)
-- DNS pointant vers Vercel
-- SSL/TLS automatique via Vercel
+**Configuration actuelle (✅ EN PRODUCTION):**
+- **Domaine:** `www.leforage.fr` (via OVH)
+- **DNS/Redirection:** OVH → Vercel
+- **SSL/TLS:** ✅ Actif (HTTPS fonctionnel)
+- **Site accessible:** https://www.leforage.fr/
+
+**Gestion du domaine:**
+- Registrar: OVH
+- Configuration DNS: Pointe vers Vercel (probablement via CNAME ou redirection)
 
 ---
 
@@ -289,8 +296,9 @@ Large:   1921px+ (fixe)
 
 ## 📝 État Actuel du Projet
 
-### ✅ Fonctionnalités Complétées
+### ✅ Fonctionnalités Complétées & En Production
 
+- ✅ **Site en production:** https://www.leforage.fr/
 - ✅ Architecture WordPress Headless fonctionnelle
 - ✅ Intégration API WordPress avec ACF
 - ✅ Page d'accueil complète avec toutes les sections
@@ -305,16 +313,19 @@ Large:   1921px+ (fixe)
 - ✅ Pages légales (mentions légales, RGPD)
 - ✅ Gestion des erreurs API avec fallback data
 - ✅ Documentation complète (CLAUDE.md)
+- ✅ **Déploiement Vercel configuré**
+- ✅ **Domaine OVH configuré** (www.leforage.fr)
+- ✅ **SSL/HTTPS actif**
 
 ### 🚧 À Finaliser
 
-- 🚧 **Déploiement Vercel** (non configuré)
-- 🚧 **Domaine personnalisé** (à acheter/configurer)
+- 🚧 **Contenu FAQ** (actuellement en Lorem ipsum - à remplacer dans WordPress)
 - 🚧 **Tests** (aucun test unitaire)
 - 🚧 **Formulaire de contact** (pas encore implémenté)
 - 🚧 **Envoi d'emails** pour les devis
 - 🚧 **Optimisations SEO** (sitemap, robots.txt améliorés)
 - 🚧 **Performances** (audit Lighthouse à faire)
+- 🚧 **Accès Vercel** (à récupérer pour voir les déploiements)
 
 ### 🔮 Améliorations Futures
 
@@ -341,10 +352,19 @@ Large:   1921px+ (fixe)
 - **Utilisateur:** (à récupérer)
 - **Mot de passe:** (à récupérer/réinitialiser)
 
-### Vercel (à configurer)
+### Vercel (✅ Déjà configuré)
 
-- **Compte:** À créer ou lier avec GitHub
-- **Email:** thomas.bagnolati@gmail.com (recommandé)
+- **Compte:** Déjà créé et lié avec GitHub
+- **Dashboard:** https://vercel.com/dashboard
+- **Email:** thomas.bagnolati@gmail.com
+- **Accès:** À récupérer si perdu
+
+### OVH (Domaine)
+
+- **Domaine:** www.leforage.fr
+- **Espace client:** https://www.ovh.com/manager/
+- **Email:** thomas.bagnolati@gmail.com (probablement)
+- **Configuration:** DNS/Redirection vers Vercel
 
 ### Google Analytics
 
@@ -360,8 +380,9 @@ Large:   1921px+ (fixe)
 
 - [ ] Confirmer l'accès au repository GitHub
 - [ ] Récupérer les credentials WordPress admin
+- [ ] Récupérer l'accès Vercel (voir les déploiements)
+- [ ] Récupérer l'accès OVH (gestion domaine)
 - [ ] Vérifier l'accès Google Analytics
-- [ ] Créer/lier compte Vercel si nécessaire
 
 ### Étape 2: Installation Locale
 
@@ -371,20 +392,20 @@ Large:   1921px+ (fixe)
 - [ ] Tester localement (`npm run dev`)
 - [ ] Vérifier la connexion à l'API WordPress
 
-### Étape 3: Configuration Vercel
+### ✅ Étape 3: Production (DÉJÀ FAIT)
 
-- [ ] Créer projet Vercel
-- [ ] Connecter le repository GitHub
-- [ ] Configurer les variables d'environnement
-- [ ] Lancer le premier déploiement
-- [ ] Tester le site en production
+- [x] ✅ Projet Vercel créé
+- [x] ✅ Repository GitHub connecté
+- [x] ✅ Variables d'environnement configurées
+- [x] ✅ Site déployé en production
+- [x] ✅ Site accessible sur https://www.leforage.fr/
 
-### Étape 4: Domaine & DNS
+### ✅ Étape 4: Domaine & DNS (DÉJÀ FAIT)
 
-- [ ] Acheter/configurer le domaine
-- [ ] Configurer les DNS vers Vercel
-- [ ] Configurer SSL/TLS
-- [ ] Tester le site sur le domaine final
+- [x] ✅ Domaine acheté via OVH (www.leforage.fr)
+- [x] ✅ DNS/Redirection OVH → Vercel configurée
+- [x] ✅ SSL/TLS actif
+- [x] ✅ Site fonctionnel sur le domaine
 
 ### Étape 5: Optimisations
 
@@ -394,8 +415,10 @@ Large:   1921px+ (fixe)
 - [ ] Tester sur mobiles réels
 - [ ] Configurer les alertes de monitoring
 
-### Étape 6: Fonctionnalités Manquantes
+### Étape 6: Contenu & Fonctionnalités
 
+- [ ] **Remplacer le Lorem Ipsum de la FAQ** dans WordPress
+- [ ] Vérifier et compléter tout le contenu WordPress
 - [ ] Implémenter formulaire de contact
 - [ ] Configurer l'envoi d'emails
 - [ ] Ajouter Recaptcha si nécessaire
@@ -507,16 +530,19 @@ npm run build
 ### Pour un Développeur
 
 1. **Lire `CLAUDE.md` en entier** - Contient tous les patterns et conventions
-2. **Tester localement d'abord** - S'assurer que tout fonctionne avant Vercel
-3. **Vérifier l'API WordPress** - C'est le point d'échec le plus courant
-4. **Respecter les conventions Git** - Branches `claude/*` et commits en français
+2. **Le site est DÉJÀ EN PRODUCTION** sur https://www.leforage.fr/
+3. **Récupérer les accès** - Vercel, OVH, WordPress pour maintenir le site
+4. **Vérifier l'API WordPress** - C'est le point d'échec le plus courant
+5. **Respecter les conventions Git** - Branches `claude/*` et commits en français
+6. **Priorité:** Remplacer le Lorem Ipsum de la FAQ dans WordPress
 
 ### Pour un Non-Développeur
 
-1. **Engager un développeur Next.js** - C'est un projet technique
-2. **Fournir les accès** - GitHub, WordPress, Google Analytics
-3. **Définir les priorités** - Déploiement > Formulaire contact > Blog
-4. **Budget Vercel** - Gratuit pour commencer, ~$20/mois si plus de trafic
+1. **Le site est déjà en ligne** - https://www.leforage.fr/
+2. **Récupérer les accès** - OVH (domaine), Vercel (hosting), WordPress (contenu)
+3. **Engager un développeur Next.js** pour maintenance et évolutions
+4. **Définir les priorités** - Contenu FAQ > Formulaire contact > Blog
+5. **Coûts actuels** - Vercel (probablement gratuit ou ~$20/mois), OVH (domaine ~10€/an)
 
 ### Pour un Modèle IA Plus Puissant
 
@@ -530,13 +556,14 @@ npm run build
 - Le smooth scrolling (Lenis) est critique pour l'UX
 - Les animations GSAP sont complexes mais bien organisées
 - L'intégration WordPress ACF est le cœur du système de contenu
-- Le projet est prêt pour Vercel mais pas encore déployé
+- **Le site est EN PRODUCTION sur https://www.leforage.fr/**
+- Le contenu de la FAQ est en Lorem Ipsum et doit être remplacé dans WordPress
 
 ---
 
 ## 📊 Métriques & KPIs à Suivre
 
-### Après Déploiement
+### En Production (Site déjà déployé)
 
 **Performance:**
 - Lighthouse Score (viser 90+)
