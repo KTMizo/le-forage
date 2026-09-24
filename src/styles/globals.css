@@ -307,3 +307,39 @@ html.is-red #contact-btn a:hover {
 html.is-red #contact-btn a::before {
     background-color: var(--color-white);
 }
+
+/* Croix : même boîte carrée centrée et même animation partout */
+:root {
+    --cross-transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.t-close {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+}
+.t-close svg {
+    display: block;
+    transform-origin: 50% 50%;
+    transition: var(--cross-transition);
+}
+.t-close:hover svg,
+.t-close:focus-visible svg {
+    transform: rotate(90deg);
+}
+
+/* Icône +/− (FAQ) : la barre verticale pivote de 90° à l'ouverture */
+.t-toggle-bar {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: var(--cross-transition);
+}
+.t-toggle.is-open .t-toggle-bar {
+    transform: rotate(90deg);
+}

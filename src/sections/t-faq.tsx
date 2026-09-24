@@ -2,7 +2,6 @@
 import { FaqSectionProps, FaqItem } from "@/types/modules/faq";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
-import ListAsk from "@/components/ListAsk";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
@@ -112,29 +111,22 @@ export default function TFAQ({ data }: FaqSectionProps) {
                 {item.question}
               </span>
               <span className="lg:flex lg:items-center lg:gap-x-9">
-                {id == item.question ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-8 h-[1px]"
-                    viewBox="0 0 16 2"
-                    fill="none"
-                  >
-                    <path d="M0 1L16 1" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-7 h-7 plus"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 18"
-                    fill="none"
-                  >
-                    <path
-                      d="M0 9.00052L16 9.00051M8 17.1485L8 0.852539"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                )}
+                {/* Même icône ouverte/fermée : la barre verticale pivote pour former le « − » */}
+                <svg
+                  className={`t-toggle w-7 h-7 ${id == item.question ? "is-open" : "plus"}`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M0 8H16" stroke="currentColor" strokeWidth="2" />
+                  <path
+                    className="t-toggle-bar"
+                    d="M8 0V16"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                </svg>
 
                 <span className="hidden lg:inline-grid font-articulate text-18 leading-12">
                   {id == item.question ? (

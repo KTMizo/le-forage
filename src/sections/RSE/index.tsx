@@ -87,32 +87,26 @@ const RSE = ({ data }: RSEProps) => {
     };
   }, []);
 
+  const allCards = [...data.security_cards, ...data.qualifications_cards];
+  const openCard = allCards.find((card) => card.text === activePopup);
+
+  // Les popups sont rendues hors des grilles de cartes : dans la grille, elles
+  // devenaient le « dernier élément » et décalaient la dernière carte (div:last-child).
   const renderCards = (cards: RSECard[]) =>
     cards.map((card) => (
-      <React.Fragment key={card.text}>
-        <PartnersCard
-          logo={{
-            src: card.logo,
-            alt: card.text,
-            width: 48,
-            height: 48,
-          }}
-          text={card.text}
-          hasTooltip={true}
-          tooltipContent={card.tooltip_content}
-          onClick={() => setActivePopup(card.text)}
-        />
-        <PartnersPopUp
-          isOpen={activePopup === card.text}
-          onClose={() => setActivePopup(null)}
-          title={card.popup.title}
-          description={card.popup.description}
-          imageSrc={card.popup.image}
-          imageAlt={card.text}
-          iconSrc={card.popup.icon}
-          iconAlt={`Icône ${card.text}`}
-        />
-      </React.Fragment>
+      <PartnersCard
+        key={card.text}
+        logo={{
+          src: card.logo,
+          alt: card.text,
+          width: 48,
+          height: 48,
+        }}
+        text={card.text}
+        hasTooltip={true}
+        tooltipContent={card.tooltip_content}
+        onClick={() => setActivePopup(card.text)}
+      />
     ));
 
   return (
@@ -169,6 +163,19 @@ const RSE = ({ data }: RSEProps) => {
           </div>
         </div>
       </div>
+
+      {openCard && (
+        <PartnersPopUp
+          isOpen
+          onClose={() => setActivePopup(null)}
+          title={openCard.popup.title}
+          description={openCard.popup.description}
+          imageSrc={openCard.popup.image}
+          imageAlt={openCard.text}
+          iconSrc={openCard.popup.icon}
+          iconAlt={`Icône ${openCard.text}`}
+        />
+      )}
     </section>
   );
 };

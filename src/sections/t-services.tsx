@@ -1,15 +1,21 @@
 "use client";
 import type { ServicesSection } from "@/types/modules/services";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import TServicesLine from "@/components/t-services-line";
 import TServicesRight from "@/components/t-services-right";
+import CloseIcon from "@/components/UI/CloseIcon";
 interface ServicesProps {
   data: any;
 }
 export default function TServices({ data }: ServicesProps) {
   const [popinOpen, setPopinOpen] = useState(false);
   const [cardActive, setCardActive] = useState(null);
+
+  // Chaque nouvelle question de la popin s'affiche depuis le haut
+  useEffect(() => {
+    document.getElementById("popin-question")?.scrollTo(0, 0);
+  }, [cardActive]);
 
   function handleDesktop(parent: any, id: any) {
     const elParent = document.querySelector(`#${parent}`);
@@ -44,7 +50,6 @@ export default function TServices({ data }: ServicesProps) {
 
     data.forEach((obj: any) => {
       const itemTitle = obj.title;
-      console.log(itemTitle);
       obj.questions.forEach((question: any) => {
         questionsWithItemTitle.push({
           ...question,
@@ -57,14 +62,12 @@ export default function TServices({ data }: ServicesProps) {
   }
   function handlePrevMobile() {
     const allQuestions = extractQuestionsWithItemTitle(data.services);
-    console.log(cardActive);
     const currentIndex = allQuestions.findIndex(
       (q: any) =>
         q.question.replaceAll(" ", "").replaceAll(/[^a-zA-Z ]/g, "") ===
         cardActive,
     );
     if (currentIndex > 0) {
-      console.log(allQuestions[currentIndex]);
       const currentParent = allQuestions[currentIndex].itemTitle
         .replaceAll(" ", "")
         .replaceAll(/[^a-zA-Z ]/g, "");
@@ -307,29 +310,22 @@ export default function TServices({ data }: ServicesProps) {
       </div>
       <div
         id="popin-question"
-        className={`${popinOpen ? "grid" : "hidden"} fixed top-0   left-0 bg-white w-full h-[100svh] z-100 overflow-y-auto gap-x-4 py-16 lg:overflow-hidden`}
+        // data-lenis-prevent : Lenis est stoppé pendant la popin et bloquerait sinon le scroll tactile
+        data-lenis-prevent
+        className={`${popinOpen ? "block" : "hidden"} fixed top-0 left-0 bg-white w-full h-[100svh] z-100 overflow-y-auto overscroll-contain`}
       >
         <button
           onClick={() => handlePopinClick(`null`)}
-          className="col-span-full row-span-full justify-self-end z-2 self-start pr-8"
+          aria-label="Fermer"
+          className="t-close fixed top-6 right-2 z-30 bg-white text-black"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M2.34277 2.19531L7.99963 7.85217M7.99963 7.85217L13.6565 13.509M7.99963 7.85217L2.34277 13.509M7.99963 7.85217L13.6565 2.19531"
-              stroke="black"
-              strokeWidth="2"
-            />
-          </svg>
+          <CloseIcon />
         </button>
 
-        <div className="grid col-span-full lg:row-span-full px-8 pb-42 lg:pb-0">
-          <div className="absolute bottom-8 left-8 lg:bottom-20 self-end z-20 ">
+        {/* Dégradé : indique qu'il reste du texte sous les flèches */}
+        <div className="pointer-events-none fixed bottom-0 left-0 z-10 h-60 w-full bg-gradient-to-t from-white from-45% to-transparent" />
+        <div className="grid px-8 pt-24 pb-60">
+          <div className="fixed bottom-8 left-8 z-20 flex">
             <button
               onClick={() => handlePrevMobile()}
               className="p-8 cursor-pointer bg-bleu"
@@ -406,9 +402,9 @@ export default function TServices({ data }: ServicesProps) {
                       } col-span-full  gap-y-12 items-start content-start row-span-full grid-cols-8 grid gap-x-8`}
                       key={`${question.question.replaceAll(" ", "")}-${id}`}
                     >
-                        <h3 className="col-span-full text-xl text-red font-articulate" style={{ marginTop: '2rem' }}>
-    {item.title}
-  </h3>
+                      <h3 className="col-span-full pr-32 text-xl text-red font-articulate">
+                        {item.title}
+                      </h3>
                       {question?.image ? (
                         <figure className="col-start-1 col-span-4">
                           <Image

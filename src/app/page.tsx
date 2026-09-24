@@ -1,20 +1,15 @@
 export const revalidate = 3600;
 
 import styles from "./page.module.css";
-import Button from "@/components/UI/Button";
-import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Menu from "@/components/UI/Menu";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
-import About from "@/sections/About";
-import Services from "@/sections/Services";
 import TAbout from "@/sections/t-about";
 import TServices from "@/sections/t-services";
 import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
-import FAQ from "@/sections/FAQ";
 import Footer from "@/sections/Footer";
 
 import type { HeroData } from "@/types/modules/hero";
@@ -163,11 +158,6 @@ export default async function Home() {
       />
       <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
       <TServices data={servicesData} />
-
-      {/*
-      <About titleAboutData={titleAboutData} aboutData={aboutData} />
-      <Services data={servicesData} />
-      */}
       <ImageBreak
         src={imageBreakData.services_rse_break.image.url}
         alt={imageBreakData.services_rse_break.alt}

@@ -127,7 +127,11 @@
 }
 
 .menu__closeIcon {
-    transition: transform 0.3s ease;
+    display: inline-grid;
+    place-items: center;
+    width: 1rem;
+    height: 1rem;
+    transition: var(--cross-transition);
 }
 
 .menu__closeButton:hover .menu__closeIcon {
