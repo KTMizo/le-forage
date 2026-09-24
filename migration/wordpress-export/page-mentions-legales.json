@@ -1,0 +1,221 @@
+[
+    {
+        "id": 18,
+        "date": "2025-02-08T19:59:41",
+        "date_gmt": "2025-02-08T18:59:41",
+        "guid": {
+            "rendered": "http://localhost:8888/le-forage/?page_id=18"
+        },
+        "modified": "2025-02-22T14:35:51",
+        "modified_gmt": "2025-02-22T13:35:51",
+        "slug": "mentions-legales",
+        "status": "publish",
+        "type": "page",
+        "link": "https://admin.leforage.fr/mentions-legales/",
+        "title": {
+            "rendered": "Mentions L\u00e9gales"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 4,
+        "featured_media": 0,
+        "parent": 0,
+        "menu_order": 0,
+        "comment_status": "closed",
+        "ping_status": "closed",
+        "template": "",
+        "meta": {
+            "_acf_changed": false,
+            "inline_featured_image": false,
+            "footnotes": ""
+        },
+        "class_list": [
+            "post-18",
+            "page",
+            "type-page",
+            "status-publish",
+            "hentry"
+        ],
+        "acf": {
+            "subtitle": "Test",
+            "sections": [
+                {
+                    "title": "Titre 1",
+                    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+                },
+                {
+                    "title": "Titre 2",
+                    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+                },
+                {
+                    "title": "Titre 3",
+                    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+                },
+                {
+                    "title": "Titre 4",
+                    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+                },
+                {
+                    "title": "Titre 5",
+                    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+                }
+            ],
+            "button": {
+                "text": "Valeur par d\u00e9faut",
+                "url": "/destination",
+                "variant": "outline",
+                "showArrow": true
+            }
+        },
+        "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v28.2 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Mentions L\u00e9gales - Le Forage</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://admin.leforage.fr/mentions-legales/\" />\n<meta property=\"og:locale\" content=\"fr_FR\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mentions L\u00e9gales - Le Forage\" />\n<meta property=\"og:url\" content=\"https://admin.leforage.fr/mentions-legales/\" />\n<meta property=\"og:site_name\" content=\"Le Forage\" />\n<meta property=\"article:modified_time\" content=\"2025-02-22T13:35:51+00:00\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https:\\/\\/admin.leforage.fr\\/mentions-legales\\/\",\"url\":\"https:\\/\\/admin.leforage.fr\\/mentions-legales\\/\",\"name\":\"Mentions L\u00e9gales - Le Forage\",\"isPartOf\":{\"@id\":\"http:\\/\\/admin.leforage.fr\\/#website\"},\"datePublished\":\"2025-02-08T18:59:41+00:00\",\"dateModified\":\"2025-02-22T13:35:51+00:00\",\"breadcrumb\":{\"@id\":\"https:\\/\\/admin.leforage.fr\\/mentions-legales\\/#breadcrumb\"},\"inLanguage\":\"fr-FR\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https:\\/\\/admin.leforage.fr\\/mentions-legales\\/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/admin.leforage.fr\\/mentions-legales\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Accueil\",\"item\":\"https:\\/\\/admin.leforage.fr\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mentions L\u00e9gales\"}]},{\"@type\":\"WebSite\",\"@id\":\"http:\\/\\/admin.leforage.fr\\/#website\",\"url\":\"http:\\/\\/admin.leforage.fr\\/\",\"name\":\"Le Forage\",\"description\":\"Sp\u00e9cialistes en Sondage G\u00e9otechnique\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"http:\\/\\/admin.leforage.fr\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"fr-FR\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+        "yoast_head_json": {
+            "title": "Mentions L\u00e9gales - Le Forage",
+            "robots": {
+                "index": "index",
+                "follow": "follow",
+                "max-snippet": "max-snippet:-1",
+                "max-image-preview": "max-image-preview:large",
+                "max-video-preview": "max-video-preview:-1"
+            },
+            "canonical": "https://admin.leforage.fr/mentions-legales/",
+            "og_locale": "fr_FR",
+            "og_type": "article",
+            "og_title": "Mentions L\u00e9gales - Le Forage",
+            "og_url": "https://admin.leforage.fr/mentions-legales/",
+            "og_site_name": "Le Forage",
+            "article_modified_time": "2025-02-22T13:35:51+00:00",
+            "twitter_card": "summary_large_image",
+            "schema": {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "WebPage",
+                        "@id": "https://admin.leforage.fr/mentions-legales/",
+                        "url": "https://admin.leforage.fr/mentions-legales/",
+                        "name": "Mentions L\u00e9gales - Le Forage",
+                        "isPartOf": {
+                            "@id": "http://admin.leforage.fr/#website"
+                        },
+                        "datePublished": "2025-02-08T18:59:41+00:00",
+                        "dateModified": "2025-02-22T13:35:51+00:00",
+                        "breadcrumb": {
+                            "@id": "https://admin.leforage.fr/mentions-legales/#breadcrumb"
+                        },
+                        "inLanguage": "fr-FR",
+                        "potentialAction": [
+                            {
+                                "@type": "ReadAction",
+                                "target": [
+                                    "https://admin.leforage.fr/mentions-legales/"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "@type": "BreadcrumbList",
+                        "@id": "https://admin.leforage.fr/mentions-legales/#breadcrumb",
+                        "itemListElement": [
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Accueil",
+                                "item": "https://admin.leforage.fr/"
+                            },
+                            {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "Mentions L\u00e9gales"
+                            }
+                        ]
+                    },
+                    {
+                        "@type": "WebSite",
+                        "@id": "http://admin.leforage.fr/#website",
+                        "url": "http://admin.leforage.fr/",
+                        "name": "Le Forage",
+                        "description": "Sp\u00e9cialistes en Sondage G\u00e9otechnique",
+                        "potentialAction": [
+                            {
+                                "@type": "SearchAction",
+                                "target": {
+                                    "@type": "EntryPoint",
+                                    "urlTemplate": "http://admin.leforage.fr/?s={search_term_string}"
+                                },
+                                "query-input": {
+                                    "@type": "PropertyValueSpecification",
+                                    "valueRequired": true,
+                                    "valueName": "search_term_string"
+                                }
+                            }
+                        ],
+                        "inLanguage": "fr-FR"
+                    }
+                ]
+            }
+        },
+        "_links": {
+            "self": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages/18",
+                    "targetHints": {
+                        "allow": [
+                            "GET"
+                        ]
+                    }
+                }
+            ],
+            "collection": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages"
+                }
+            ],
+            "about": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/types/page"
+                }
+            ],
+            "author": [
+                {
+                    "embeddable": true,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/users/4"
+                }
+            ],
+            "replies": [
+                {
+                    "embeddable": true,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/comments?post=18"
+                }
+            ],
+            "version-history": [
+                {
+                    "count": 6,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages/18/revisions"
+                }
+            ],
+            "predecessor-version": [
+                {
+                    "id": 311,
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/pages/18/revisions/311"
+                }
+            ],
+            "wp:attachment": [
+                {
+                    "href": "https://admin.leforage.fr/wp-json/wp/v2/media?parent=18"
+                }
+            ],
+            "curies": [
+                {
+                    "name": "wp",
+                    "href": "https://api.w.org/{rel}",
+                    "templated": true
+                }
+            ]
+        }
+    }
+]
