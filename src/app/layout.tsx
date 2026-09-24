@@ -22,9 +22,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <head>
         <GoogleAnalytics />
-      </head>
         <LenisProvider>
           <Loader />
           {children}
