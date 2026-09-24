@@ -1,5 +1,5 @@
 "use client";
-import { FaqSectionProps, ACFFaqItem } from "@/types/modules/faq";
+import { FaqSectionProps, FaqItem } from "@/types/modules/faq";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
 import ListAsk from "@/components/ListAsk";

@@ -2,7 +2,7 @@
 
 export interface LegalSectionData {
   title: string;
-  // HTML (texte riche Prismic, ou texte WordPress échappé)
+  // HTML issu d'un champ texte riche Prismic
   content: string;
 }
 

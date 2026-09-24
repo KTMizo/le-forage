@@ -1,20 +1,19 @@
 // src/types/modules/faq.ts
 
-// Types pour les données brutes d'ACF
-export interface ACFFaqFields {
+export interface FaqData {
   faq_title: string;
   faq_cover_image: string;
-  faq_items: ACFFaqItem[];
+  faq_items: FaqItem[];
 }
 
-export interface ACFFaqItem {
+export interface FaqItem {
   question: string;
   answer: string;
 }
 
 // Types pour les composants React
 export interface FaqSectionProps {
-  data: ACFFaqFields;
+  data: FaqData;
 }
 
 export interface ListAskProps {

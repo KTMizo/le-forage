@@ -5,7 +5,7 @@ export const revalidate = 3600;
 import { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { getLegalPage } from "@/lib/cms";
+import { getLegalPage } from "@/lib/prismic";
 
 export const metadata: Metadata = {
   title: "Mentions Légales",
