@@ -46,17 +46,11 @@ async function main() {
     );
   }
 
-  // Les modèles doivent exister dans Prismic (npx prismic push)
+  // Les modèles doivent déjà exister dans Prismic (npx prismic push) :
+  // l'API Migration refuse sinon les documents avec un message explicite.
   const reader = createClient(repositoryName, {
     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
   });
-  const repository = await reader.getRepository();
-  const missing = ["home", "legal_page"].filter((t) => !(t in repository.types));
-  if (missing.length) {
-    throw new Error(
-      `Types absents dans Prismic : ${missing.join(", ")}. Lance d'abord "npx prismic push".`,
-    );
-  }
 
   // Garde-fou : ne pas réimporter par-dessus un contenu déjà publié
   const existing = await reader.getAllByType("home").catch(() => []);
