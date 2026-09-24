@@ -5,7 +5,7 @@ export const revalidate = 3600;
 import { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { getPage } from "@/lib/api";
+import { getLegalPage } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "Mentions Légales",
@@ -103,7 +103,10 @@ const LegalSection = ({ number, title, content, id }: SectionProps) => (
       <h2 className={styles.sectionTitle}>{title}</h2>
     </div>
     <div className={styles.sectionContent}>
-      <p className={styles.sectionText}>{content}</p>
+      <div
+        className={styles.sectionText}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
     </div>
   </section>
 );
@@ -118,16 +121,16 @@ const ScrollToTop = () => (
 
 export default async function MentionsLegalesPage() {
   try {
-    const pageData = await getPage("mentions-legales");
+    const pageData = await getLegalPage("mentions-legales");
 
     // Ajout d'une vérification sécurisée
     const sections: SectionProps[] =
-      pageData.acf?.sections?.map((section, index) => ({
+      pageData.sections.map((section, index) => ({
         id: section.title.toLowerCase().replace(/\s+/g, "-"),
         number: String(index + 1).padStart(2, "0"),
         title: section.title,
         content: section.content,
-      })) || [];
+      }));
 
     return (
       <div className={styles.legalPage} id="top">
@@ -135,8 +138,8 @@ export default async function MentionsLegalesPage() {
           <div className={styles.container}>
             <Breadcrumb />
             <div className={styles.headerContent}>
-              <h1 className={styles.headerTitle}>{pageData.title.rendered}</h1>
-              <p className={styles.headerSubtitle}>{pageData.acf.subtitle}</p>
+              <h1 className={styles.headerTitle}>{pageData.title}</h1>
+              <p className={styles.headerSubtitle}>{pageData.subtitle}</p>
             </div>
           </div>
         </header>

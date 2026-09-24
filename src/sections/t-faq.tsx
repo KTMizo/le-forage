@@ -147,9 +147,8 @@ export default function TFAQ({ data }: FaqSectionProps) {
             </button>
             <div
               className={`${id == item.question ? "is-open" : ""} t-accordeon-body lg:text-18 lg:leading-12 z-10 relative overflow-hidden max-h-0`}
-            >
-              {item.answer}
-            </div>
+              dangerouslySetInnerHTML={{ __html: item.answer }}
+            />
           </div>
         ))}
       </div>

@@ -1,4 +1,5 @@
 import type { WordPressPage } from "@/types/wordpress";
+import type { LegalPageData } from "@/types/modules/legal";
 import type { HeroData } from "@/types/modules/hero";
 import type { TitleAboutData } from "@/types/modules/titleAbout";
 import { Skill, AboutData } from "@/types/modules/about";
@@ -141,6 +142,30 @@ export async function getPage(slug: string): Promise<WordPressPage> {
     console.error(`Error fetching page with slug ${slug}:`, error);
     throw error;
   }
+}
+
+// Les textes WordPress sont bruts : on les échappe car les composants
+// affichent désormais du HTML (texte riche côté Prismic)
+const escapeHtml = (text: string) =>
+  text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+// Fetch a legal page (mentions légales, protection des données)
+export async function getLegalPage(slug: string): Promise<LegalPageData> {
+  const page = await getPage(slug);
+  // Le champ ACF de "protection-donnees" s'appelle "subtile" (faute de frappe)
+  const acf = page.acf as WordPressPage["acf"] & { subtile?: string };
+  return {
+    title: page.title?.rendered || "",
+    subtitle: acf?.subtitle || acf?.subtile || "",
+    sections: (acf?.sections || []).map((section) => ({
+      title: section.title,
+      content: escapeHtml(section.content || ""),
+    })),
+  };
 }
 
 // Fetch hero data for the home page
@@ -381,7 +406,7 @@ export async function getFaqData(slug: string): Promise<ACFFaqFields> {
         ? await Promise.all(
             pageData.acf.faq_items.map(async (item: ACFFaqItem) => ({
               question: item.question || "",
-              answer: item.answer || "",
+              answer: escapeHtml(item.answer || ""),
             })),
           )
         : [],

@@ -13,7 +13,7 @@ du WordPress de production fait le 24/09/2026 (dossier `wordpress-export/`).
 | Bascule DNS OVH, blue-green, `new.leforage.fr`, TTL à 60 s | **Aucun changement DNS.** `www.leforage.fr` pointe déjà sur Vercel. On change seulement la source des données dans le code, sur le même projet Vercel. |
 | Répartition du trafic avec `Math.random()` | À ne pas faire : avec l'ISR, la page mise en cache mélangerait les deux sources. On bascule avec une variable d'environnement (`CMS_SOURCE`). |
 | Export manuel du contenu et des images | **Déjà fait** : l'API WordPress est publique, j'ai exporté les 3 pages et la liste des 34 médias. Les images seront importées dans Prismic directement depuis leur URL, par le script. |
-| Saisie manuelle dans Prismic ou « IA Prismic » | Modèles écrits dans le repo (Slice Machine), puis contenu importé par script avec l'API Migration de Prismic. Rien à ressaisir. |
+| Saisie manuelle dans Prismic ou « IA Prismic » | Modèles créés avec la CLI `prismic` et versionnés dans `customtypes/`, puis contenu importé par script avec l'API Migration. Rien à ressaisir. (Slice Machine est désormais obsolète : on ne l'utilise pas.) |
 | `@prismicio/types`, `pages/api/revalidate.ts` | Paquet obsolète (les types sont dans `@prismicio/client`), et le projet utilise l'App Router : ce sera `src/app/api/revalidate/route.ts` avec `revalidateTag`. |
 | Seule la home est migrée | Il faut aussi migrer **`/mentions-legales` et `/protection-donnees`**, qui lisent aussi WordPress (`getPage()`). |
 
@@ -71,37 +71,39 @@ Envoie-moi les logs Vercel et la zone DNS OVH (sans secrets). La FAQ et les PDF 
    - dans **Write APIs**, génère un **Migration / Write token**. Garde-le pour l'étape 5.
 4. Donne-moi **uniquement le nom du repository**.
 
-### Étape 3 — 🤖 Intégrer Prismic dans le code (sur la branche de travail)
-- Installation de `@prismicio/client`, `@prismicio/next`, `@prismicio/react`, et de Slice Machine en dev.
-- Modèles de contenu versionnés dans le repo :
-  - `home` (type unique) avec une slice par section : Hero, À propos, Services (avec les questions en groupe imbriqué), RSE, Machines, FAQ, ImageBreak ;
-  - `settings` (type unique) : carte footer et liens légaux ;
-  - `legal_page` (type répétable, avec UID) : mentions légales et protection des données.
-- `src/lib/prismic.ts` renvoie **exactement les mêmes types** que `src/lib/api.ts` actuel. Les composants ne changent pas, donc le rendu et les animations non plus.
-- Une variable `CMS_SOURCE=wordpress|prismic` choisit la source. Par défaut, ça reste WordPress.
-- Routes `/api/preview`, `/api/exit-preview`, `/api/revalidate` (webhook) et `/slice-simulator`.
-- `next.config.ts` : `images.domains` passe à `remotePatterns`, avec l'ajout de `images.prismic.io`.
-- Script `npm run migrate:prismic`, qui lit `migration/wordpress-export/*.json` et crée les documents et les médias dans Prismic.
+### Étape 3 — 🤖 Intégrer Prismic dans le code ✅ fait
+- Paquets `@prismicio/client`, `@prismicio/next`, `@prismicio/react`, plus la CLI `prismic` et `tsx` en dev.
+- Modèles créés avec la CLI dans `customtypes/` :
+  - `home` (page unique, route `/`) avec un onglet par section : Hero, Images de séparation, À propos, Services (avec les prestations en groupe imbriqué), RSE, Machines, FAQ, Footer ;
+  - `legal_page` (UID : `mentions-legales`, `protection-donnees`), avec un onglet SEO standard.
+- `src/lib/prismic.ts` renvoie **exactement les mêmes objets** que `src/lib/api.ts` (WordPress). Les composants et les animations ne changent pas.
+- `src/lib/cms.ts` choisit la source avec `CMS_SOURCE=wordpress|prismic`. Par défaut, c'est WordPress.
+- Routes `/api/preview`, `/api/exit-preview` et `/api/revalidate` (webhook, protégé par `PRISMIC_WEBHOOK_SECRET`).
+- `next.config.ts` : `images.domains` passe à `remotePatterns`, avec l'ajout des domaines Prismic.
+- Scripts : `scripts/prismic/wordpress-to-prismic.ts` fait la conversion, `scripts/prismic/migrate.ts` fait l'envoi.
+- Vérifié en local avec une fausse API Prismic servant les documents produits par le script : texte identique au site WordPress, mêmes images et mêmes dimensions, captures identiques en mobile et desktop (hors animations).
 
-### Étape 4 — 👤 Pousser les modèles vers Prismic (≈ 10 min, en local)
+### Étape 4 — 👤 Envoyer les modèles vers Prismic (≈ 5 min, en local)
 ```bash
 git fetch origin && git checkout claude/prismic-migration-guide-hhd3jz && git pull
 npm install
-npm run slicemachine        # ouvre http://localhost:9999
+npx prismic login          # ouvre le navigateur, connecte-toi avec ton compte Prismic
+npx prismic push           # crée les types "Accueil" et "Page légale" dans le-forage
+npx prismic status         # doit indiquer que tout est synchronisé
 ```
-Dans Slice Machine : **Log in**, puis le bouton **Push**. Les types et les slices apparaissent dans ton dashboard Prismic.
 
 ### Étape 5 — 👤 Lancer l'import du contenu (≈ 5 min, en local)
-Dans `.env.local` (jamais commité, c'est déjà dans `.gitignore`) :
+Crée `.env.local` à partir de `.env.example` (jamais commité) et renseigne au minimum :
 ```env
-PRISMIC_REPOSITORY_NAME=<nom-du-repo>
-PRISMIC_WRITE_TOKEN=<token de l'étape 2>
+PRISMIC_WRITE_TOKEN=<token Write API de l'étape 2>
 ```
 ```bash
-npm run migrate:prismic
+npm run migrate:prismic -- --dry-run   # liste les 3 documents et les 32 médias, n'envoie rien
+npm run migrate:prismic                # envoie
 ```
-Le script importe les ~30 images, SVG et PDF depuis `admin.leforage.fr`, puis crée les documents dans une **release « Migration »**. Rien n'est publié automatiquement.
-**Garde la sortie de la commande**, c'est le log à m'envoyer si quelque chose échoue.
+Le script importe les images, SVG et PDF depuis `admin.leforage.fr`, puis crée les documents dans la **release « Migration »**. Rien n'est publié automatiquement.
+**Garde la sortie de la commande** : c'est le log à m'envoyer si quelque chose échoue.
+À lancer **une seule fois**. Une deuxième exécution recréerait les médias en double.
 
 ### Étape 6 — 👤 Relire et publier dans Prismic (≈ 30 min)
 1. Dashboard Prismic → Migration release : ouvre chaque document et compare-le avec le site actuel.
@@ -109,22 +111,28 @@ Le script importe les ~30 images, SVG et PDF depuis `admin.leforage.fr`, puis cr
 3. **Publie** la release.
 
 ### Étape 7 — 🤖 + 👤 Tester en local avec Prismic
+Dans `.env.local`, mets `CMS_SOURCE=prismic`, puis :
 ```bash
-CMS_SOURCE=prismic npm run dev     # puis npm run build && npm start
+npm run dev     # puis npm run build && npm start
 ```
 De mon côté, je peux faire une **comparaison de captures** (WordPress vs Prismic) en mobile, tablette et desktop avec Playwright. Toi, vérifie les animations, les popups RSE, la FAQ, le téléchargement des PDF et les deux pages légales.
 
 ### Étape 8 — 👤 Preview sur Vercel (≈ 20 min)
 1. Vercel → Settings → Environment Variables, en **Preview uniquement** :
-   `CMS_SOURCE=prismic`, `PRISMIC_REPOSITORY_NAME=<nom>`, `PRISMIC_REVALIDATE_SECRET=<chaîne aléatoire>`.
+   `CMS_SOURCE=prismic` et `PRISMIC_WEBHOOK_SECRET=<chaîne aléatoire>`. Le nom du repository est déjà dans `prismic.config.json`.
 2. Pousse la branche. Vercel génère une URL de preview.
-3. Prismic → Settings → **Previews** : ajoute l'URL de preview Vercel, avec la route `/api/preview`.
+3. Previews Prismic : `npx prismic preview add https://<url-preview-vercel>/api/preview`.
 4. Teste la preview, le bouton « Preview » de Prismic, et PageSpeed (à comparer avec l'étape 1).
 
 ### Étape 9 — 👤 Mise en production (≈ 15 min, sans coupure)
 1. Ajoute les mêmes variables en **Production**.
 2. Merge la PR dans `main` : Vercel redéploie `www.leforage.fr`. **Aucune action OVH.**
-3. Prismic → Settings → **Webhooks** : URL `https://www.leforage.fr/api/revalidate`, secret = `PRISMIC_REVALIDATE_SECRET`, déclencheurs « A document is published / unpublished ».
+3. Webhook :
+   ```bash
+   npx prismic webhook create https://www.leforage.fr/api/revalidate \
+     --secret <PRISMIC_WEBHOOK_SECRET> --trigger documentsPublished --trigger documentsUnpublished
+   npx prismic preview add https://www.leforage.fr/api/preview
+   ```
 4. Test de bout en bout : modifie un titre dans Prismic, publie, et vérifie que le site change en moins d'une minute.
 5. Search Console : « Inspection d'URL » sur `/`, puis « Demander l'indexation ».
 
@@ -148,6 +156,7 @@ De mon côté, je peux faire une **comparaison de captures** (WordPress vs Prism
 | RSE → carte « EPI » | Logo `logo-test.jpg` | Vrai logo |
 | RSE → popups (8) | Toutes utilisent la même image, `hero-cover.jpg` | Images dédiées ou volontaire ? |
 | Protection des données | Le champ ACF s'appelle `subtile` au lieu de `subtitle` : **le sous-titre ne s'affiche pas** | Corrigé automatiquement par la migration |
+| Mentions légales / Protection des données | Contenu en Lorem ipsum et sous-titre « Test » : **obligation légale** pour un site d'entreprise | Vrais textes à obtenir |
 | Médias | `blank.jpg` et `favicon-1.jpg` ne sont utilisés nulle part | Non migrés |
 
 ---
@@ -155,6 +164,14 @@ De mon côté, je peux faire une **comparaison de captures** (WordPress vs Prism
 ## 5. Contenu de `wordpress-export/`
 
 - `page-home.json`, `page-mentions-legales.json`, `page-protection-donnees.json` : réponse brute de l'API REST avec ACF (`?acf_format=standard`).
-- `media.json` : les 34 médias de la bibliothèque (URL, dimensions, alt, type).
+- `media.json` : les 34 médias de la bibliothèque (URL, dimensions, poids, alt, type).
 
 C'est l'instantané de référence pour le script de migration et pour une restauration éventuelle.
+
+---
+
+## 6. Remarques techniques
+
+- **Texte riche :** la réponse de la FAQ, le texte des prestations et les sections légales sont en texte riche dans Prismic (paragraphes, gras, liens, listes). Côté WordPress, le texte brut est échappé, donc l'affichage actuel ne change pas.
+- **Textes alternatifs :** les deux images de séparation utilisent maintenant l'alt réel de l'image (« Sondage géotechnique », « Chantier de forage ») au lieu de « Image de séparation ».
+- **Lint :** `npm run lint` était déjà cassé avant la migration (config ESLint « flat » avec ESLint 8). Le build n'est pas bloqué, mais c'est à corriger à part.

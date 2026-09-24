@@ -1,0 +1,530 @@
+{
+  "format": "page",
+  "id": "home",
+  "json": {
+    "Hero": {
+      "hero_title": {
+        "config": {
+          "label": "Titre"
+        },
+        "type": "Text"
+      },
+      "hero_description": {
+        "config": {
+          "label": "Description"
+        },
+        "type": "Text"
+      },
+      "hero_button_text": {
+        "config": {
+          "label": "Bouton – texte"
+        },
+        "type": "Text"
+      },
+      "hero_button_url": {
+        "config": {
+          "label": "Bouton – lien",
+          "placeholder": "https://…, /page ou mailto:contact@…"
+        },
+        "type": "Text"
+      },
+      "hero_button_variant": {
+        "config": {
+          "default_value": "primary",
+          "label": "Bouton – style",
+          "options": [
+            "primary",
+            "secondary",
+            "outline",
+            "outline-accent",
+            "accent-outline"
+          ]
+        },
+        "type": "Select"
+      },
+      "hero_button_show_arrow": {
+        "config": {
+          "default_value": true,
+          "label": "Bouton – afficher la flèche",
+          "placeholder_false": "Non",
+          "placeholder_true": "Oui"
+        },
+        "type": "Boolean"
+      }
+    },
+    "Images de séparation": {
+      "hero_about_break_image": {
+        "config": {
+          "label": "Entre Hero et À propos – image (1920×1080 conseillé)"
+        },
+        "type": "Image"
+      },
+      "hero_about_break_quality": {
+        "config": {
+          "label": "Entre Hero et À propos – qualité (1-100)",
+          "placeholder": "90"
+        },
+        "type": "Number"
+      },
+      "hero_about_break_priority": {
+        "config": {
+          "default_value": true,
+          "label": "Entre Hero et À propos – chargement prioritaire",
+          "placeholder_false": "Non",
+          "placeholder_true": "Oui"
+        },
+        "type": "Boolean"
+      },
+      "hero_about_break_parallax_strength": {
+        "config": {
+          "label": "Entre Hero et À propos – intensité parallaxe",
+          "placeholder": "0.2"
+        },
+        "type": "Number"
+      },
+      "services_rse_break_image": {
+        "config": {
+          "label": "Entre Services et RSE – image (1920×1080 conseillé)"
+        },
+        "type": "Image"
+      },
+      "services_rse_break_quality": {
+        "config": {
+          "label": "Entre Services et RSE – qualité (1-100)",
+          "placeholder": "90"
+        },
+        "type": "Number"
+      },
+      "services_rse_break_priority": {
+        "config": {
+          "default_value": true,
+          "label": "Entre Services et RSE – chargement prioritaire",
+          "placeholder_false": "Non",
+          "placeholder_true": "Oui"
+        },
+        "type": "Boolean"
+      },
+      "services_rse_break_parallax_strength": {
+        "config": {
+          "label": "Entre Services et RSE – intensité parallaxe",
+          "placeholder": "0.2"
+        },
+        "type": "Number"
+      }
+    },
+    "À propos": {
+      "about_subtitle": {
+        "config": {
+          "label": "Sur-titre"
+        },
+        "type": "Text"
+      },
+      "about_highlight": {
+        "config": {
+          "label": "Mot mis en avant"
+        },
+        "type": "Text"
+      },
+      "about_main_text": {
+        "config": {
+          "label": "Texte principal"
+        },
+        "type": "Text"
+      },
+      "about_image": {
+        "config": {
+          "label": "Image"
+        },
+        "type": "Image"
+      },
+      "about_skills": {
+        "config": {
+          "fields": {
+            "icon": {
+              "config": {
+                "label": "Icône (SVG)"
+              },
+              "type": "Image"
+            },
+            "title": {
+              "config": {
+                "label": "Titre"
+              },
+              "type": "Text"
+            },
+            "description": {
+              "config": {
+                "label": "Description"
+              },
+              "type": "Text"
+            }
+          },
+          "label": "Atouts"
+        },
+        "type": "Group"
+      }
+    },
+    "Services": {
+      "services_title": {
+        "config": {
+          "label": "Titre de la section"
+        },
+        "type": "Text"
+      },
+      "services": {
+        "config": {
+          "fields": {
+            "title": {
+              "config": {
+                "label": "Titre"
+              },
+              "type": "Text"
+            },
+            "image": {
+              "config": {
+                "label": "Image"
+              },
+              "type": "Image"
+            },
+            "questions": {
+              "config": {
+                "fields": {
+                  "question": {
+                    "config": {
+                      "label": "Titre"
+                    },
+                    "type": "Text"
+                  },
+                  "image": {
+                    "config": {
+                      "label": "Image (optionnelle)"
+                    },
+                    "type": "Image"
+                  },
+                  "text": {
+                    "config": {
+                      "allowTargetBlank": true,
+                      "label": "Texte",
+                      "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+                    },
+                    "type": "StructuredText"
+                  }
+                },
+                "label": "Prestations"
+              },
+              "type": "Group"
+            }
+          },
+          "label": "Services"
+        },
+        "type": "Group"
+      }
+    },
+    "RSE": {
+      "rse_tag_title": {
+        "config": {
+          "label": "Étiquette"
+        },
+        "type": "Text"
+      },
+      "rse_main_title": {
+        "config": {
+          "label": "Titre"
+        },
+        "type": "Text"
+      },
+      "rse_description": {
+        "config": {
+          "label": "Description"
+        },
+        "type": "Text"
+      },
+      "rse_method_note": {
+        "config": {
+          "label": "Note méthode"
+        },
+        "type": "Text"
+      },
+      "security_cards": {
+        "config": {
+          "fields": {
+            "logo": {
+              "config": {
+                "label": "Logo"
+              },
+              "type": "Image"
+            },
+            "text": {
+              "config": {
+                "label": "Nom"
+              },
+              "type": "Text"
+            },
+            "tooltip_content": {
+              "config": {
+                "label": "Infobulle"
+              },
+              "type": "Text"
+            },
+            "popup_title": {
+              "config": {
+                "label": "Popup – titre"
+              },
+              "type": "Text"
+            },
+            "popup_description": {
+              "config": {
+                "label": "Popup – description"
+              },
+              "type": "Text"
+            },
+            "popup_image": {
+              "config": {
+                "label": "Popup – image"
+              },
+              "type": "Image"
+            },
+            "popup_icon": {
+              "config": {
+                "label": "Popup – icône"
+              },
+              "type": "Image"
+            }
+          },
+          "label": "Cartes sécurité"
+        },
+        "type": "Group"
+      },
+      "qualifications_cards": {
+        "config": {
+          "fields": {
+            "logo": {
+              "config": {
+                "label": "Logo"
+              },
+              "type": "Image"
+            },
+            "text": {
+              "config": {
+                "label": "Nom"
+              },
+              "type": "Text"
+            },
+            "tooltip_content": {
+              "config": {
+                "label": "Infobulle"
+              },
+              "type": "Text"
+            },
+            "popup_title": {
+              "config": {
+                "label": "Popup – titre"
+              },
+              "type": "Text"
+            },
+            "popup_description": {
+              "config": {
+                "label": "Popup – description"
+              },
+              "type": "Text"
+            },
+            "popup_image": {
+              "config": {
+                "label": "Popup – image"
+              },
+              "type": "Image"
+            },
+            "popup_icon": {
+              "config": {
+                "label": "Popup – icône"
+              },
+              "type": "Image"
+            }
+          },
+          "label": "Cartes qualifications"
+        },
+        "type": "Group"
+      }
+    },
+    "Machines": {
+      "machines_tag_title": {
+        "config": {
+          "label": "Étiquette"
+        },
+        "type": "Text"
+      },
+      "machines_main_title": {
+        "config": {
+          "label": "Titre"
+        },
+        "type": "Text"
+      },
+      "machines": {
+        "config": {
+          "fields": {
+            "image": {
+              "config": {
+                "label": "Image"
+              },
+              "type": "Image"
+            },
+            "title": {
+              "config": {
+                "label": "Nom"
+              },
+              "type": "Text"
+            },
+            "technical_sheet": {
+              "config": {
+                "label": "Fiche technique (PDF)",
+                "select": "media"
+              },
+              "type": "Link"
+            },
+            "button_text": {
+              "config": {
+                "label": "Bouton – texte"
+              },
+              "type": "Text"
+            },
+            "button_variant": {
+              "config": {
+                "default_value": "primary",
+                "label": "Bouton – style",
+                "options": [
+                  "primary",
+                  "secondary",
+                  "outline",
+                  "outline-accent",
+                  "accent-outline"
+                ]
+              },
+              "type": "Select"
+            },
+            "button_show_arrow": {
+              "config": {
+                "default_value": true,
+                "label": "Bouton – afficher la flèche",
+                "placeholder_false": "Non",
+                "placeholder_true": "Oui"
+              },
+              "type": "Boolean"
+            }
+          },
+          "label": "Machines"
+        },
+        "type": "Group"
+      }
+    },
+    "FAQ": {
+      "faq_title": {
+        "config": {
+          "label": "Titre"
+        },
+        "type": "Text"
+      },
+      "faq_cover_image": {
+        "config": {
+          "label": "Image"
+        },
+        "type": "Image"
+      },
+      "faq_items": {
+        "config": {
+          "fields": {
+            "question": {
+              "config": {
+                "label": "Question"
+              },
+              "type": "Text"
+            },
+            "answer": {
+              "config": {
+                "allowTargetBlank": true,
+                "label": "Réponse",
+                "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+              },
+              "type": "StructuredText"
+            }
+          },
+          "label": "Questions"
+        },
+        "type": "Group"
+      }
+    },
+    "Footer": {
+      "footer_title": {
+        "config": {
+          "label": "Titre de la carte"
+        },
+        "type": "Text"
+      },
+      "footer_button_text": {
+        "config": {
+          "label": "Bouton – texte"
+        },
+        "type": "Text"
+      },
+      "footer_button_url": {
+        "config": {
+          "label": "Bouton – lien",
+          "placeholder": "https://…, /page ou mailto:contact@…"
+        },
+        "type": "Text"
+      },
+      "footer_button_variant": {
+        "config": {
+          "default_value": "primary",
+          "label": "Bouton – style",
+          "options": [
+            "primary",
+            "secondary",
+            "outline",
+            "outline-accent",
+            "accent-outline"
+          ]
+        },
+        "type": "Select"
+      },
+      "footer_button_show_arrow": {
+        "config": {
+          "default_value": true,
+          "label": "Bouton – afficher la flèche",
+          "placeholder_false": "Non",
+          "placeholder_true": "Oui"
+        },
+        "type": "Boolean"
+      },
+      "footer_company": {
+        "config": {
+          "label": "Nom de l'entreprise"
+        },
+        "type": "Text"
+      },
+      "legal_links": {
+        "config": {
+          "fields": {
+            "text": {
+              "config": {
+                "label": "Texte"
+              },
+              "type": "Text"
+            },
+            "url": {
+              "config": {
+                "label": "Lien",
+                "placeholder": "/mentions-legales"
+              },
+              "type": "Text"
+            }
+          },
+          "label": "Liens légaux"
+        },
+        "type": "Group"
+      }
+    }
+  },
+  "label": "Accueil",
+  "repeatable": false,
+  "status": true
+}
