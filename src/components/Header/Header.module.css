@@ -20,6 +20,7 @@
 
 /* Couleurs par thème : pastille en aplat (beige sur beige, rouge sur rouge, blanc sur noir/image) */
 .header[data-header-theme="red"] {
+    --h-logo-text: var(--beige);
     --h-pill-border: var(--beige-30-line);
     --h-logo: var(--beige);
     --h-pill-bg: var(--rouge);
@@ -29,6 +30,7 @@
     --h-cta-text: var(--rouge);
 }
 .header[data-header-theme="dark"] {
+    --h-logo-text: var(--beige);
     --h-pill-border: var(--noir-10);
     --h-logo: var(--beige);
     --h-pill-bg: var(--blanc);
@@ -38,6 +40,7 @@
     --h-cta-text: var(--blanc);
 }
 .header[data-header-theme="beige"] {
+    --h-logo-text: var(--bleu);
     --h-pill-border: var(--noir-10);
     --h-logo: var(--rouge);
     --h-pill-bg: var(--beige);
