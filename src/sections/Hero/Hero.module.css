@@ -88,7 +88,7 @@
 .description {
     color: var(--beige);
     font: var(--font-s-med);
-    max-width: 800px;
+    max-width: 50rem;
     overflow: hidden;
 }
 
@@ -107,7 +107,7 @@
     position: relative;
     display: inline-block;
     transition: transform 0.3s ease;
-    padding: 10px 10px 20px;
+    padding: 0.625rem 0.625rem 1.25rem;
 }
 
 .tag:hover {
@@ -117,8 +117,8 @@
 .pattern {
     position: absolute;
     top: 0;
-    right: -40px;
-    width: 200px;
+    right: -2.5rem;
+    width: 12.5rem;
     height: 100%;
     object-fit: cover;
     will-change: transform, opacity;
@@ -139,8 +139,8 @@
     .pattern {
         position: absolute;
         top: 0;
-        right: -32px;
-        width: 200px;
+        right: -2rem;
+        width: 12.5rem;
         height: 100%;
         object-fit: cover;
         will-change: transform, opacity;
@@ -151,8 +151,8 @@
     .pattern {
         position: absolute;
         top: 0;
-        right: -32px;
-        width: 200px;
+        right: -2rem;
+        width: 12.5rem;
         height: 100%;
         object-fit: cover;
         will-change: transform, opacity;

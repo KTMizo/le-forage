@@ -140,8 +140,8 @@
 .navPrev::after {
     content: "";
     display: block;
-    width: 18px; /* 18px */
-    height: 18px; /* 18px */
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
     background: white;
     transition: background 0.5s cubic-bezier(0.4, 0, 0, 1);
     clip-path: path(
@@ -152,8 +152,8 @@
 .navNext::after {
     content: "";
     display: block;
-    width: 18px; /* 18px */
-    height: 18px; /* 18px */
+    width: 1.125rem; /* 18px */
+    height: 1.125rem; /* 18px */
     background: white;
     transition: background 0.5s cubic-bezier(0.4, 0, 0, 1);
     clip-path: path(

@@ -43,7 +43,7 @@
 }
 
 .menu__buttonIcon_hidden line:first-child {
-    transform: translateY(3px);
+    transform: translateY(0.1875rem);
 }
 
 .menu__buttonIcon_hidden line:last-child {
@@ -67,7 +67,7 @@
 .menu__overlay_active {
     opacity: 1;
     visibility: visible;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(0.25rem);
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -148,10 +148,10 @@
 }
 
 .menu__navLink {
-    padding-block: 24px;
+    padding-block: 1.5rem;
     border-top: 1px solid var(--color-black-20);
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0.625rem);
     animation: fadeSlideIn 0.5s ease forwards;
     font: var(--text-desk-xs);
     text-decoration: none;
@@ -164,12 +164,12 @@
 
 .menu__navLink:hover {
     color: #ab2325;
-    transform: translateX(8px);
+    transform: translateX(0.5rem);
 }
 
 .menu__contactWrapper {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0.625rem);
     animation: fadeSlideIn 0.5s ease forwards;
 }
 
@@ -183,7 +183,7 @@
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(0.625rem);
     }
     to {
         opacity: 1;
@@ -193,7 +193,7 @@
 
 @keyframes slideIn {
     from {
-        transform: translateY(10px);
+        transform: translateY(0.625rem);
     }
     to {
         transform: translateY(0);

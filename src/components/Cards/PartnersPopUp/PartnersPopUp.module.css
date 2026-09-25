@@ -17,19 +17,19 @@
   background: white;
   overflow: hidden;
   width: 90%;
-  max-width: 1000px;
+  max-width: 62.5rem;
   z-index: 9999;
   max-height: 90vh;
 }
 
 .closeButton {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 0.75rem;
+  right: 0.75rem;
   z-index: 10;
   color: #333;
   background-color: var(--blanc, #fff);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   transition: color 0.3s ease;
 }
 
@@ -39,9 +39,9 @@
 
 .contentWrapper {
   display: flex;
-  gap: 32px;
-  padding: 24px;
-  max-height: calc(90vh - 48px);
+  gap: 2rem;
+  padding: 1.5rem;
+  max-height: calc(90vh - 3rem);
   overflow-y: auto;
 }
 
@@ -61,17 +61,17 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
 }
 
 .iconContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  border-radius: 4px;
-  width: 50px;
-  height: 50px;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  width: 3.125rem;
+  height: 3.125rem;
   background-color: #f2f2f2;
   border: 1px solid #03030310;
 }
@@ -84,33 +84,33 @@
 
 .title {
   color: var(--noir);
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 400;
   line-height: 1.2;
   margin: 0;
 }
 
 .description {
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--black);
   margin: 0;
 }
 
 .navigation {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   margin-top: auto;
 }
 
 .navButton {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   background-color: #1e3a8a;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +124,7 @@
 @media (max-width: 768px) {
   .contentWrapper {
     flex-direction: column;
-    gap: 24px;
+    gap: 1.5rem;
   }
 
   .title {
