@@ -11,6 +11,7 @@
     --noir-10: var(--color-black-10);
     --noir-20: var(--color-black-20);
     --blanc-20: rgb(255 255 255 / 0.2);
+    --beige-30-line: rgb(249 241 234 / 0.3); /* liseré #F9F1EA à 30 % */
     /* Base typography (desktop - above 1024px) */
     /* Fonts */
     --font-xxl-med: 5.25rem/5rem "articulat", sans-serif; /* 84px/80px */

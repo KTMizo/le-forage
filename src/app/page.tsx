@@ -141,38 +141,42 @@ export default async function Home() {
       <ScrollProgress />
 
       <Header />
-      <Hero data={heroData} />
-      <ImageBreak
-        src={imageBreakData.hero_about_break.image.url}
-        alt={imageBreakData.hero_about_break.alt}
-        width={imageBreakData.hero_about_break.image.width}
-        height={imageBreakData.hero_about_break.image.height}
-        quality={imageBreakData.hero_about_break.params.quality}
-        priority={imageBreakData.hero_about_break.params.priority}
-        parallaxStrength={
-          imageBreakData.hero_about_break.params.parallax_strength
-        }
-      />
-      <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
-      <TServices data={servicesData} />
-      <ImageBreak
-        src={imageBreakData.services_rse_break.image.url}
-        alt={imageBreakData.services_rse_break.alt}
-        width={imageBreakData.services_rse_break.image.width}
-        height={imageBreakData.services_rse_break.image.height}
-        quality={imageBreakData.services_rse_break.params.quality}
-        priority={imageBreakData.services_rse_break.params.priority}
-        parallaxStrength={
-          imageBreakData.services_rse_break.params.parallax_strength
-        }
-      />
-      <RSE data={rseData} />
-      <Machine data={machineData} />
-      <TFAQ data={faqData} />
-      <InfiniteLoop
-        footer={<Footer data={footerData} />}
-        clone={<Hero data={heroData} clone />}
-      />
+      {/* Contenu qui vibre pendant le forage. L'en-tête et la barre de progression restent
+          hors de ce bloc : un transform sur un parent casserait leur position: fixed. */}
+      <div id="page-content">
+        <Hero data={heroData} />
+        <ImageBreak
+          src={imageBreakData.hero_about_break.image.url}
+          alt={imageBreakData.hero_about_break.alt}
+          width={imageBreakData.hero_about_break.image.width}
+          height={imageBreakData.hero_about_break.image.height}
+          quality={imageBreakData.hero_about_break.params.quality}
+          priority={imageBreakData.hero_about_break.params.priority}
+          parallaxStrength={
+            imageBreakData.hero_about_break.params.parallax_strength
+          }
+        />
+        <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
+        <TServices data={servicesData} />
+        <ImageBreak
+          src={imageBreakData.services_rse_break.image.url}
+          alt={imageBreakData.services_rse_break.alt}
+          width={imageBreakData.services_rse_break.image.width}
+          height={imageBreakData.services_rse_break.image.height}
+          quality={imageBreakData.services_rse_break.params.quality}
+          priority={imageBreakData.services_rse_break.params.priority}
+          parallaxStrength={
+            imageBreakData.services_rse_break.params.parallax_strength
+          }
+        />
+        <RSE data={rseData} />
+        <Machine data={machineData} />
+        <TFAQ data={faqData} />
+        <InfiniteLoop
+          footer={<Footer data={footerData} />}
+          clone={<Hero data={heroData} clone />}
+        />
+      </div>
     </main>
   );
 }
