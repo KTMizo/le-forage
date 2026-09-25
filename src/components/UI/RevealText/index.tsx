@@ -1,7 +1,13 @@
 "use client";
 // Apparition des titres, identique sur tout le site : découpage mot par mot, chaque mot
 // glisse dans son masque, avec un décalage (stagger), piloté par le scroll (scrub).
-import { createElement, useEffect, useRef, type ElementType, type ReactNode } from "react";
+import {
+  createElement,
+  useEffect,
+  useRef,
+  type ElementType,
+  type ReactNode,
+} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -51,5 +57,5 @@ export default function RevealText({
     return () => split.revert();
   }, [start, end]);
 
-  return createElement(as, { ref, className }, children);
+  return createElement(as, { ref, className: `t-reveal ${className}` }, children);
 }

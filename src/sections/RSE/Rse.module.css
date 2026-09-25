@@ -58,13 +58,13 @@
 .description {
     font-size: 2.25rem;
     line-height: 150%;
-    color: var(--black);
+    color: var(--noir);
     margin: 0;
 }
 .methodNote {
     font-size: 1.125rem;
     line-height: 150%;
-    color: var(--black);
+    color: var(--noir);
     margin: 0;
 }
 .rseCards {
@@ -169,7 +169,7 @@
     }
     .methodNote {
         font-size: 1rem;
-        color: var(--black);
+        color: var(--noir);
         margin: 0;
         font-weight: 500;
     }

@@ -37,7 +37,9 @@ export default function Header() {
         end: "max",
         onRefresh: () => {
           const clone = document.querySelector("[data-hero-clone]");
-          cloneTop = clone ? clone.getBoundingClientRect().top + window.scrollY : Infinity;
+          cloneTop = clone
+            ? clone.getBoundingClientRect().top + window.scrollY
+            : Infinity;
         },
         onUpdate: (self) => {
           const y = self.scroll();
@@ -51,16 +53,18 @@ export default function Header() {
 
       // Thème : la section sous le milieu de l'en-tête donne sa couleur
       const line = () => header.offsetTop + header.offsetHeight / 2;
-      document.querySelectorAll<HTMLElement>("[data-theme]").forEach((section) => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: () => `top ${line()}`,
-          end: () => `bottom ${line()}`,
-          onToggle: (self) => {
-            if (self.isActive) setTheme(section.dataset.theme as Theme);
-          },
+      document
+        .querySelectorAll<HTMLElement>("[data-theme]")
+        .forEach((section) => {
+          ScrollTrigger.create({
+            trigger: section,
+            start: () => `top ${line()}`,
+            end: () => `bottom ${line()}`,
+            onToggle: (self) => {
+              if (self.isActive) setTheme(section.dataset.theme as Theme);
+            },
+          });
         });
-      });
     });
 
     return () => ctx.revert();
@@ -68,7 +72,12 @@ export default function Header() {
 
   return (
     <header ref={headerRef} className={styles.header} data-header-theme={theme}>
-      <a ref={logoRef} href="#hero" className={styles.logo} aria-label="Le Forage, retour en haut">
+      <a
+        ref={logoRef}
+        href="#hero"
+        className={styles.logo}
+        aria-label="Le Forage, retour en haut"
+      >
         <LogoFull className={styles.logoSvg} />
       </a>
 

@@ -1,14 +1,16 @@
 :root {
-    /* Colors */
-    --liseret-black: #00000004;
-    --black-4: #00000004;
-    --rouge: #ab2325;
-    --beige: #f9f1ea;
-    --bleu: #003b87;
-    --beige-30: #f9f1ea30;
-    --noir: #000000;
-    --black-20: #00000020;
-    --blanc: #ffffff;
+    /* Couleurs : une seule source, la palette Tailwind (@theme dans globals.css).
+       Les noms français servent dans les CSS modules, les classes Tailwind (bg-red…) dans le JSX. */
+    --rouge: var(--color-red);
+    --beige: var(--color-beige);
+    --bleu: var(--color-bleu);
+    --noir: var(--color-black);
+    --blanc: var(--color-white);
+    --beige-30: var(--color-beige-30);
+    --noir-4: rgb(0 0 0 / 0.04);
+    --noir-10: var(--color-black-10);
+    --noir-20: var(--color-black-20);
+    --blanc-20: rgb(255 255 255 / 0.2);
     /* Base typography (desktop - above 1024px) */
     /* Fonts */
     --font-xxl-med: 5.25rem/5rem "articulat", sans-serif; /* 84px/80px */
@@ -22,12 +24,11 @@
     /* Spacings */
     --spacing-sm: 0.75rem; /* 12px */
     --spacing-md: 1rem; /* 16px */
-    --spacing-lg: 1.5rem; /* 24px */
+    --spacing-lg: 1.25rem; /* 20px */
     --spacing-xl: 2rem; /* 32px */
     /* Spacings custom */
     --padding-80: 5rem; /* 80px */
     --padding-120: 7.5rem; /* 120px */
-    --spacing-lg: 1.25rem; /* 20px */
     /* Foreuse animée (hero et footer, même position) */
     --fore-width: 12.5rem;
     --fore-right: -1rem;

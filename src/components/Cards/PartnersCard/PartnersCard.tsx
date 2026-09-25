@@ -16,7 +16,8 @@ const PlusIcon = () => (
     height="16"
     viewBox="0 0 16 16"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M0 8L16 8M8 16L8 0" stroke="currentColor" strokeWidth="2" />
   </svg>
 );
@@ -85,7 +86,7 @@ const PartnersCard = ({
           duration: 0.6,
           ease: "power3.out",
         },
-        "-=0.4"
+        "-=0.4",
       )
       .to(
         textRef.current,
@@ -95,7 +96,7 @@ const PartnersCard = ({
           duration: 0.6,
           ease: "power3.out",
         },
-        "-=0.5"
+        "-=0.5",
       )
       .to(
         iconRef.current,
@@ -105,7 +106,7 @@ const PartnersCard = ({
           duration: 0.6,
           ease: "power3.out",
         },
-        "-=0.5"
+        "-=0.5",
       );
 
     return () => {
@@ -140,7 +141,8 @@ const PartnersCard = ({
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        aria-label={`Voir les détails de ${text}`}>
+        aria-label={`Voir les détails de ${text}`}
+      >
         <div className={styles.content}>
           <div className={styles.logoContainer} ref={logoRef}>
             <Image

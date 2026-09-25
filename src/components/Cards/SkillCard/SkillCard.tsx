@@ -24,43 +24,42 @@ export default function TAboutSkill({
       return;
 
     const ctx = gsap.context(() => {
-    // Animation d'opacité pour le titre
-    gsap.fromTo(
-      titleRef.current,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 90%",
-          once: true,
+      // Animation d'opacité pour le titre
+      gsap.fromTo(
+        titleRef.current,
+        {
+          opacity: 0,
         },
-      },
-    );
-
-    // Animation d'opacité pour la description
-    gsap.fromTo(
-      descriptionRef.current,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        delay: 0.1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 90%",
-          once: true,
+        {
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top 90%",
+            once: true,
+          },
         },
-      },
-    );
+      );
 
+      // Animation d'opacité pour la description
+      gsap.fromTo(
+        descriptionRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          delay: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        },
+      );
     });
     return () => ctx.revert();
   }, []);

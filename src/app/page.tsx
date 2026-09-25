@@ -5,8 +5,8 @@ import Header from "@/components/Header";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
-import TAbout from "@/sections/t-about";
-import TServices from "@/sections/t-services";
+import TAbout from "@/sections/About";
+import TServices from "@/sections/Services";
 import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import Footer from "@/sections/Footer";
@@ -33,8 +33,7 @@ import {
   getFooterData,
   getFaqData,
 } from "@/lib/prismic";
-import TFAQ from "@/sections/t-faq";
-
+import TFAQ from "@/sections/Faq";
 
 // Créer des valeurs par défaut typées
 const defaultHeroData: HeroData = {

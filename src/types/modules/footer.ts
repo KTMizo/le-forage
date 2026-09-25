@@ -36,4 +36,3 @@ export interface Footer {
   footer_card: FooterCard;
   footer_info: FooterInfo;
 }
-

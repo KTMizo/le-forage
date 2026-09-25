@@ -111,19 +111,39 @@
         display: inline-flex;
         justify-self: end;
         align-items: center;
-        padding: 1rem 1.5rem;
+        padding: var(--spacing-md) var(--spacing-lg);
         border-radius: var(--border-6);
         font: var(--font-button);
+        font-weight: 500;
         text-decoration: none;
         background-color: var(--h-cta-bg);
         color: var(--h-cta-text);
         transition:
             background-color 0.4s var(--header-ease),
-            color 0.4s var(--header-ease),
-            transform 0.3s var(--header-ease);
+            color 0.4s var(--header-ease);
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+
+    /* Même survol que les autres boutons du site (Button primary) : fond bleu qui monte */
+    .contact::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-color: var(--bleu);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.5s var(--header-ease);
     }
 
     .contact:hover {
-        transform: translateY(-0.125rem);
+        color: var(--blanc);
+    }
+
+    .contact:hover::before {
+        transform: scaleY(1);
+        transform-origin: top;
     }
 }

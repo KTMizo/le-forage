@@ -4,7 +4,7 @@ import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
-import GridOverlay from "@/components/GridOverlay";
+import GridOverlay from "@/components/UI/GridOverlay";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 

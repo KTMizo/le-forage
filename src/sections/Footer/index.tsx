@@ -16,7 +16,9 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
         <div className="grid gap-y-12 text-center lg:flex lg:items-center lg:justify-between lg:max-w-657">
           <div className="flex justify-center gap-x-8 lg:gap-x-12 lg:order-1">
             <div className={styles.footerYear}>
-              <span>© {new Date().getFullYear()} {footer_info.company}</span>
+              <span>
+                © {new Date().getFullYear()} {footer_info.company}
+              </span>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -26,7 +28,7 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
               </a>
             </div>
           </div>
-          
+
           <div className="flex justify-center lg:order-2">
             <button
               onClick={() => drillTo("#a-propos")}

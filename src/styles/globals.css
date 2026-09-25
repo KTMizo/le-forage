@@ -46,7 +46,7 @@
     font-style: normal;
     font-display: swap;
 }
-@theme {
+@theme static {
     --*: initial;
 
     --spacing: 0.125rem;
@@ -200,10 +200,10 @@ body {
 }
 
 .t-accordeon svg.plus {
-    color: var(--color-red);
+    color: var(--rouge);
 }
 .t-accordeon:hover svg.plus {
-    color: var(--color-bleu);
+    color: var(--bleu);
 }
 
 .t-accordeon:hover .t-accordeon-head,
@@ -285,4 +285,9 @@ body {
 }
 .t-rich a {
     text-decoration: underline;
+}
+
+/* Mots découpés (RevealText) : chaque mot est un inline-block qui hériterait sinon du text-indent */
+.t-reveal div {
+    text-indent: 0;
 }

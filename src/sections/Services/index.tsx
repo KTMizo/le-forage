@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { ServicesSection } from "@/types/modules/services";
-import TServicesLine from "@/components/t-services-line";
+import TServicesLine from "./ServicesLine";
 import AccordionItem from "@/components/UI/Accordion";
 import ParallaxImage from "@/components/UI/ParallaxImage";
 import RevealText from "@/components/UI/RevealText";

@@ -1,11 +1,11 @@
 "use client";
 import type { TitleAboutData } from "@/types/modules/titleAbout";
 import type { AboutData } from "@/types/modules/about";
-import TitleAbout from "@/components/TitleAbout";
+import TitleAbout from "./AboutTitle";
 import Image from "next/image";
 
 import React, { useRef, useEffect, useState } from "react";
-import TAboutSkill from "@/components/t-about-skill";
+import TAboutSkill from "@/components/Cards/SkillCard/SkillCard";
 
 interface AboutProps {
   titleAboutData: TitleAboutData;

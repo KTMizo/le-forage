@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import Lenis from "lenis";
 // CSS officiel : bloque le scroll natif quand Lenis est stoppé (menu, popins)
 import "lenis/dist/lenis.css";
@@ -51,5 +57,7 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
     };
   }, [pathname]);
 
-  return <LenisContext.Provider value={instance}>{children}</LenisContext.Provider>;
+  return (
+    <LenisContext.Provider value={instance}>{children}</LenisContext.Provider>
+  );
 }

@@ -31,19 +31,6 @@
     gap: 3rem;
 }
 
-.animatedWord,
-.animatedLine {
-    will-change: transform;
-}
-
-.animatedLine {
-    opacity: 0;
-}
-
-.lineWrapper {
-    overflow: hidden;
-}
-
 .footer {
     position: relative;
     z-index: 1;

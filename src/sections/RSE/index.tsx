@@ -6,7 +6,7 @@ import PartnersCard from "@/components/Cards/PartnersCard/PartnersCard";
 import PartnersPopUp from "@/components/Cards/PartnersPopUp/PartnersPopUp";
 import type { RSEModules, RSECard } from "@/types/modules/rse";
 import RevealText from "@/components/UI/RevealText";
-import GradientWaveText from "@/components/GradientWaveText";
+import GradientWaveText from "@/components/UI/GradientWaveText";
 
 interface RSEProps {
   data: RSEModules;

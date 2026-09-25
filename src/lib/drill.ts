@@ -26,7 +26,12 @@ export function drillTo(selector: string) {
     duration: 1.2,
     onComplete: () => {
       window.clearInterval(shake);
-      gsap.to(document.body, { x: 0, y: 0, duration: 0.15, ease: "power2.out" });
+      gsap.to(document.body, {
+        x: 0,
+        y: 0,
+        duration: 0.15,
+        ease: "power2.out",
+      });
     },
   });
 }

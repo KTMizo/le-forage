@@ -1,5 +1,6 @@
 .loop {
     position: relative;
+    overflow-x: clip; /* la foreuse déborde à droite sur mobile, comme dans le hero */
     background-color: var(--rouge);
 }
 

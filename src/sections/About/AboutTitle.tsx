@@ -1,7 +1,11 @@
 import type { TitleAboutData } from "@/types/modules/titleAbout";
 import RevealText from "@/components/UI/RevealText";
 
-export default function TitleAbout({ subtitle, highlight, mainText }: TitleAboutData) {
+export default function TitleAbout({
+  subtitle,
+  highlight,
+  mainText,
+}: TitleAboutData) {
   return (
     <div className="grid gap-y-8 lg:grid-cols-[auto_1fr] lg:gap-x-40">
       <RevealText

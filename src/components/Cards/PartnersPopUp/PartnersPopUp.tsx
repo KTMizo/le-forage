@@ -36,17 +36,17 @@ export default function PartnersPopUp({
       const scrollY = window.scrollY;
 
       // Bloquer le scroll
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
+      document.body.style.width = "100%";
 
       return () => {
         // Restaurer le scroll
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
+        document.body.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
 
         // Restaurer la position de scroll
         window.scrollTo(0, scrollY);
@@ -67,7 +67,8 @@ export default function PartnersPopUp({
         <button
           className={`t-close ${styles.closeButton}`}
           onClick={onClose}
-          aria-label="Fermer">
+          aria-label="Fermer"
+        >
           <CloseIcon />
         </button>
 
@@ -102,7 +103,8 @@ export default function PartnersPopUp({
                 <button
                   onClick={onPrevious}
                   className={styles.navButton}
-                  aria-label="Précédent">
+                  aria-label="Précédent"
+                >
                   ←
                 </button>
               )}
@@ -110,7 +112,8 @@ export default function PartnersPopUp({
                 <button
                   onClick={onNext}
                   className={styles.navButton}
-                  aria-label="Suivant">
+                  aria-label="Suivant"
+                >
                   →
                 </button>
               )}

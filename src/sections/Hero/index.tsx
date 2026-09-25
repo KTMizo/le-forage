@@ -6,8 +6,7 @@ import styles from "./Hero.module.css";
 import Button from "@/components/UI/Button";
 import Fore from "@/components/Fore";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import SplitType from "split-type";
+import { SplitText } from "gsap/SplitText";
 
 import { HeroData, ButtonVariant } from "@/types/modules/hero";
 
@@ -17,7 +16,7 @@ interface HeroProps {
   clone?: boolean;
 }
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText);
 
 const Hero: React.FC<HeroProps> = ({ data, clone = false }) => {
   const buttonVariant = (data?.button?.variant || "outline") as ButtonVariant;
@@ -47,66 +46,37 @@ const Hero: React.FC<HeroProps> = ({ data, clone = false }) => {
       return;
     }
 
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({ delay: 2 }); // après le loader
 
-    // Configuration de SplitType pour le titre
-    const splitTitle = new SplitType(titleRef.current, {
-      types: "words",
-      wordClass: styles.animatedWord,
+    // Titre : mot par mot dans un masque ; description : ligne par ligne
+    const splitTitle = SplitText.create(titleRef.current, {
+      type: "words",
+      mask: "words",
+    });
+    const splitDescription = SplitText.create(descriptionRef.current, {
+      type: "lines",
+      mask: "lines",
     });
 
-    // Configuration de SplitType pour la description
-    const splitDescription = new SplitType(descriptionRef.current, {
-      types: "lines",
-      lineClass: styles.animatedLine,
-    });
-
-    // Création des wrappers pour les lignes
-    splitDescription.lines?.forEach((line) => {
-      const wrapper = document.createElement("div");
-      wrapper.className = styles.lineWrapper;
-      line.parentNode?.insertBefore(wrapper, line);
-      wrapper.appendChild(line);
-    });
-
-    // Rendre le conteneur visible avant l'animation
     gsap.set(containerRef.current, { visibility: "visible" });
 
-    // Animation des mots du titre
-    tl.fromTo(
-      `.${styles.animatedWord}`,
+    tl.from(splitTitle.words, {
+      yPercent: 100,
+      duration: 1,
+      stagger: 0.1,
+      ease: "power4.out",
+    }).from(
+      splitDescription.lines,
       {
-        y: 100,
-        opacity: 1,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power4.out",
-        delay: 2,
-      }
-    );
-
-    // Animation des lignes de description
-    tl.fromTo(
-      `.${styles.animatedLine}`,
-      {
-        y: 50,
+        yPercent: 100,
         opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
         duration: 0.6,
         stagger: 0.1,
         ease: "power3.out",
       },
-      "-=0.9"
+      "-=0.9",
     );
 
-    // Nettoyage des animations
     return () => {
       tl.kill();
       splitTitle.revert();
@@ -160,10 +130,7 @@ const Hero: React.FC<HeroProps> = ({ data, clone = false }) => {
             </Button>
           </div>
           <div className={styles.footer}>
-            <button
-              onClick={() => drillTo("#a-propos")}
-              className={styles.tag}
-            >
+            <button onClick={() => drillTo("#a-propos")} className={styles.tag}>
               [Forer la page]
             </button>
           </div>

@@ -7,7 +7,6 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem; /* 8px ÷ 16 */
-    /*background: #000000;*/
     /*border-top: 1px solid rgba(255, 255, 255, 0.2);
     border-right: 1px solid rgba(255, 255, 255, 0.2);*/
 }
@@ -31,7 +30,7 @@
     width: 100%;
 }
 .title {
-    color: #ffffff;
+    color: var(--blanc);
     text-align: center;
     font-size: 1.25rem; /* 20px ÷ 16 */
     font-weight: 400;

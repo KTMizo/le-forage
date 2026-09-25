@@ -230,7 +230,12 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   }, [updateSliderPosition]);
 
   return (
-    <section id="machines" data-theme="dark" ref={sectionRef} className={styles.section}>
+    <section
+      id="machines"
+      data-theme="dark"
+      ref={sectionRef}
+      className={styles.section}
+    >
       {/* Header */}
       <div className="grid gap-y-8 lg:grid-cols-2 px-8 lg:px-40 pb-14 lg:pb-28">
         <RevealText
