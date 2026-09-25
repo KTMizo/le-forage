@@ -36,6 +36,14 @@ const DIR = join(__dirname, "linkedin");
 const posts: Post[] = JSON.parse(readFileSync(join(DIR, "posts.json"), "utf8"));
 const DRY_RUN = process.argv.includes("--dry-run");
 const TEMP_IMAGES = process.argv.includes("--temp-images");
+// --only=uid1,uid2 : ne crée que ces actualités (ex. reprise après une interruption, les
+// brouillons déjà créés dans la release n'étant pas visibles par l'API publique)
+const ONLY = process.argv
+  .find((a) => a.startsWith("--only="))
+  ?.slice("--only=".length)
+  .split(",")
+  .filter(Boolean);
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 type ImageRef = { id: string; alt: string | null };
 
@@ -68,7 +76,8 @@ async function importWithTempImages(
   const images = await homeImages(reader);
   const todo = posts
     .map((post) => ({ post, meta: ARTICLES[post.id] }))
-    .filter(({ meta }) => meta && !existing.has(meta.uid));
+    .filter(({ meta }) => meta && !existing.has(meta.uid))
+    .filter(({ meta }) => !ONLY || ONLY.includes(meta.uid));
 
   for (const { post, meta } of todo) {
     const image = images.get(meta.tempImage);
@@ -130,6 +139,7 @@ async function importWithTempImages(
       },
     });
     console.log(`[actualité ${++i}/${todo.length}] ${meta.title}`);
+    await sleep(2500);
   }
   console.log(
     "\nTerminé. Relis la release « Migration » dans Prismic, remplace les photos provisoires, puis publie.",
