@@ -37,7 +37,7 @@ export default function TAboutSkill({
           scrollTrigger: {
             trigger: cardRef.current,
             start: "top 90%",
-            once: true,
+            toggleActions: "play none none none", // joue une fois, sans se détruire (voir PartnersCard)
           },
         },
       );
@@ -56,7 +56,7 @@ export default function TAboutSkill({
           scrollTrigger: {
             trigger: cardRef.current,
             start: "top 90%",
-            once: true,
+            toggleActions: "play none none none", // joue une fois, sans se détruire (voir PartnersCard)
           },
         },
       );

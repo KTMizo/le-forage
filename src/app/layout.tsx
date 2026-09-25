@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsent from "@/components/CookieConsent";
 import GridOverlay from "@/components/UI/GridOverlay";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
@@ -21,12 +21,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
+      <head>
+        {/* Avant tout le reste : empêche le navigateur de restaurer la position de scroll au
+            rechargement (la page repart toujours du haut, comme le prévoit LenisProvider) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "history.scrollRestoration='manual';window.scrollTo(0,0);",
+          }}
+        />
+      </head>
       <body>
-        <GoogleAnalytics />
         <LenisProvider>
           <Loader />
           {children}
         </LenisProvider>
+        <CookieConsent />
         <GridOverlay />
         <PrismicPreview repositoryName={repositoryName} />
       </body>

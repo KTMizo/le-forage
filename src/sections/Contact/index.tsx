@@ -1,11 +1,9 @@
 import RevealText from "@/components/UI/RevealText";
 import ContactForm from "./ContactForm";
-import { ADDRESS_URL, COMPANY, CONTACT_EMAIL } from "@/lib/site";
+import { ADDRESS_URL, COMPANY } from "@/lib/site";
 import styles from "./Contact.module.css";
 
 export default function Contact({ initialSubject }: { initialSubject?: string }) {
-  const phoneHref = COMPANY.phone ? `tel:${COMPANY.phone.replace(/[^+0-9]/g, "")}` : "";
-
   return (
     <section id="contact" data-theme="beige" className={styles.page}>
       <div className={styles.inner}>
@@ -27,24 +25,6 @@ export default function Contact({ initialSubject }: { initialSubject?: string })
 
         <dl className={styles.infos}>
           <div className={styles.info}>
-            <dt className={styles.infoLabel}>E-mail</dt>
-            <dd>
-              <a className={styles.infoValue} href={`mailto:${CONTACT_EMAIL}`}>
-                {CONTACT_EMAIL}
-              </a>
-            </dd>
-          </div>
-          {COMPANY.phone && (
-            <div className={styles.info}>
-              <dt className={styles.infoLabel}>Téléphone</dt>
-              <dd>
-                <a className={styles.infoValue} href={phoneHref}>
-                  {COMPANY.phone}
-                </a>
-              </dd>
-            </div>
-          )}
-          <div className={styles.info}>
             <dt className={styles.infoLabel}>Adresse</dt>
             <dd>
               <a
@@ -57,12 +37,6 @@ export default function Contact({ initialSubject }: { initialSubject?: string })
               </a>
             </dd>
           </div>
-          {COMPANY.hours && (
-            <div className={styles.info}>
-              <dt className={styles.infoLabel}>Horaires</dt>
-              <dd className={styles.infoValue}>{COMPANY.hours}</dd>
-            </div>
-          )}
         </dl>
 
         <ContactForm initialSubject={initialSubject} />

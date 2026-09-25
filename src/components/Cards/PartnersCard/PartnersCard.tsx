@@ -68,7 +68,9 @@ const PartnersCard = ({
       scrollTrigger: {
         trigger: cardRef.current,
         start: "top 90%",
-        once: true,
+        // Joue une seule fois sans se détruire : un ScrollTrigger « once » qui se supprime pendant
+        // un refresh (rechargement de la page en bas) faisait planter GSAP.
+        toggleActions: "play none none none",
       },
     });
 

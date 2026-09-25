@@ -57,6 +57,11 @@
 }
 
 .footerCookie {
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
     font-weight: 200;
     font-size: 1rem;
     text-decoration: none;
@@ -93,3 +98,14 @@
     }
     
     }
+
+/* Foreuse du footer (page contact) : même position que dans le hero */
+.pattern {
+    position: absolute;
+    top: 0;
+    right: var(--fore-right);
+    z-index: 0;
+    width: var(--fore-width);
+    height: 100%;
+    pointer-events: none;
+}

@@ -15,23 +15,16 @@ export const NAV_LINKS = [
   { title: "FAQ", url: "#faq" },
 ];
 
-// Coordonnées affichées sur la page contact. Une valeur vide n'est pas affichée :
-// à compléter quand le client aura donné son adresse et son téléphone.
+// Adresse affichée sur la page contact (vide : lien « Voir sur Google Maps »)
 export const COMPANY = {
   name: "Le Forage",
   address: "", // ex. "12 rue Exemple, 75000 Paris"
-  phone: "", // ex. "01 23 45 67 89"
-  hours: "", // ex. "Du lundi au vendredi, de 8h à 18h"
 };
 
 // Objets proposés dans le formulaire de contact (la clé sert aussi pour ?objet= dans l'URL)
 export const CONTACT_SUBJECTS = [
   { key: "devis", label: "Je veux un devis" },
   { key: "candidature", label: "Je candidate chez vous" },
-  { key: "prestation", label: "Question sur une prestation" },
-  { key: "chantier", label: "Suivi d'un chantier en cours" },
-  { key: "partenariat", label: "Partenariat ou sous-traitance" },
-  { key: "fournisseur", label: "Je suis fournisseur" },
   { key: "autre", label: "Autre demande" },
 ] as const;
 

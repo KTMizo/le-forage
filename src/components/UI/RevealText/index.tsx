@@ -37,24 +37,32 @@ export default function RevealText({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const split = SplitText.create(el, {
-      type: "words",
-      mask: "words",
-      autoSplit: true,
-      onSplit(self) {
-        return gsap.fromTo(
-          self.words,
-          { yPercent: REVEAL_DIRECTION * 100 },
-          {
-            yPercent: 0,
-            ease: "none",
-            stagger: 0.08,
-            scrollTrigger: { trigger: el, start, end, scrub: 0.6 },
-          },
-        );
-      },
+    // Découpage unique, une fois les polices chargées (mesures justes). Pas d'autoSplit :
+    // les mots ne dépendent pas de la largeur, et le re-découpage automatique au chargement
+    // des polices recréait des ScrollTrigger pendant un refresh, ce qui faisait planter GSAP.
+    let cancelled = false;
+    let split: SplitText | undefined;
+    let tween: gsap.core.Tween | undefined;
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      split = SplitText.create(el, { type: "words", mask: "words" });
+      tween = gsap.fromTo(
+        split.words,
+        { yPercent: REVEAL_DIRECTION * 100 },
+        {
+          yPercent: 0,
+          ease: "none",
+          stagger: 0.08,
+          scrollTrigger: { trigger: el, start, end, scrub: 0.6 },
+        },
+      );
     });
-    return () => split.revert();
+    return () => {
+      cancelled = true;
+      tween?.scrollTrigger?.kill();
+      tween?.kill();
+      split?.revert();
+    };
   }, [start, end]);
 
   return createElement(as, { ref, className: `t-reveal ${className}` }, children);

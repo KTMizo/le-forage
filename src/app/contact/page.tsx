@@ -23,7 +23,7 @@ export default async function ContactPage({
       <div id="page-content">
         <Contact initialSubject={objet} />
         <div className="bg-red">
-          <Footer data={footerData} />
+          <Footer data={footerData} withFore />
         </div>
       </div>
     </main>

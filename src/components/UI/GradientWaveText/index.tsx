@@ -25,9 +25,9 @@ function initGradientWaveText(heading: HTMLElement) {
     parseFloat(heading.getAttribute("data-gradient-wave-scrub") || "") || 0.1;
   const endColor = getComputedStyle(heading).color;
 
-  return new SplitText(heading, {
+  let ctx: gsap.Context | undefined;
+  const split = new SplitText(heading, {
     type: "words, chars",
-    autoSplit: true,
     onSplit(self) {
       const chars = self.chars;
       const activeChars = new Set<Element>();
@@ -46,7 +46,7 @@ function initGradientWaveText(heading: HTMLElement) {
         });
       };
 
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         gsap.set(chars, { color: startColor });
 
         gsap.to(progress, {
@@ -108,6 +108,11 @@ function initGradientWaveText(heading: HTMLElement) {
       return ctx;
     },
   });
+  // Nettoyage : l'animation (contexte GSAP) puis le texte d'origine
+  return () => {
+    ctx?.revert();
+    split.revert();
+  };
 }
 
 interface GradientWaveTextProps {
@@ -130,9 +135,18 @@ export default function GradientWaveText({
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (!ref.current) return;
-    const split = initGradientWaveText(ref.current);
-    return () => split.revert();
+    const el = ref.current;
+    if (!el) return;
+    // Découpage une fois les polices chargées, sans autoSplit (voir RevealText)
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
+    document.fonts.ready.then(() => {
+      if (!cancelled) cleanup = initGradientWaveText(el);
+    });
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
   }, []);
 
   return (

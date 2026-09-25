@@ -18,8 +18,10 @@ const BOUNCE_RATIO = 0.25;
 const BOUNCE_TRIGGER = 0.85;
 // Tactile : le défilement natif ne se freine pas, on déclenche à la moitié de l'écran
 const TOUCH_TRIGGER_RATIO = 0.5;
-// Délai sans défilement avant le rebond
-const IDLE_MS = 180;
+// Molette relâchée = plus d'événement depuis RELEASE_MS : le rebond part tout de suite,
+// sans attendre la fin du lissage de Lenis
+const RELEASE_MS = 120; // au-dessus de l'écart entre deux crans de molette (50 à 100 ms)
+const BOUNCE_DURATION = 0.6;
 
 // Retour avec léger dépassement : le « rebond »
 const easeOutBack = (t: number) => {
@@ -84,18 +86,21 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
     };
 
     // Au relâché, si on a dépassé la fin du footer : retour élastique (petit rebond)
-    const scheduleBounceBack = () => {
+    const bounceBack = () => {
       window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(() => {
-        if (drilling || lenis.animatedScroll <= restAt + 1) return;
-        lenis.scrollTo(restAt, { duration: 0.9, easing: easeOutBack, force: true });
-      }, IDLE_MS);
+      if (drilling || Math.max(lenis.animatedScroll, lenis.targetScroll) <= restAt + 1) return;
+      lenis.scrollTo(restAt, { duration: BOUNCE_DURATION, easing: easeOutBack, force: true });
+    };
+    const bounceOnRelease = () => {
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(bounceBack, RELEASE_MS);
     };
 
     // Molette / trackpad : au-delà du footer, chaque cran avance de moins en moins.
     // Arriver au bout de la zone freinée (en forçant) déclenche le forage.
     const offModifier = addScrollModifier((data) => {
       if (drilling || data.deltaY <= 0 || data.event.type.includes("touch")) return;
+      bounceOnRelease();
       const target = lenis.targetScroll;
       const free = Math.max(0, restAt - target); // partie du cran avant la fin du footer
       const extra = data.deltaY - free;
@@ -116,8 +121,13 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
         startDrill();
         return;
       }
-      if (lenis.animatedScroll > restAt + 1) scheduleBounceBack();
     };
+
+    // Tactile : rebond dès que le doigt quitte l'écran
+    const onTouchEnd = () => {
+      if (lenis.animatedScroll > restAt + 1) bounceBack();
+    };
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
 
     const off = lenis.on("scroll", onScroll);
     ScrollTrigger.addEventListener("refresh", measure);
@@ -126,6 +136,7 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
     return () => {
       off();
       offModifier();
+      window.removeEventListener("touchend", onTouchEnd);
       window.clearTimeout(idleTimer);
       ScrollTrigger.removeEventListener("refresh", measure);
     };
@@ -141,6 +152,7 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
         ref={gapRef}
         className={styles.gap}
         data-theme="red"
+        data-scroll-end
         aria-hidden="true"
       />
       <div ref={cloneRef} className={styles.clone}>

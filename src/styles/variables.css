@@ -36,6 +36,8 @@
     --logo-width: 10rem;
     /* Foreuse animée (hero et footer, même position) */
     --fore-width: 12.5rem;
+    /* Beige à 38 % : deux fois plus visible que l'ancien beige-30 (#f9f1ea30 = 19 %) */
+    --fore-color: rgb(249 241 234 / 0.38);
     --fore-right: -1rem;
     /* Border Radius */
     --border-6: 0.375rem; /* 6px */
