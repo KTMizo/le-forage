@@ -29,20 +29,25 @@ export default function Header() {
     if (!header || !logo) return;
 
     const ctx = gsap.context(() => {
-      // Réduction du logo : de --logo-big à --logo-small (définis en CSS, donc en rem)
-      gsap.fromTo(
-        logo,
-        { "--logo-progress": 0 },
-        {
-          "--logo-progress": 1,
-          ease: "none",
-          scrollTrigger: {
-            start: 0,
-            end: LOGO_SHRINK_DISTANCE,
-            scrub: true,
-          },
+      // Réduction du logo selon la distance au hero le plus proche : le vrai en haut de page,
+      // ou sa copie en fin de page (scroll infini), pour que le logo soit grand aux deux endroits
+      let cloneTop = Infinity;
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onRefresh: () => {
+          const clone = document.querySelector("[data-hero-clone]");
+          cloneTop = clone ? clone.getBoundingClientRect().top + window.scrollY : Infinity;
         },
-      );
+        onUpdate: (self) => {
+          const y = self.scroll();
+          const distance = Math.max(0, Math.min(y, cloneTop - y));
+          logo.style.setProperty(
+            "--logo-progress",
+            String(Math.min(1, distance / LOGO_SHRINK_DISTANCE)),
+          );
+        },
+      });
 
       // Thème : la section sous le milieu de l'en-tête donne sa couleur
       const line = () => header.offsetTop + header.offsetHeight / 2;

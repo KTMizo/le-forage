@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import Lenis from "lenis";
 // CSS officiel : bloque le scroll natif quand Lenis est stoppé (menu, popins)
 import "lenis/dist/lenis.css";
@@ -10,8 +10,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Instance Lenis accessible aux composants (créée après leurs propres effets, d'où le state)
+const LenisContext = createContext<Lenis | null>(null);
+export const useLenis = () => useContext(LenisContext);
+
 export default function LenisProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const [instance, setInstance] = useState<Lenis | null>(null);
 
   useEffect(() => {
     // Toujours repartir du haut au rechargement
@@ -28,6 +33,7 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
     });
     //@ts-ignore
     window.lenis = lenis;
+    setInstance(lenis);
 
     // Lenis et ScrollTrigger avancent sur la même horloge (celle de GSAP)
     lenis.on("scroll", ScrollTrigger.update);
@@ -41,8 +47,9 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
       window.clearTimeout(refresh);
       gsap.ticker.remove(tick);
       lenis.destroy();
+      setInstance(null);
     };
   }, [pathname]);
 
-  return <>{children}</>;
+  return <LenisContext.Provider value={instance}>{children}</LenisContext.Provider>;
 }

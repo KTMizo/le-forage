@@ -1,0 +1,25 @@
+.loop {
+    position: relative;
+    background-color: var(--rouge);
+}
+
+/* Zone rouge entre le footer et la copie du hero */
+.gap {
+    height: 50svh;
+}
+
+/* Colonne de foreuse continue : même position que celle du hero */
+.fore {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: var(--fore-right);
+    z-index: 0;
+    width: var(--fore-width);
+    pointer-events: none;
+}
+
+/* Assez de hauteur après la copie pour pouvoir la faire monter jusqu'en haut de l'écran */
+.clone {
+    min-height: 100lvh;
+}

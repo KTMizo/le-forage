@@ -10,6 +10,7 @@ import TServices from "@/sections/t-services";
 import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import Footer from "@/sections/Footer";
+import InfiniteLoop from "@/components/InfiniteLoop";
 
 import type { HeroData } from "@/types/modules/hero";
 import type { TitleAboutData } from "@/types/modules/titleAbout";
@@ -169,7 +170,10 @@ export default async function Home() {
       <RSE data={rseData} />
       <Machine data={machineData} />
       <TFAQ data={faqData} />
-      <Footer data={footerData} />
+      <InfiniteLoop
+        footer={<Footer data={footerData} />}
+        clone={<Hero data={heroData} clone />}
+      />
     </main>
   );
 }

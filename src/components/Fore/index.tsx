@@ -1,7 +1,14 @@
-import React from "react";
+import type { CSSProperties } from "react";
 import styles from "./Fore.module.css";
 
-const Fore = () => {
+interface ForeProps {
+  // Nombre de motifs empilés : il en faut assez pour couvrir la hauteur de la colonne
+  count?: number;
+  style?: CSSProperties;
+}
+
+// Foreuse animée : motif qui défile en boucle (animation CSS, même horloge partout)
+const Fore = ({ count = 12, style }: ForeProps) => {
   const svgContent = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,19 +21,12 @@ const Fore = () => {
   );
 
   return (
-    <div className={styles.container}>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
-      <div className={styles.svgWrapper}>{svgContent}</div>
+    <div className={styles.container} style={style}>
+      {Array.from({ length: count }, (_, i) => (
+        <div key={i} className={styles.svgWrapper}>
+          {svgContent}
+        </div>
+      ))}
     </div>
   );
 };

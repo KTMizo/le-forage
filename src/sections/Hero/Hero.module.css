@@ -1,8 +1,15 @@
 .hero {
     position: relative;
+    /* Plein écran : nécessaire pour que la copie de fin de page (scroll infini) remplisse l'écran au saut */
+    min-height: 100svh;
     padding-inline: 1rem;
     background-color: var(--rouge);
     overflow: hidden;
+}
+
+/* La copie laisse voir la foreuse continue posée derrière elle */
+.clone {
+    background-color: transparent;
 }
 
 .container {
@@ -11,7 +18,7 @@
     display: flex;
     flex-direction: column;
     gap: 6rem;
-    height: 100%;
+    min-height: inherit;
     padding-top: 15rem;
 }
 

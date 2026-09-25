@@ -88,16 +88,6 @@
     transform: scale(1.05);
 }
 
-.pattern {
-    position: absolute;
-    top: 0;
-    right: var(--fore-right);
-    width: var(--fore-width);
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
 @media screen and (max-width: 1024px) {
     .footer {
         padding: 2.375rem 1rem 2.375rem 1rem;

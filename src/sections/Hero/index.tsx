@@ -13,11 +13,13 @@ import { HeroData, ButtonVariant } from "@/types/modules/hero";
 
 interface HeroProps {
   data: HeroData;
+  // Copie affichée après le footer (scroll infini) : état final, sans animation ni foreuse
+  clone?: boolean;
 }
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero: React.FC<HeroProps> = ({ data }) => {
+const Hero: React.FC<HeroProps> = ({ data, clone = false }) => {
   const buttonVariant = (data?.button?.variant || "outline") as ButtonVariant;
 
   const buttonData = {
@@ -27,6 +29,8 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
     showArrow: data?.button?.showArrow ?? true,
   };
 
+  const HeadingTag = clone ? "p" : "h1";
+
   // Refs pour les éléments animés
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -35,6 +39,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
 
   useEffect(() => {
     if (
+      clone ||
       !titleRef.current ||
       !descriptionRef.current ||
       !containerRef.current
@@ -107,24 +112,38 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       splitTitle.revert();
       splitDescription.revert();
     };
-  }, []);
+  }, [clone]);
 
   return (
     <>
-      <section id="hero" data-theme="red" ref={heroRef} className={styles.hero}>
+      <section
+        id={clone ? undefined : "hero"}
+        data-hero-clone={clone || undefined}
+        data-theme="red"
+        aria-hidden={clone || undefined}
+        inert={clone}
+        ref={heroRef}
+        className={`${styles.hero} ${clone ? styles.clone : ""}`}
+      >
+        {/* La copie reçoit la foreuse continue posée par InfiniteLoop */}
+        {!clone && (
+          <div className={styles.pattern}>
+            <Fore />
+          </div>
+        )}
         <div
           ref={containerRef}
           className={styles.container}
-          style={{ visibility: "hidden" }}
+          style={{ visibility: clone ? "visible" : "hidden" }}
         >
           <div className={styles.content}>
             <div className="grid gap-y-8 grid-cols-8 gap-x-4">
-              <h1
+              <HeadingTag
                 ref={titleRef}
                 className="font-articulate text-beige lg:text-desk-xxl text-38 leading-20 lg:leading-40 col-start-1 col-span-6 overflow-hidden"
               >
                 {data.title}
-              </h1>
+              </HeadingTag>
               <p
                 ref={descriptionRef}
                 className="col-start-1 col-span-7 text-s lg:text-desk-s lg:max-w-362 font-articulate text-beige"
@@ -139,9 +158,6 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             >
               {buttonData.text}
             </Button>
-          </div>
-          <div className={styles.pattern}>
-            <Fore />
           </div>
           <div className={styles.footer}>
             <button
