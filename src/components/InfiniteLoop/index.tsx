@@ -1,12 +1,15 @@
 "use client";
-// Scroll infini : footer, zone rouge (50vh), puis une copie du hero.
-// Quand la copie atteint le haut de l'écran, on revient sans à-coup au vrai hero (même rendu).
+// Scroll infini : footer, zone rouge (100vh), puis une copie du hero.
+// Dès qu'on scrolle dans la zone rouge, l'animation de forage se déclenche et descend
+// automatiquement jusqu'à la copie ; on revient alors sans à-coup au vrai hero (même rendu)
+// et le scroll reprend normalement.
 // Une seule foreuse court du footer jusqu'à la copie ; son motif est recalé pour tomber
 // exactement comme celle du vrai hero au moment du saut.
 import { useEffect, useRef, type ReactNode } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Fore from "@/components/Fore";
 import { useLenis } from "@/app/LenisProvider";
+import { drillScroll } from "@/lib/drill";
 import styles from "./InfiniteLoop.module.css";
 
 interface InfiniteLoopProps {
@@ -18,18 +21,26 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
   const loopRef = useRef<HTMLDivElement>(null);
   const cloneRef = useRef<HTMLDivElement>(null);
   const foreRef = useRef<HTMLDivElement>(null);
+  const gapRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
 
   useEffect(() => {
     const loop = loopRef.current;
     const cloneEl = cloneRef.current;
     const foreEl = foreRef.current;
-    if (!loop || !cloneEl || !foreEl || !lenis) return;
+    const gapEl = gapRef.current;
+    if (!loop || !cloneEl || !foreEl || !gapEl || !lenis) return;
 
-    // Position de la copie dans la page, recalculée seulement au redimensionnement
+    // Positions, recalculées seulement au rafraîchissement de ScrollTrigger (chargement, resize)
     let cloneTop = Infinity;
+    let triggerAt = Infinity;
+    let drilling = false;
+
     const measure = () => {
       cloneTop = cloneEl.getBoundingClientRect().top + window.scrollY;
+      const gapTop = gapEl.getBoundingClientRect().top + window.scrollY;
+      // Déclenchement : 8 % d'écran de zone rouge visible sous le footer
+      triggerAt = gapTop - window.innerHeight * 0.92;
 
       // Recalage du motif de la foreuse (période = hauteur d'un motif)
       const container = foreEl.firstElementChild as HTMLElement | null;
@@ -42,13 +53,13 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
     };
 
     const onScroll = () => {
-      // Marge d'un pixel : les positions de scroll ne tombent pas toujours sur un entier
-      if (lenis.animatedScroll < cloneTop - 1) return;
-      // Élan restant du scroll fluide, rejoué après le saut
-      const remaining = lenis.targetScroll - lenis.animatedScroll;
-      const landing = Math.max(0, lenis.animatedScroll - cloneTop);
-      lenis.scrollTo(landing, { immediate: true, force: true });
-      if (remaining > 1) lenis.scrollTo(landing + remaining, { force: true });
+      if (drilling || lenis.animatedScroll < triggerAt) return;
+      drilling = true;
+      drillScroll(lenis, cloneTop, () => {
+        // La copie remplit l'écran : on se replace sur le vrai hero, identique
+        lenis.scrollTo(0, { immediate: true, force: true });
+        drilling = false;
+      });
     };
 
     const off = lenis.on("scroll", onScroll);
@@ -67,7 +78,12 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
         <Fore count={24} />
       </div>
       {footer}
-      <div className={styles.gap} data-theme="red" aria-hidden="true" />
+      <div
+        ref={gapRef}
+        className={styles.gap}
+        data-theme="red"
+        aria-hidden="true"
+      />
       <div ref={cloneRef} className={styles.clone}>
         {clone}
       </div>

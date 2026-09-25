@@ -31,29 +31,6 @@
     gap: 3rem;
 }
 
-.footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
-
-.tag {
-    position: relative;
-    display: inline-block;
-    padding: 0.625rem 0.625rem 1.25rem;
-    border: none;
-    background: none;
-    color: var(--blanc);
-    font-family: "bebas";
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.tag:hover {
-    transform: scale(1.05);
-}
-
 /* Foreuse animée : même position que dans le footer (continuité du scroll infini) */
 .pattern {
     position: absolute;

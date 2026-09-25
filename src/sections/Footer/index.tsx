@@ -4,7 +4,6 @@ import styles from "./Footer.module.css";
 import FooterCards from "@/components/Cards/FooterCards/FooterCards";
 import Link from "next/link";
 import { Footer as FooterType } from "@/types/modules/footer";
-import { drillTo } from "@/lib/drill";
 
 const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
   const { footer_card, footer_info } = data;
@@ -27,15 +26,6 @@ const Footer: React.FC<{ data: FooterType }> = ({ data }) => {
                 Linkedin
               </a>
             </div>
-          </div>
-
-          <div className="flex justify-center lg:order-2">
-            <button
-              onClick={() => drillTo("#a-propos")}
-              className={styles.scrollToTopBtn}
-            >
-              [Forer la page]
-            </button>
           </div>
 
           <div className="flex justify-center gap-x-8 lg:gap-x-12 lg:order-3">

@@ -29,8 +29,8 @@ export default function RevealText({
   as = "h2",
   className = "",
   children,
-  start = "top 90%",
-  end = "bottom 60%",
+  start = "top 95%",
+  end = "top 65%",
 }: RevealTextProps) {
   const ref = useRef<HTMLElement>(null);
 

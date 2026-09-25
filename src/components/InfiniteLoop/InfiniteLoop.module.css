@@ -6,7 +6,7 @@
 
 /* Zone rouge entre le footer et la copie du hero */
 .gap {
-    height: 50svh;
+    height: 100svh;
 }
 
 /* Colonne de foreuse continue : même position que celle du hero */

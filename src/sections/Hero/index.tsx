@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { drillTo } from "@/lib/drill";
 import styles from "./Hero.module.css";
 import Button from "@/components/UI/Button";
 import Fore from "@/components/Fore";
@@ -128,11 +127,6 @@ const Hero: React.FC<HeroProps> = ({ data, clone = false }) => {
             >
               {buttonData.text}
             </Button>
-          </div>
-          <div className={styles.footer}>
-            <button onClick={() => drillTo("#a-propos")} className={styles.tag}>
-              [Forer la page]
-            </button>
           </div>
         </div>
       </section>

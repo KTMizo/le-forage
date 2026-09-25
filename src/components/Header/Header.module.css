@@ -19,10 +19,10 @@
     pointer-events: auto;
 }
 
-/* Couleurs par thème */
+/* Couleurs par thème : pastille en aplat (beige sur beige, rouge sur rouge, blanc sur noir/image) */
 .header[data-header-theme="red"] {
     --h-logo: var(--beige);
-    --h-pill-bg: rgb(249 241 234 / 0.14);
+    --h-pill-bg: var(--rouge);
     --h-pill-text: var(--beige);
     --h-pill-hover: var(--blanc);
     --h-cta-bg: var(--beige);
@@ -30,15 +30,15 @@
 }
 .header[data-header-theme="dark"] {
     --h-logo: var(--beige);
-    --h-pill-bg: rgb(0 0 0 / 0.35);
-    --h-pill-text: var(--beige);
-    --h-pill-hover: var(--blanc);
+    --h-pill-bg: var(--blanc);
+    --h-pill-text: var(--noir);
+    --h-pill-hover: var(--rouge);
     --h-cta-bg: var(--rouge);
     --h-cta-text: var(--blanc);
 }
 .header[data-header-theme="beige"] {
     --h-logo: var(--rouge);
-    --h-pill-bg: rgb(255 255 255 / 0.75);
+    --h-pill-bg: var(--beige);
     --h-pill-text: var(--noir);
     --h-pill-hover: var(--rouge);
     --h-cta-bg: var(--rouge);
@@ -83,15 +83,13 @@
         display: none;
     }
 
-    /* Pastille de navigation avec fond flouté */
+    /* Pastille de navigation */
     .nav {
         display: flex;
         gap: 2.875rem;
         padding: 1rem 1.5rem;
         border-radius: var(--border-6);
         background-color: var(--h-pill-bg);
-        backdrop-filter: blur(0.75rem);
-        -webkit-backdrop-filter: blur(0.75rem);
         transition: background-color 0.4s var(--header-ease);
     }
 

@@ -2,7 +2,7 @@
     width: 100%;
     background-color: var(--rouge);
     align-items: flex-end;
-    padding: 3rem 5rem 1.25rem 5rem;
+    padding: 48px 80px 20px 80px;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 24px;
     width: 100%;
     max-width: 70vw;
     margin: 0 auto;
@@ -52,7 +52,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    gap: 1.5rem;
+    gap: 24px;
     width: 100%;
 }
 
@@ -68,24 +68,6 @@
     font-size: 1rem;
     text-decoration: none;
     color: var(--beige);
-}
-
-.scrollToTopBtn {
-    color: var(--blanc);
-    font-family: "bebas";
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    transition: transform 0.3s ease;
-    padding: 0.625rem 0.625rem 1.25rem;
-    background: none;
-    border: none;
-}
-
-.scrollToTopBtn:hover {
-    transform: scale(1.05);
 }
 
 @media screen and (max-width: 1024px) {
@@ -110,7 +92,4 @@
         font-size: 0.75rem;
     }
     
-    .scrollToTopBtn {
-        padding: 0.5rem 0.5rem 1rem;
     }
-}
