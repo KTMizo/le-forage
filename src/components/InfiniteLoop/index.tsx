@@ -12,6 +12,9 @@ import { useLenis } from "@/app/LenisProvider";
 import { drillScroll } from "@/lib/drill";
 import styles from "./InfiniteLoop.module.css";
 
+// Part de l'écran occupée par la zone rouge au moment où le forage se déclenche
+const TRIGGER_RATIO = 0.5;
+
 interface InfiniteLoopProps {
   footer: ReactNode;
   clone: ReactNode;
@@ -39,8 +42,9 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
     const measure = () => {
       cloneTop = cloneEl.getBoundingClientRect().top + window.scrollY;
       const gapTop = gapEl.getBoundingClientRect().top + window.scrollY;
-      // Déclenchement : 8 % d'écran de zone rouge visible sous le footer
-      triggerAt = gapTop - window.innerHeight * 0.92;
+      // Déclenchement : il faut avoir fait monter la zone rouge sur TRIGGER_RATIO de l'écran
+      // sous le footer, pour pouvoir lire le footer tranquillement sans relancer la page
+      triggerAt = gapTop - window.innerHeight * (1 - TRIGGER_RATIO);
 
       // Recalage du motif de la foreuse (période = hauteur d'un motif)
       const container = foreEl.firstElementChild as HTMLElement | null;
