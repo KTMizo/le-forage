@@ -13,15 +13,16 @@ import { drillScroll } from "@/lib/drill";
 import styles from "./InfiniteLoop.module.css";
 
 // Dépassement sous le footer : jusqu'à 25 % d'écran, de plus en plus freiné.
-// Relâché, la page rebondit sur la fin du footer ; forcé jusqu'à 85 % de la zone, le forage part.
+// Relâché, la page rebondit tout de suite sur la fin du footer ; il faut forcer longtemps pour le forage.
 const BOUNCE_RATIO = 0.25;
-const BOUNCE_TRIGGER = 0.85;
+// Poussée à fournir une fois la zone au maximum : 2,5 écrans de molette
+const FORCE_RATIO = 2.5;
 // Tactile : le défilement natif ne se freine pas, on déclenche à la moitié de l'écran
 const TOUCH_TRIGGER_RATIO = 0.5;
 // Molette relâchée = plus d'événement depuis RELEASE_MS : le rebond part tout de suite,
 // sans attendre la fin du lissage de Lenis
-const RELEASE_MS = 120; // au-dessus de l'écart entre deux crans de molette (50 à 100 ms)
-const BOUNCE_DURATION = 0.6;
+const RELEASE_MS = 90; // au-dessus de l'écart entre deux crans de molette (50 à 100 ms)
+const BOUNCE_DURATION = 0.5;
 
 // Retour avec léger dépassement : le « rebond »
 const easeOutBack = (t: number) => {
@@ -86,31 +87,82 @@ export default function InfiniteLoop({ footer, clone }: InfiniteLoopProps) {
     };
 
     // Au relâché, si on a dépassé la fin du footer : retour élastique (petit rebond)
-    const bounceBack = () => {
-      window.clearTimeout(idleTimer);
-      if (drilling || Math.max(lenis.animatedScroll, lenis.targetScroll) <= restAt + 1) return;
-      lenis.scrollTo(restAt, { duration: BOUNCE_DURATION, easing: easeOutBack, force: true });
-    };
-    const bounceOnRelease = () => {
-      window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(bounceBack, RELEASE_MS);
+    // Suivi du geste molette / trackpad dans la zone freinée
+    let lastDelta = 0;
+    let decaying = 0; // événements consécutifs de plus en plus faibles = inertie après le lâcher
+    let bouncing = false;
+    let force = 0; // poussée accumulée une fois la zone freinée au maximum
+
+    const resetGesture = () => {
+      lastDelta = 0;
+      decaying = 0;
+      force = 0;
     };
 
-    // Molette / trackpad : au-delà du footer, chaque cran avance de moins en moins.
-    // Arriver au bout de la zone freinée (en forçant) déclenche le forage.
+    const bounceBack = () => {
+      window.clearTimeout(idleTimer);
+      force = 0;
+      if (drilling || Math.max(lenis.animatedScroll, lenis.targetScroll) <= restAt + 1) return;
+      bouncing = true;
+      lenis.scrollTo(restAt, {
+        duration: BOUNCE_DURATION,
+        easing: easeOutBack,
+        force: true,
+        onComplete: () => {
+          bouncing = false;
+        },
+      });
+    };
+    // Molette classique (crans réguliers) : plus d'événement depuis RELEASE_MS = relâchée
+    const bounceOnRelease = () => {
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => {
+        bounceBack();
+        resetGesture();
+      }, RELEASE_MS);
+    };
+
+    // Au-delà du footer, chaque cran avance de moins en moins. Une fois la zone au maximum,
+    // il faut continuer de pousser (FORCE_RATIO d'écran de molette) pour lancer le forage.
     const offModifier = addScrollModifier((data) => {
       if (drilling || data.deltaY <= 0 || data.event.type.includes("touch")) return;
-      bounceOnRelease();
+      const delta = data.deltaY;
       const target = lenis.targetScroll;
-      const free = Math.max(0, restAt - target); // partie du cran avant la fin du footer
-      const extra = data.deltaY - free;
-      if (extra <= 0) return;
-      const depth = Math.max(0, target - restAt);
-      const resistance = Math.max(0.07, 0.35 * (1 - depth / bounceMax) ** 2);
-      data.deltaY = free + extra * resistance;
-      if (depth + extra * resistance >= bounceMax * BOUNCE_TRIGGER) {
+      if (target + delta <= restAt && !bouncing) {
+        resetGesture();
+        return; // pas encore dans la zone : scroll normal
+      }
+
+      // Trackpad : l'inertie envoie des valeurs qui décroissent après le lâcher.
+      // Dès qu'on la détecte, rebond immédiat et on ignore le reste de l'inertie.
+      const pushingAgain = delta > lastDelta * 1.3 && delta > 8;
+      decaying = delta < lastDelta * 0.92 ? decaying + 1 : 0;
+      lastDelta = delta;
+      if (bouncing && !pushingAgain) {
         data.deltaY = 0;
-        startDrill();
+        return;
+      }
+      if (decaying >= 2) {
+        data.deltaY = 0;
+        bounceBack();
+        return;
+      }
+      bouncing = false;
+      bounceOnRelease();
+
+      const free = Math.max(0, restAt - target); // partie du cran avant la fin du footer
+      const extra = delta - free;
+      const depth = Math.max(0, target - restAt);
+      const resistance = Math.max(0.02, 0.35 * (1 - depth / bounceMax) ** 2);
+      const newDepth = Math.min(bounceMax, depth + extra * resistance);
+      data.deltaY = free + (newDepth - depth);
+
+      if (newDepth >= bounceMax * 0.95) {
+        force += extra;
+        if (force >= window.innerHeight * FORCE_RATIO) {
+          data.deltaY = 0;
+          startDrill();
+        }
       }
     });
 

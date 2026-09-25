@@ -17,6 +17,8 @@ interface ImageBreakProps {
   className?: string;
   // Copie placée après le footer (scroll infini) : déjà révélée, ignorée des lecteurs d'écran
   clone?: boolean;
+  // Pictogramme animé centré : seulement sur l'image après « Nos services »
+  showLogo?: boolean;
 }
 
 const ImageBreak: React.FC<ImageBreakProps> & {
@@ -31,6 +33,7 @@ const ImageBreak: React.FC<ImageBreakProps> & {
   parallaxStrength = 0.1,
   className = "",
   clone = false,
+  showLogo = false,
 }) => {
   const containerRef = useRef<HTMLElement>(null);
 
@@ -69,7 +72,7 @@ const ImageBreak: React.FC<ImageBreakProps> & {
         priority={priority}
         strength={parallaxStrength * 200}
       />
-      <LogoMark className={styles.logo} />
+      {showLogo && <LogoMark className={styles.logo} />}
     </section>
   );
 };

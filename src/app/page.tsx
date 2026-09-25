@@ -161,6 +161,7 @@ export default async function Home() {
         <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
         <TServices data={servicesData} />
         <ImageBreak
+          showLogo
           src={imageBreakData.services_rse_break.image.url}
           alt={imageBreakData.services_rse_break.alt}
           width={imageBreakData.services_rse_break.image.width}
