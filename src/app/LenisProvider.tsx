@@ -16,6 +16,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Modificateurs du défilement molette/trackpad, appliqués avant que Lenis ne consomme
+// l'événement (utilisé par le scroll infini pour freiner le scroll sous le footer)
+type VirtualScrollData = { deltaX: number; deltaY: number; event: WheelEvent | TouchEvent };
+const scrollModifiers = new Set<(data: VirtualScrollData) => void>();
+export function addScrollModifier(fn: (data: VirtualScrollData) => void) {
+  scrollModifiers.add(fn);
+  return () => {
+    scrollModifiers.delete(fn);
+  };
+}
+
 // Instance Lenis accessible aux composants (créée après leurs propres effets, d'où le state)
 const LenisContext = createContext<Lenis | null>(null);
 export const useLenis = () => useContext(LenisContext);
@@ -36,6 +47,10 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
       touchMultiplier: 2,
       // Liens d'ancre (#faq, #rse…) : scroll fluide géré par Lenis
       anchors: true,
+      virtualScroll: (data) => {
+        scrollModifiers.forEach((fn) => fn(data));
+        return true;
+      },
     });
     //@ts-ignore
     window.lenis = lenis;
@@ -47,7 +62,12 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 100);
+    const refresh = window.setTimeout(() => {
+      ScrollTrigger.refresh();
+      // Arrivée depuis une autre page sur une ancre (ex. /#faq depuis la page contact)
+      const hash = window.location.hash;
+      if (hash.length > 1 && document.querySelector(hash)) lenis.scrollTo(hash, { immediate: true });
+    }, 100);
 
     return () => {
       window.clearTimeout(refresh);

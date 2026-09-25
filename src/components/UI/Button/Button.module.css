@@ -76,6 +76,31 @@
 .secondary {
     background-color: var(--rouge);
     color: var(--blanc);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+/* Même survol que le bouton « Nous contacter » de l'en-tête : fond bleu qui monte */
+.secondary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--bleu);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+}
+
+.secondary:hover::before {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.button:disabled {
+    cursor: wait;
+    opacity: 0.6;
 }
 .blue {
     background-color: transparent;
@@ -114,9 +139,7 @@
     transform: scaleX(1);
     transform-origin: right;
 }
-.secondary .arrow {
-    color: var(--rouge);
-}
+
 
 /*
 

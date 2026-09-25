@@ -3,7 +3,7 @@ import styles from "./FooterCards.module.css";
 import Button from "@/components/UI/Button";
 import RevealText from "@/components/UI/RevealText";
 import type { ButtonVariant } from "@/types/modules/footer";
-import { CONTACT_MAILTO, ADDRESS_URL } from "@/lib/site";
+import { QUOTE_PAGE, ADDRESS_URL } from "@/lib/site";
 
 interface FooterCardsProps {
   title: string;
@@ -29,7 +29,7 @@ export default function FooterCards({ title, button }: FooterCardsProps) {
         <div className="col-span-6 col-start-1 grid gap-8 pl-12 lg:flex lg:pl-37">
           <Button
             variant={button.variant}
-            href={CONTACT_MAILTO}
+            href={QUOTE_PAGE}
             showArrow={button.showArrow}
           >
             {button.text}

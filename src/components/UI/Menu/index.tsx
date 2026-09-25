@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import CloseIcon from "@/components/UI/CloseIcon";
 import Logo from "@/components/UI/Logo";
-import { NAV_LINKS } from "@/lib/site";
+import { NAV_LINKS, navHref } from "@/lib/site";
+import { usePathname } from "next/navigation";
 
 type LenisWindow = Window & {
   lenis?: { stop: () => void; start: () => void };
@@ -13,6 +14,7 @@ type LenisWindow = Window & {
 
 const MenuButton = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const onHome = usePathname() === "/";
 
   // La page ne défile pas derrière le menu ouvert
   useEffect(() => {
@@ -102,7 +104,7 @@ const MenuButton = () => {
             {NAV_LINKS.map((item, index) => (
               <a
                 onClick={closeMenu}
-                href={item.url}
+                href={navHref(item.url, onHome)}
                 key={item.title}
                 className={styles.menu__navLink}
                 style={{ animationDelay: `${index * 0.1}s` }}

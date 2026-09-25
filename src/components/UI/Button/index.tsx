@@ -19,6 +19,8 @@ interface ButtonProps {
   showMap?: boolean;
   onClick?: () => void;
   target?: string;
+  type?: "button" | "submit";
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -30,6 +32,8 @@ const Button: React.FC<ButtonProps> = ({
   showMap = false,
   onClick,
   target,
+  type = "button",
+  disabled = false,
 }) => {
   const buttonClasses = `${styles.button} ${styles[variant]} ${className}`;
 
@@ -103,7 +107,12 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button className={buttonClasses} onClick={onClick}>
+    <button
+      type={type}
+      disabled={disabled}
+      className={buttonClasses}
+      onClick={onClick}
+    >
       {content}
     </button>
   );

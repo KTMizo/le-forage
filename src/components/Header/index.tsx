@@ -8,7 +8,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LogoFull from "./LogoFull";
 import MobileMenu from "@/components/UI/Menu";
-import { NAV_LINKS, CONTACT_MAILTO } from "@/lib/site";
+import { usePathname } from "next/navigation";
+import { NAV_LINKS, CONTACT_PAGE, navHref } from "@/lib/site";
 import { DRILL_DURATION, DRILL_END, DRILL_START } from "@/lib/drill";
 import styles from "./Header.module.css";
 
@@ -23,6 +24,7 @@ export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
   const [theme, setTheme] = useState<Theme>("red");
+  const onHome = usePathname() === "/";
 
   useEffect(() => {
     const header = headerRef.current;
@@ -104,7 +106,7 @@ export default function Header() {
     <header ref={headerRef} className={styles.header} data-header-theme={theme}>
       <a
         ref={logoRef}
-        href="#hero"
+        href={onHome ? "#hero" : "/"}
         className={styles.logo}
         aria-label="Le Forage, retour en haut"
       >
@@ -113,13 +115,13 @@ export default function Header() {
 
       <nav className={styles.nav} aria-label="Navigation principale">
         {NAV_LINKS.map((link) => (
-          <a key={link.url} href={link.url} className={styles.navLink}>
+          <a key={link.url} href={navHref(link.url, onHome)} className={styles.navLink}>
             {link.title}
           </a>
         ))}
       </nav>
 
-      <a href={CONTACT_MAILTO} className={styles.contact}>
+      <a href={CONTACT_PAGE} className={styles.contact}>
         Nous contacter
       </a>
 

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prismic:types": "prismic gen types"
+    "prismic:types": "prismic gen types",
+    "content:prismic": "tsx --env-file=.env.local scripts/prismic/fill-content.ts"
   },
   "dependencies": {
     "@prismicio/client": "^7.22.1",
@@ -30,6 +31,7 @@
     "eslint": "^8",
     "eslint-config-next": "15.1.12",
     "prismic": "^1.20.0",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
