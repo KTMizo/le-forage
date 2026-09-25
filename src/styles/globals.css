@@ -211,19 +211,25 @@ body {
     @apply text-bleu;
 }
 
+/* Ouverture animée sans max-height : la ligne de grille passe de 0fr à 1fr */
 .t-accordeon-body {
-    position: relative;
+    display: grid;
+    grid-template-rows: 0fr;
     opacity: 0;
-    transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
-    padding-bottom: 0rem;
+    transition:
+        grid-template-rows 0.6s cubic-bezier(0.7, 0, 0.2, 1),
+        opacity 0.6s cubic-bezier(0.7, 0, 0.2, 1);
 }
-.t-accordeon-body.is-open {
+.t-accordeon.is-open .t-accordeon-body {
+    grid-template-rows: 1fr;
     opacity: 1;
-    max-height: max-content;
-    padding-bottom: 2rem;
 }
-.t-accordeon-body.is-open svg {
-    transform: rotate(45deg);
+.t-accordeon-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+.t-accordeon-inner > :last-child {
+    padding-bottom: 2rem;
 }
 
 /* Menu sticky */
@@ -355,4 +361,23 @@ html.is-red #contact-btn a::before {
 }
 .t-toggle.is-open .t-toggle-bar {
     transform: rotate(90deg);
+}
+
+/* Coupe l'interligne au-dessus des capitales : le haut du texte s'aligne sur son voisin */
+.t-trim {
+    text-box: trim-start cap alphabetic;
+}
+
+/* Texte riche venant de Prismic (réponses FAQ, textes des services) */
+.t-rich p + p,
+.t-rich p + ul,
+.t-rich ul + p {
+    margin-top: 0.75em;
+}
+.t-rich ul {
+    list-style: disc;
+    padding-left: 1.25em;
+}
+.t-rich a {
+    text-decoration: underline;
 }

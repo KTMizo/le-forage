@@ -1,5 +1,6 @@
 "use client";
-import { FaqSectionProps, FaqItem } from "@/types/modules/faq";
+import type { FaqSectionProps } from "@/types/modules/faq";
+import AccordionItem from "@/components/UI/Accordion";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
@@ -7,19 +8,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 export default function TFAQ({ data }: FaqSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [id, setId] = useState("null");
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const titleRef = useRef<HTMLHeadingElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
-
-  function handleToggle(idd: any) {
-    if (idd === id) {
-      setId("null");
-    } else {
-      setId(idd);
-    }
-  }
 
   useEffect(() => {
     if (titleRef.current) {
@@ -85,7 +77,7 @@ export default function TFAQ({ data }: FaqSectionProps) {
   return (
     <section
       id="faq"
-      className="grid lg:grid-rows-[auto_auto] lg:grid-cols-[auto_/_1fr] lg:gap-x-84 gap-y-16 px-8 lg:px-40 py-20  lg:pb-40 lg:pt-56"
+      className="grid lg:grid-rows-[auto_auto] lg:grid-cols-[26.5rem_minmax(0,1fr)] lg:gap-x-84 gap-y-16 px-8 lg:px-40 py-20  lg:pb-40 lg:pt-56"
     >
       <div className="lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1">
         <h2
@@ -97,51 +89,18 @@ export default function TFAQ({ data }: FaqSectionProps) {
       </div>
       <div className="lg:col-start-2 lg:col-span-1 lg:row-span-full">
         {data.faq_items.map((item, index) => (
-          <div
-            className={`border-t border-black-10 t-accordeon ${id == item.question ? "is-open" : ""} ${index + 1 === data.faq_items.length ? "border-b" : ""}`}
+          <AccordionItem
             key={index}
+            question={item.question}
+            isOpen={openIndex === index}
+            onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+            isLast={index + 1 === data.faq_items.length}
           >
-            <button
-              onClick={() => handleToggle(`${item.question}`)}
-              className={`t-accordeon-head flex cursor-pointer py-12 lg:py-18 justify-between items-center w-full `}
-            >
-              <span
-                className={` ${id == item.question ? "text-bleu" : ""} font-articulate max-w-150 lg:max-w-245 text-m text-left text-16 lg:text-desk-s  leading-11`}
-              >
-                {item.question}
-              </span>
-              <span className="lg:flex lg:items-center lg:gap-x-9">
-                {/* Même icône ouverte/fermée : la barre verticale pivote pour former le « − » */}
-                <svg
-                  className={`t-toggle w-7 h-7 ${id == item.question ? "is-open" : "plus"}`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path d="M0 8H16" stroke="currentColor" strokeWidth="2" />
-                  <path
-                    className="t-toggle-bar"
-                    d="M8 0V16"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                </svg>
-
-                <span className="hidden lg:inline-grid font-articulate text-18 leading-12">
-                  {id == item.question ? (
-                    <span>Lire moins</span>
-                  ) : (
-                    <span>Lire plus</span>
-                  )}
-                </span>
-              </span>
-            </button>
             <div
-              className={`${id == item.question ? "is-open" : ""} t-accordeon-body lg:text-18 lg:leading-12 z-10 relative overflow-hidden max-h-0`}
+              className="t-rich lg:text-18 lg:leading-12"
               dangerouslySetInnerHTML={{ __html: item.answer }}
             />
-          </div>
+          </AccordionItem>
         ))}
       </div>
       <figure

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
+import ParallaxImage from "@/components/UI/ParallaxImage";
+import LogoMark from "@/components/UI/LogoMark";
 import styles from "./ImageBreak.module.css";
 import type { ImageBreakData } from "@/types/modules/imageBreak";
 
@@ -28,76 +29,39 @@ const ImageBreak: React.FC<ImageBreakProps> & {
   parallaxStrength = 0.1,
   className = "",
 }) => {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
+  // Rideau beige qui se lève à l'entrée dans l'écran
   useEffect(() => {
     const container = containerRef.current;
-    const image = imageRef.current;
-
-    if (!container || !image) return;
-
+    if (!container) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            container.classList.add(styles.reveal);
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          container.classList.add(styles.reveal);
+          observer.disconnect();
+        }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
-
     observer.observe(container);
-
-    const handleScroll = () => {
-      if (window.innerWidth < 768) return; // Désactive l'effet parallax sur mobile
-
-      const rect = container.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        const offset = (rect.top + windowHeight) * -parallaxStrength;
-        image.style.transform = `translateY(${offset}px)`;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        image.style.transform = "translateY(0)";
-      } else {
-        handleScroll();
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [parallaxStrength]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className={`${styles.imageWrapper} ${className}`}>
-      <div ref={imageRef} className={styles.imageContainer}>
-        <Image
-          className={styles.image}
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          priority={priority}
-          quality={quality}
-          sizes="100vw"
-        />
-      </div>
+    <section ref={containerRef} className={`${styles.imageWrapper} ${className}`}>
+      {/* parallax_strength (Prismic, 0.1 par défaut) = amplitude de 20 % de la hauteur */}
+      <ParallaxImage
+        className="h-full w-full"
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        quality={quality}
+        priority={priority}
+        strength={parallaxStrength * 200}
+      />
+      <LogoMark className={styles.logo} />
     </section>
   );
 };
