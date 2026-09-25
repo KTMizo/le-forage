@@ -4,7 +4,6 @@ import Image from "next/image";
 import type { ServicesSection } from "@/types/modules/services";
 import TServicesLine from "./ServicesLine";
 import AccordionItem from "@/components/UI/Accordion";
-import ParallaxImage from "@/components/UI/ParallaxImage";
 import RevealText from "@/components/UI/RevealText";
 
 interface ServicesProps {
@@ -22,7 +21,7 @@ export default function TServices({ data }: ServicesProps) {
       data-theme="beige"
       className="grid grid-cols-8 gap-x-4 px-8 py-20 lg:grid-cols-2 lg:gap-x-136 lg:px-40 lg:py-44"
     >
-      <div className="col-span-7 col-start-1 row-span-full grid content-start gap-y-8 lg:col-span-full">
+      <div className="col-span-7 col-start-1 row-span-full grid content-start gap-y-16 lg:col-span-full">
         <RevealText className="text-tag uppercase font-bebas text-bleu lg:text-desk-tag">
           {data.services_title}
         </RevealText>
@@ -81,12 +80,13 @@ export default function TServices({ data }: ServicesProps) {
                   })}
                 </div>
               </div>
-              <ParallaxImage
-                className="aspect-[691/778] w-full"
+              <Image
+                className="aspect-[691/778] w-full object-cover"
                 src={service.image.url}
                 alt={service.image.alt}
                 width={service.image.width}
                 height={service.image.height}
+                quality={85}
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </article>
