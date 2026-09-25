@@ -16,20 +16,22 @@ import type { RichTextField } from "@prismicio/client";
 import prismicConfig from "../../prismic.config.json";
 
 // ---------------------------------------------------------------------------
-// Informations de l'entreprise (à compléter)
+// Informations de l'entreprise
+// Source : registre public recherche-entreprises.api.gouv.fr (SIREN 930 873 047,
+// activité 43.13Z Forages et sondages). Capital, téléphone et concepteur : non trouvés.
 // ---------------------------------------------------------------------------
 const COMPANY = {
-  legalName: "Le Forage", // raison sociale exacte (Kbis)
-  legalForm: "", // SAS, SARL…
+  legalName: "LE FORAGE", // raison sociale exacte (Kbis)
+  legalForm: "SAS", // SAS, SARL…
   capital: "", // ex. « 10 000 € »
-  address: "", // siège social complet
-  rcs: "", // ex. « RCS Paris 123 456 789 »
-  siret: "",
-  vat: "", // TVA intracommunautaire
+  address: "83 rue de Melun, 77240 Seine-Port", // siège social complet
+  rcs: "RCS Melun 930 873 047", // ex. « RCS Paris 123 456 789 »
+  siret: "930 873 047 00011",
+  vat: "FR17930873047", // TVA intracommunautaire
   phone: "",
   email: "contact@leforage.fr",
-  director: "", // directeur de la publication (prénom nom)
-  directorRole: "", // ex. « Président »
+  director: "SOGETEC GROUPE (SIREN 978 262 905)", // directeur de la publication (prénom nom)
+  directorRole: "Président", // ex. « Président »
   designer: "", // conception et réalisation du site
 };
 
