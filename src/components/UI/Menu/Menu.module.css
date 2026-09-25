@@ -6,24 +6,23 @@
     padding: var(--spacing-sm) var(--spacing-md);
 
     border-radius: var(--border-6);
-    font: var(--text-xs);
+    font: var(--font-button);
     border: none;
     cursor: pointer;
     text-decoration: none;
     gap: 0.5rem;
     width: fit-content;
-    background-color: var(--blanc);
+    /* Couleurs fournies par le thème de l'en-tête */
+    background-color: var(--h-cta-bg, var(--blanc));
+    color: var(--h-cta-text, var(--noir));
     position: relative;
-    transform: scale(0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
-}
-
-.menu__button_visible {
-    transform: scale(1);
+    transition:
+        background-color 0.4s cubic-bezier(0.4, 0, 0, 1),
+        color 0.4s cubic-bezier(0.4, 0, 0, 1);
 }
 
 .menu__buttonText {
-    color: var(--noir);
+    color: inherit;
 }
 
 .menu__buttonIcon {
@@ -109,7 +108,7 @@
     justify-self: flex-end;
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-6);
-    font: var(--text-xs);
+    font: var(--font-button);
     border: none;
     cursor: pointer;
     text-decoration: none;

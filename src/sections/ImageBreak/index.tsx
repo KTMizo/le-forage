@@ -49,7 +49,7 @@ const ImageBreak: React.FC<ImageBreakProps> & {
   }, []);
 
   return (
-    <section ref={containerRef} className={`${styles.imageWrapper} ${className}`}>
+    <section ref={containerRef} data-theme="dark" className={`${styles.imageWrapper} ${className}`}>
       {/* parallax_strength (Prismic, 0.1 par défaut) = amplitude de 20 % de la hauteur */}
       <ParallaxImage
         className="h-full w-full"

@@ -1,8 +1,7 @@
 export const revalidate = 3600;
 
-import styles from "./page.module.css";
 import ScrollProgress from "@/components/ScrollProgress";
-import Menu from "@/components/UI/Menu";
+import Header from "@/components/Header";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
@@ -138,12 +137,10 @@ export default async function Home() {
   );
 
   return (
-    <main className={styles.main}>
+    <main>
       <ScrollProgress />
 
-      <div className={styles.menu}>
-        <Menu />
-      </div>
+      <Header />
       <Hero data={heroData} />
       <ImageBreak
         src={imageBreakData.hero_about_break.image.url}

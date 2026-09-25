@@ -91,10 +91,9 @@
 .pattern {
     position: absolute;
     top: 0;
-    right: 2.5rem;
-    width: 12.5rem;
+    right: var(--fore-right);
+    width: var(--fore-width);
     height: 100%;
-    object-fit: cover;
     z-index: 0;
     pointer-events: none;
 }

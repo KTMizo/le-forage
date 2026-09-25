@@ -45,15 +45,10 @@ export default function TAbout({ titleAboutData, aboutData }: AboutProps) {
   return (
     <section
       id="a-propos"
+      data-theme="beige"
       className="px-8 py-20 grid gap-y-20 lg:px-40 lg:gap-y-96 lg:py-44"
     >
-      <div className="grid gap-y-8 lg:grid-cols-[auto_1fr] lg:gap-x-40">
-        <TitleAbout
-          subtitle={titleAboutData.subtitle}
-          highlight={titleAboutData.highlight}
-          mainText={titleAboutData.mainText}
-        />
-      </div>
+      <TitleAbout {...titleAboutData} />
       <div className="grid gap-y-16 lg:grid-cols-[auto_1fr] lg:gap-x-84">
         <figure
           ref={imageRef}

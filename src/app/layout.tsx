@@ -4,6 +4,7 @@ import "../styles/variables.css";
 import LenisProvider from "./LenisProvider";
 import Loader from "@/components/Loader";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import GridOverlay from "@/components/GridOverlay";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Loader />
           {children}
         </LenisProvider>
+        <GridOverlay />
         <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>

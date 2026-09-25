@@ -4,14 +4,9 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import styles from "./Machine.module.css";
 import MachineCard from "@/components/Cards/MachineCard/MachineCard";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import type { Machine as MachineType } from "@/types/modules/machine";
-import SplitType from "split-type";
+import RevealText from "@/components/UI/RevealText";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const defaultData: MachineType = {
   machines_section_header: {
@@ -49,8 +44,6 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const tagTitleRef = useRef<HTMLSpanElement>(null);
-  const mainTitleRef = useRef<HTMLHeadingElement>(null);
 
   // Slider state
   const [currentPosition, setCurrentPosition] = useState(0);
@@ -79,44 +72,6 @@ const Machine = ({ data = defaultData }: MachineProps) => {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Text animations
-  useEffect(() => {
-    const textElements = [
-      { ref: tagTitleRef, start: "top 90%" },
-      { ref: mainTitleRef, start: "top 90%" },
-    ];
-
-    textElements.forEach(({ ref, start }) => {
-      if (!ref.current) return;
-
-      const splitText = new SplitType(ref.current, {
-        types: "lines",
-        lineClass: "animated-line",
-      });
-
-      gsap.fromTo(
-        ref.current.querySelectorAll(".animated-line"),
-        { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start,
-            once: true,
-          },
-        },
-      );
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
   }, []);
 
   // Slider position update
@@ -275,21 +230,18 @@ const Machine = ({ data = defaultData }: MachineProps) => {
   }, [updateSliderPosition]);
 
   return (
-    <section id="machines" ref={sectionRef} className={styles.section}>
+    <section id="machines" data-theme="dark" ref={sectionRef} className={styles.section}>
       {/* Header */}
       <div className="grid gap-y-8 lg:grid-cols-2 px-8 lg:px-40 pb-14 lg:pb-28">
-        <span
+        <RevealText
+          as="span"
           className="text-tag lg:col-span-1 lg:col-start-1 lg:row-span-full lg:text-desk-tag text-white uppercase font-bebas"
-          ref={tagTitleRef}
         >
           {data.machines_section_header.tag_title}
-        </span>
-        <h2
-          className="lg:row-span-full lg:col-span-full  text-left lg:justify-self-center text-xl lg:text-desk-xl text-white"
-          ref={mainTitleRef}
-        >
+        </RevealText>
+        <RevealText className="lg:row-span-full lg:col-span-full text-left lg:justify-self-center font-articulate text-xl lg:text-desk-xl text-white">
           {data.machines_section_header.main_title}
-        </h2>
+        </RevealText>
       </div>
 
       {/* Slider */}

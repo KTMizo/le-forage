@@ -5,29 +5,18 @@ import Lenis from "lenis";
 // CSS officiel : bloque le scroll natif quand Lenis est stoppé (menu, popins)
 import "lenis/dist/lenis.css";
 import { usePathname } from "next/navigation";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Enregistrer le plugin
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
 
-interface LenisProviderProps {
-  children: ReactNode;
-}
-
-export default function LenisProvider({ children }: LenisProviderProps) {
+export default function LenisProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    // ===== FORCER LE SCROLL EN HAUT AU RELOAD =====
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      window.history.scrollRestoration = "manual";
-    }
+    // Toujours repartir du haut au rechargement
+    window.history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -40,77 +29,17 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     //@ts-ignore
     window.lenis = lenis;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    lenis.on("scroll", (e) => {
-      const hero = document.querySelector("#hero");
-      const allImage = [...document.querySelectorAll(".image-services")];
-      if (!hero) return;
-      const sizeHero = hero.getBoundingClientRect().height;
-      if (e.targetScroll > sizeHero) {
-        document.documentElement.classList.add("is-red");
-      } else {
-        document.documentElement.classList.remove("is-red");
-      }
-      if (
-        e.direction === 1 &&
-        document.documentElement.classList.contains("is-red")
-      ) {
-        document.querySelector("#t-menu")?.classList.add("is-scroll-down");
+    // Lenis et ScrollTrigger avancent sur la même horloge (celle de GSAP)
+    lenis.on("scroll", ScrollTrigger.update);
+    const tick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
 
-        document.querySelector("#nav-sticky")?.classList.add("is-scroll-down");
-      } else {
-        document.querySelector("#t-menu")?.classList.remove("is-scroll-down");
-
-        document
-          .querySelector("#nav-sticky")
-          ?.classList.remove("is-scroll-down");
-      }
-      allImage.forEach((el, index) => {
-        const size = el.getBoundingClientRect();
-        const height = size.height + (window.innerHeight - size.height) / 2;
-        if (size.top < height) {
-          const nbr = (size.top / height) * 100;
-          const result = Math.abs(nbr - 100);
-
-          // Définir vos limites
-          const min = 0;
-          const max = 100; // ou la valeur max attendue
-
-          // Normalisation
-          const normalized = Math.max(
-            0,
-            Math.min(1, (result - min) / (max - min)),
-          );
-
-          if (index - 1 >= 0) {
-            const image = allImage[index - 1].querySelector("img");
-            gsap.set(image, {
-              scale: 1 + normalized * 0.5, // Scale de 1 à 1.5 par exemple
-            });
-          }
-        }
-      });
-    });
-
-    requestAnimationFrame(raf);
-    lenis.scrollTo(0, { immediate: true });
-
-    // ===== REFRESH SCROLLTRIGGER APRÈS RESET =====
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
-    const handleBeforeUnload = () => {
-      window.scrollTo(0, 0);
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 100);
 
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.clearTimeout(refresh);
+      gsap.ticker.remove(tick);
       lenis.destroy();
     };
   }, [pathname]);

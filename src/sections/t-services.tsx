@@ -5,6 +5,7 @@ import type { ServicesSection } from "@/types/modules/services";
 import TServicesLine from "@/components/t-services-line";
 import AccordionItem from "@/components/UI/Accordion";
 import ParallaxImage from "@/components/UI/ParallaxImage";
+import RevealText from "@/components/UI/RevealText";
 
 interface ServicesProps {
   data: ServicesSection;
@@ -18,12 +19,13 @@ export default function TServices({ data }: ServicesProps) {
   return (
     <section
       id="services"
+      data-theme="beige"
       className="grid grid-cols-8 gap-x-4 px-8 py-20 lg:grid-cols-2 lg:gap-x-136 lg:px-40 lg:py-44"
     >
       <div className="col-span-7 col-start-1 row-span-full grid content-start gap-y-8 lg:col-span-full">
-        <h2 className="text-tag uppercase font-bebas text-bleu lg:text-desk-tag">
+        <RevealText className="text-tag uppercase font-bebas text-bleu lg:text-desk-tag">
           {data.services_title}
-        </h2>
+        </RevealText>
 
         <div className="grid gap-y-28 lg:gap-y-100">
           {data.services.map((service, sIdx) => (
@@ -33,9 +35,12 @@ export default function TServices({ data }: ServicesProps) {
             >
               <div className="grid gap-y-16 lg:gap-y-36">
                 {/* line-height retiré en haut : le haut des lettres s'aligne sur le haut de l'image */}
-                <h3 className="t-trim text-xl text-red font-articulate lg:text-desk-xl">
+                <RevealText
+                  as="h3"
+                  className="t-trim text-xl text-red font-articulate lg:text-desk-xl"
+                >
                   {service.title}
-                </h3>
+                </RevealText>
                 <div>
                   {service.questions.map((q, qIdx) => {
                     const key = `${sIdx}-${qIdx}`;

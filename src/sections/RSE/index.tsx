@@ -1,17 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styles from "./Rse.module.css";
 import PartnersCard from "@/components/Cards/PartnersCard/PartnersCard";
 import PartnersPopUp from "@/components/Cards/PartnersPopUp/PartnersPopUp";
 import type { RSEModules, RSECard } from "@/types/modules/rse";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitType from "split-type";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import RevealText from "@/components/UI/RevealText";
+import GradientWaveText from "@/components/GradientWaveText";
 
 interface RSEProps {
   data: RSEModules;
@@ -19,73 +14,6 @@ interface RSEProps {
 
 const RSE = ({ data }: RSEProps) => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
-
-  // Refs pour les animations
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
-  const methodNoteRef = useRef<HTMLParagraphElement>(null);
-  const tagTitleRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (!tagTitleRef.current) return;
-
-    const splitTagTitle = new SplitType(tagTitleRef.current, {
-      types: "words",
-      wordClass: styles.animatedWord,
-    });
-
-    // Animation du tag title
-    gsap.fromTo(
-      `.${styles.animatedWord}`,
-      {
-        y: 100,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: tagTitleRef.current,
-          start: "bottom bottom",
-          once: true,
-        },
-      },
-    );
-
-    // Liste des paragraphes à animer
-    const elements = [{ ref: descriptionRef }, { ref: methodNoteRef }];
-
-    // Animation pour chaque paragraphe
-    elements.forEach(({ ref }) => {
-      if (!ref.current) return;
-
-      // Animation d'opacité au scroll
-      gsap.fromTo(
-        ref.current,
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "bottom bottom",
-            end: "bottom 70%",
-            scrub: true,
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    });
-
-    return () => {
-      splitTagTitle.revert();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
 
   const allCards = [...data.security_cards, ...data.qualifications_cards];
   const openCard = allCards.find((card) => card.text === activePopup);
@@ -110,36 +38,30 @@ const RSE = ({ data }: RSEProps) => {
     ));
 
   return (
-    <section id="rse" className={styles.rse}>
+    <section id="rse" data-theme="beige" className={styles.rse}>
       <div className={styles.rseHeader}>
         <div className="grid lg:grid-cols-2 gap-y-8">
-          <span
-            ref={tagTitleRef}
-            className="text-tag  lg:col-span-1 lg:col-start-1 lg:row-span-full lg:text-desk-tag uppercase font-bebas text-bleu"
+          <RevealText
+            as="span"
+            className="text-tag lg:col-span-1 lg:col-start-1 lg:row-span-full lg:text-desk-tag uppercase font-bebas text-bleu"
           >
             {data.rse_header.tag_title}
-          </span>
-          <h2 className="text-xl lg:row-span-full lg:col-span-full lg:justify-self-center lg:text-desk-xl text-red font-articulate max-w-124 lg:max-w-312 lg:text-center">
+          </RevealText>
+          <RevealText className="text-xl lg:row-span-full lg:col-span-full lg:justify-self-center lg:text-desk-xl text-red font-articulate max-w-124 lg:max-w-312 lg:text-center">
             {data.rse_header.main_title}
-          </h2>
+          </RevealText>
         </div>
       </div>
 
       <div className={styles.rseContent}>
         <div className={styles.rseLeft}>
           <div className={styles.textGroup}>
-            <p
-              className="font-articulate text-m text-black lg:text-desk-m"
-              ref={descriptionRef}
-            >
+            <GradientWaveText className="font-articulate text-m text-black lg:text-desk-m">
               {data.rse_content.description}
-            </p>
-            <p
-              className="font-articulate text-m text-black lg:text-desk-m"
-              ref={methodNoteRef}
-            >
+            </GradientWaveText>
+            <GradientWaveText className="font-articulate text-m text-black lg:text-desk-m">
               {data.rse_content.method_note}
-            </p>
+            </GradientWaveText>
           </div>
         </div>
 

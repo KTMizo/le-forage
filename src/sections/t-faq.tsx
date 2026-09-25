@@ -3,49 +3,12 @@ import type { FaqSectionProps } from "@/types/modules/faq";
 import AccordionItem from "@/components/UI/Accordion";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitType from "split-type";
+import RevealText from "@/components/UI/RevealText";
 export default function TFAQ({ data }: FaqSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (titleRef.current) {
-      // Split et anime le titre
-      const splitTitle = new SplitType(titleRef.current, {
-        types: "lines",
-        lineClass: "animated-line",
-      });
-
-      gsap.fromTo(
-        titleRef.current.querySelectorAll(".animated-line"),
-        {
-          y: 100,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "top 90%",
-            once: true,
-          },
-        },
-      );
-
-      return () => {
-        splitTitle.revert();
-      };
-    }
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -77,15 +40,13 @@ export default function TFAQ({ data }: FaqSectionProps) {
   return (
     <section
       id="faq"
+      data-theme="beige"
       className="grid lg:grid-rows-[auto_auto] lg:grid-cols-[26.5rem_minmax(0,1fr)] lg:gap-x-84 gap-y-16 px-8 lg:px-40 py-20  lg:pb-40 lg:pt-56"
     >
       <div className="lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-1">
-        <h2
-          ref={titleRef}
-          className="text-tag  lg:text-desk-tag uppercase font-bebas text-bleu"
-        >
+        <RevealText className="text-tag lg:text-desk-tag uppercase font-bebas text-bleu">
           {data.faq_title}
-        </h2>
+        </RevealText>
       </div>
       <div className="lg:col-start-2 lg:col-span-1 lg:row-span-full">
         {data.faq_items.map((item, index) => (

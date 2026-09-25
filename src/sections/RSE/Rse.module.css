@@ -133,10 +133,6 @@
     position: relative;
     overflow: hidden;
 }
-.animatedWord {
-    display: inline-block;
-    overflow: hidden;
-}
 @media screen and (max-width: 1024px) {
     /* Rse.module.css */
     .rse {

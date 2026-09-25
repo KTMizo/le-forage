@@ -2,7 +2,9 @@ import Image from "next/image";
 import React, { useRef, useEffect } from "react";
 
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 type CardProps = {
   iconSrc: string;
   title: string;
@@ -21,6 +23,7 @@ export default function TAboutSkill({
     if (!titleRef.current || !descriptionRef.current || !cardRef.current)
       return;
 
+    const ctx = gsap.context(() => {
     // Animation d'opacité pour le titre
     gsap.fromTo(
       titleRef.current,
@@ -58,9 +61,8 @@ export default function TAboutSkill({
       },
     );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    });
+    return () => ctx.revert();
   }, []);
   return (
     <article
