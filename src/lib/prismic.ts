@@ -3,6 +3,7 @@
 import { cache } from "react";
 import {
   asHTML,
+  asText,
   isFilled,
   type ImageField,
   type RichTextField,
@@ -23,6 +24,7 @@ import type {
   ImageBreakSection,
 } from "@/types/modules/imageBreak";
 import type { LegalPageData } from "@/types/modules/legal";
+import type { NewsArticle, NewsImage } from "@/types/modules/news";
 
 type HomeData = Content.HomeDocument["data"];
 type CardItem = HomeData["security_cards"][number];
@@ -278,4 +280,62 @@ export async function getLegalPage(uid: string): Promise<LegalPageData> {
         content: richHTML(section.content),
       })),
   };
+}
+
+// ---------------------------------------------------------------------------
+// Actualités (type « article »)
+// ---------------------------------------------------------------------------
+const toNewsImage = (field: ImageField): NewsImage | null =>
+  isFilled.image(field)
+    ? {
+        url: field.url,
+        alt: field.alt || "",
+        width: field.dimensions.width,
+        height: field.dimensions.height,
+      }
+    : null;
+
+const toNewsArticle = (doc: Content.ArticleDocument): NewsArticle => {
+  const title = asText(doc.data.title) || "Actualité";
+  const excerpt = doc.data.excerpt || "";
+  return {
+    uid: doc.uid,
+    title,
+    date: doc.data.date || doc.first_publication_date.slice(0, 10),
+    excerpt,
+    cover: toNewsImage(doc.data.cover),
+    contentHTML: richHTML(doc.data.content),
+    gallery: doc.data.gallery
+      .map((item) => toNewsImage(item.image))
+      .filter((img): img is NewsImage => img !== null),
+    linkedinUrl: isFilled.link(doc.data.linkedin_url)
+      ? (doc.data.linkedin_url as { url?: string }).url || ""
+      : "",
+    metaTitle: doc.data.meta_title || title,
+    metaDescription: doc.data.meta_description || excerpt,
+  };
+};
+
+// Liste des actualités, de la plus récente à la plus ancienne. Renvoie [] si le type
+// n'existe pas encore dans Prismic, pour que le site ne casse pas.
+export const getNewsArticles = cache(async (): Promise<NewsArticle[]> => {
+  try {
+    const docs = await createClient().getAllByType("article", {
+      orderings: [
+        { field: "my.article.date", direction: "desc" },
+        { field: "document.first_publication_date", direction: "desc" },
+      ],
+    });
+    return docs.map(toNewsArticle);
+  } catch {
+    return [];
+  }
+});
+
+export async function getNewsArticle(uid: string): Promise<NewsArticle | null> {
+  try {
+    return toNewsArticle(await createClient().getByUID("article", uid));
+  } catch {
+    return null;
+  }
 }

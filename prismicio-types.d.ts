@@ -47,6 +47,145 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 /**
+ * Item in *Actualité → Autres images*
+ */
+export interface ArticleDocumentDataGalleryItem {
+	/**
+	 * Image field in *Actualité → Autres images*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.gallery[].image
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	image: prismic.ImageField<never>;
+}
+
+/**
+ * Content for Actualité documents
+ */
+interface ArticleDocumentData {
+	/**
+	 * Titre field in *Actualité*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.title
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	title: prismic.RichTextField;
+	
+	/**
+	 * Date de publication field in *Actualité*
+	 *
+	 * - **Field Type**: Date
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.date
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/date
+	 */
+	date: prismic.DateField;
+	
+	/**
+	 * Résumé (liste et partage) field in *Actualité*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Une ou deux phrases
+	 * - **API ID Path**: article.excerpt
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	excerpt: prismic.KeyTextField;
+	
+	/**
+	 * Image principale field in *Actualité*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.cover
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	cover: prismic.ImageField<never>;
+	
+	/**
+	 * Contenu field in *Actualité*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.content
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	content: prismic.RichTextField;
+	
+	/**
+	 * Autres images field in *Actualité*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.gallery[]
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+	 */
+	gallery: prismic.GroupField<Simplify<ArticleDocumentDataGalleryItem>>;
+	
+	/**
+	 * Lien du post LinkedIn field in *Actualité*
+	 *
+	 * - **Field Type**: Link
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.linkedin_url
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/link
+	 */
+	linkedin_url: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;/**
+	 * Meta Title field in *Actualité*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: A title of the page used for social media and search engines
+	 * - **API ID Path**: article.meta_title
+	 * - **Tab**: SEO & Metadata
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	meta_title: prismic.KeyTextField;
+	
+	/**
+	 * Meta Description field in *Actualité*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: A brief summary of the page
+	 * - **API ID Path**: article.meta_description
+	 * - **Tab**: SEO & Metadata
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	meta_description: prismic.KeyTextField;
+	
+	/**
+	 * Meta Image field in *Actualité*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: article.meta_image
+	 * - **Tab**: SEO & Metadata
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Actualité document from Prismic
+ *
+ * - **API ID**: `article`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ArticleDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<Simplify<ArticleDocumentData>, "article", Lang>;
+
+/**
  * Item in *Accueil → Atouts*
  */
 export interface HomeDocumentDataAboutSkillsItem {
@@ -971,7 +1110,7 @@ interface LegalPageDocumentData {
  */
 export type LegalPageDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<Simplify<LegalPageDocumentData>, "legal_page", Lang>;
 
-export type AllDocumentTypes = HomeDocument | LegalPageDocument;
+export type AllDocumentTypes = ArticleDocument | HomeDocument | LegalPageDocument;
 
 declare module "@prismicio/client" {
 	interface CreateClient {
@@ -988,6 +1127,9 @@ declare module "@prismicio/client" {
 	
 	namespace Content {
 		export type {
+			ArticleDocument,
+			ArticleDocumentData,
+			ArticleDocumentDataGalleryItem,
 			HomeDocument,
 			HomeDocumentData,
 			HomeDocumentDataAboutSkillsItem,

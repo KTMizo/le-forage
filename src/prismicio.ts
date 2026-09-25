@@ -11,7 +11,10 @@ export const repositoryName =
 
 export const createClient = (config: ClientConfig = {}) => {
   const client = baseCreateClient(repositoryName, {
-    routes: prismicConfig.routes,
+    // La route des actualités est gérée par le site (/actualites/[uid]) : si le client Prismic
+    // la connaissait alors que le type « article » n'est pas encore envoyé dans Prismic,
+    // toutes les requêtes échoueraient (« Link resolver error: Unknown type »).
+    routes: prismicConfig.routes.filter((route) => route.type !== "article"),
     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
     // En production, le cache est vidé par le webhook Prismic (/api/revalidate)
     fetchOptions:

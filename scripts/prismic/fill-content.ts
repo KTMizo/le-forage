@@ -64,7 +64,8 @@ const FAQ: Record<string, RichTextField> = {
     p("Le choix de la machine dépend du type de sondage, de la profondeur visée et de l'accessibilité du site."),
   ),
   "Intervenez-vous uniquement en Île-de-France ?": rich(
-    p("Nous intervenons principalement en Île-de-France et dans les régions limitrophes. Pour un chantier plus éloigné, contactez-nous : nous étudions chaque demande."),
+    // Source : présentation de la page LinkedIn de Le Forage
+    p("Non. Basés en Île-de-France, nous intervenons sur l'ensemble du territoire, par exemple en Seine-Maritime pour des sondages hydrogéologiques. Contactez-nous pour étudier votre chantier."),
   ),
   "Proposez-vous des analyses en laboratoire ?": rich(
     p("Nous réalisons les prélèvements sur site (sols, eaux, gaz des sols) en respectant les protocoles de conditionnement et de conservation des échantillons. Les analyses sont confiées à des laboratoires accrédités, et les résultats sont transmis à votre bureau d'études."),

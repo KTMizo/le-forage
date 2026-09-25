@@ -1,0 +1,100 @@
+{
+  "format": "page",
+  "id": "article",
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "title": {
+        "config": {
+          "label": "Titre",
+          "single": "heading1"
+        },
+        "type": "StructuredText"
+      },
+      "date": {
+        "config": {
+          "label": "Date de publication"
+        },
+        "type": "Date"
+      },
+      "excerpt": {
+        "config": {
+          "label": "Résumé (liste et partage)",
+          "placeholder": "Une ou deux phrases"
+        },
+        "type": "Text"
+      },
+      "cover": {
+        "config": {
+          "label": "Image principale"
+        },
+        "type": "Image"
+      },
+      "content": {
+        "config": {
+          "allowTargetBlank": true,
+          "label": "Contenu",
+          "multi": "paragraph,heading2,heading3,strong,em,hyperlink,list-item,o-list-item"
+        },
+        "type": "StructuredText"
+      },
+      "gallery": {
+        "config": {
+          "fields": {
+            "image": {
+              "config": {
+                "label": "Image"
+              },
+              "type": "Image"
+            }
+          },
+          "label": "Autres images"
+        },
+        "type": "Group"
+      },
+      "linkedin_url": {
+        "config": {
+          "allowTargetBlank": true,
+          "label": "Lien du post LinkedIn",
+          "select": "web"
+        },
+        "type": "Link"
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        },
+        "type": "Text"
+      },
+      "meta_description": {
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        },
+        "type": "Text"
+      },
+      "meta_image": {
+        "config": {
+          "constraint": {
+            "height": 1260,
+            "width": 2400
+          },
+          "label": "Meta Image",
+          "thumbnails": []
+        },
+        "type": "Image"
+      }
+    }
+  },
+  "label": "Actualité",
+  "repeatable": true,
+  "status": true
+}

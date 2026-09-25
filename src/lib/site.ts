@@ -13,6 +13,7 @@ export const NAV_LINKS = [
   { title: "Sécurité", url: "#rse" },
   { title: "Nos machines", url: "#machines" },
   { title: "FAQ", url: "#faq" },
+  { title: "Actualités", url: "/actualites" },
 ];
 
 // Adresse affichée sur la page contact (vide : lien « Voir sur Google Maps »)

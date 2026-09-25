@@ -1,0 +1,149 @@
+/* Actualités : même mise en page que la page contact (fond beige, grille 12 colonnes) */
+.page {
+    padding: 15rem 1rem 6rem;
+}
+
+.intro {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.list {
+    display: grid;
+    gap: 3rem 1.5rem;
+}
+
+.card {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    color: var(--noir);
+    text-decoration: none;
+}
+
+.cardImage {
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background-color: var(--noir-4);
+}
+
+.cardImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0, 1);
+}
+
+.card:hover .cardImage img {
+    transform: scale(1.04);
+}
+
+.date {
+    font-family: "bebas";
+    font-size: 1.125rem;
+    color: var(--bleu);
+    text-transform: uppercase;
+}
+
+.cardTitle {
+    font: var(--font-xs-med);
+    font-size: 1.375rem;
+    line-height: 1.35;
+    transition: color 0.3s ease;
+}
+
+.card:hover .cardTitle {
+    color: var(--rouge);
+}
+
+.cardExcerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font: var(--font-xs-med);
+    font-size: 1rem;
+    color: rgb(0 0 0 / 0.7);
+}
+
+.empty {
+    font: var(--font-xs-med);
+}
+
+/* Article */
+.article {
+    display: grid;
+    gap: 3rem;
+}
+
+.media {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+}
+
+.media img {
+    width: 100%;
+    height: auto;
+}
+
+.text {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+}
+
+.body {
+    font: var(--font-xs-med);
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.body p + p {
+    margin-top: 1em;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--noir-10);
+}
+
+@media screen and (min-width: 768px) {
+    .page {
+        padding-inline: 5rem;
+    }
+
+    .list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .page {
+        padding-bottom: 10rem;
+    }
+
+    .list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Image(s) à gauche sur 6 colonnes, texte à droite sur 5, qui reste visible au scroll */
+    .article {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: 1.5rem;
+    }
+
+    .media {
+        grid-column: 1 / span 6;
+    }
+
+    .text {
+        grid-column: 8 / span 5;
+        position: sticky;
+        top: 12rem;
+    }
+}

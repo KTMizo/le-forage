@@ -9,6 +9,8 @@ import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 
 export const metadata = {
+  // Base des URL absolues (canonical, Open Graph)
+  metadataBase: new URL("https://www.leforage.fr"),
   title: "Le Forage : Spécialistes en Sondage Géotechnique",
   description:
     "Le Forage offre des services de sondage géotechnique de haute qualité pour évaluer les conditions du sol et assurer la réussite de vos projets.",

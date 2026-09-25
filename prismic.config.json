@@ -2,6 +2,10 @@
   "repositoryName": "le-forage",
   "routes": [
     {
+      "type": "article",
+      "path": "/actualites/:uid"
+    },
+    {
       "type": "home",
       "path": "/"
     },
