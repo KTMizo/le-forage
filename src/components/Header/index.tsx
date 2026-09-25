@@ -23,8 +23,9 @@ const LOGO_SHRINK_DISTANCE = 400;
 export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
-  const [theme, setTheme] = useState<Theme>("red");
   const onHome = usePathname() === "/";
+  // Hors accueil, la page commence sur fond beige : pas d'attente du ScrollTrigger
+  const [theme, setTheme] = useState<Theme>(onHome ? "red" : "beige");
 
   useEffect(() => {
     const header = headerRef.current;
