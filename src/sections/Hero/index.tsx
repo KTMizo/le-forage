@@ -45,7 +45,15 @@ const Hero: React.FC<HeroProps> = ({ data, clone = false }) => {
       return;
     }
 
-    const tl = gsap.timeline({ delay: 2 }); // après le loader
+    // Après le loader. En fin d'intro on remet le texte d'origine : sans les masques des mots,
+    // le rendu est identique à la copie de fin de page (scroll infini) au pixel près.
+    const tl = gsap.timeline({
+      delay: 2,
+      onComplete: () => {
+        splitTitle.revert();
+        splitDescription.revert();
+      },
+    });
 
     // Titre : mot par mot dans un masque ; description : ligne par ligne
     const splitTitle = SplitText.create(titleRef.current, {

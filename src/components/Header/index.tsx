@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LogoFull from "./LogoFull";
 import MobileMenu from "@/components/UI/Menu";
 import { NAV_LINKS, CONTACT_MAILTO } from "@/lib/site";
+import { DRILL_DURATION, DRILL_END, DRILL_START } from "@/lib/drill";
 import styles from "./Header.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -28,10 +29,38 @@ export default function Header() {
     const logo = logoRef.current;
     if (!header || !logo) return;
 
+    const cleanups: (() => void)[] = [];
     const ctx = gsap.context(() => {
       // Réduction du logo selon la distance au hero le plus proche : le vrai en haut de page,
       // ou sa copie en fin de page (scroll infini), pour que le logo soit grand aux deux endroits
       let cloneTop = Infinity;
+      let drilling = false;
+      const setProgress = (value: number) =>
+        logo.style.setProperty("--logo-progress", String(value));
+
+      // Pendant le forage (footer -> copie du hero), le logo regrossit sur toute la durée
+      const onDrillStart = () => {
+        drilling = true;
+        const state = {
+          p: Number(logo.style.getPropertyValue("--logo-progress")) || 0,
+        };
+        gsap.to(state, {
+          p: 0,
+          duration: DRILL_DURATION,
+          ease: "power2.inOut",
+          onUpdate: () => setProgress(state.p),
+        });
+      };
+      const onDrillEnd = () => {
+        drilling = false;
+      };
+      window.addEventListener(DRILL_START, onDrillStart);
+      window.addEventListener(DRILL_END, onDrillEnd);
+      cleanups.push(() => {
+        window.removeEventListener(DRILL_START, onDrillStart);
+        window.removeEventListener(DRILL_END, onDrillEnd);
+      });
+
       ScrollTrigger.create({
         start: 0,
         end: "max",
@@ -42,12 +71,10 @@ export default function Header() {
             : Infinity;
         },
         onUpdate: (self) => {
+          if (drilling) return;
           const y = self.scroll();
           const distance = Math.max(0, Math.min(y, cloneTop - y));
-          logo.style.setProperty(
-            "--logo-progress",
-            String(Math.min(1, distance / LOGO_SHRINK_DISTANCE)),
-          );
+          setProgress(Math.min(1, distance / LOGO_SHRINK_DISTANCE));
         },
       });
 
@@ -67,7 +94,10 @@ export default function Header() {
         });
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      cleanups.forEach((fn) => fn());
+    };
   }, []);
 
   return (

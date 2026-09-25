@@ -136,6 +136,18 @@ export default async function Home() {
     result.status === "fulfilled" ? result.value : result.reason,
   );
 
+  // Image sous le hero : aussi rejouée dans la copie de fin de page (scroll infini)
+  const hb = imageBreakData.hero_about_break;
+  const heroBreak = {
+    src: hb.image.url,
+    alt: hb.alt,
+    width: hb.image.width,
+    height: hb.image.height,
+    quality: hb.params.quality,
+    priority: hb.params.priority,
+    parallaxStrength: hb.params.parallax_strength,
+  };
+
   return (
     <main>
       <ScrollProgress />
@@ -145,17 +157,7 @@ export default async function Home() {
           hors de ce bloc : un transform sur un parent casserait leur position: fixed. */}
       <div id="page-content">
         <Hero data={heroData} />
-        <ImageBreak
-          src={imageBreakData.hero_about_break.image.url}
-          alt={imageBreakData.hero_about_break.alt}
-          width={imageBreakData.hero_about_break.image.width}
-          height={imageBreakData.hero_about_break.image.height}
-          quality={imageBreakData.hero_about_break.params.quality}
-          priority={imageBreakData.hero_about_break.params.priority}
-          parallaxStrength={
-            imageBreakData.hero_about_break.params.parallax_strength
-          }
-        />
+        <ImageBreak {...heroBreak} />
         <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
         <TServices data={servicesData} />
         <ImageBreak
@@ -174,7 +176,12 @@ export default async function Home() {
         <TFAQ data={faqData} />
         <InfiniteLoop
           footer={<Footer data={footerData} />}
-          clone={<Hero data={heroData} clone />}
+          clone={
+            <>
+              <Hero data={heroData} clone />
+              <ImageBreak {...heroBreak} clone />
+            </>
+          }
         />
       </div>
     </main>

@@ -15,6 +15,8 @@ interface ImageBreakProps {
   priority: boolean;
   parallaxStrength: number;
   className?: string;
+  // Copie placée après le footer (scroll infini) : déjà révélée, ignorée des lecteurs d'écran
+  clone?: boolean;
 }
 
 const ImageBreak: React.FC<ImageBreakProps> & {
@@ -28,13 +30,14 @@ const ImageBreak: React.FC<ImageBreakProps> & {
   priority = false,
   parallaxStrength = 0.1,
   className = "",
+  clone = false,
 }) => {
   const containerRef = useRef<HTMLElement>(null);
 
   // Rideau beige qui se lève à l'entrée dans l'écran
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || clone) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -46,13 +49,14 @@ const ImageBreak: React.FC<ImageBreakProps> & {
     );
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [clone]);
 
   return (
     <section
       ref={containerRef}
       data-theme="dark"
-      className={`${styles.imageWrapper} ${className}`}
+      aria-hidden={clone || undefined}
+      className={`${styles.imageWrapper} ${clone ? styles.reveal : ""} ${className}`}
     >
       {/* parallax_strength (Prismic, 0.1 par défaut) = amplitude de 20 % de la hauteur */}
       <ParallaxImage

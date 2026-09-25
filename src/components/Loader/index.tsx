@@ -35,7 +35,6 @@ const Loader = () => {
     <div className={styles.loader}>
       <div className={styles.logo}>
         <svg
-          className="w-[15.625rem] h-[7.5rem]"
           viewBox="0 0 351 161"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

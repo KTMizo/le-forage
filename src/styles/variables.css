@@ -30,6 +30,10 @@
     /* Spacings custom */
     --padding-80: 5rem; /* 80px */
     --padding-120: 7.5rem; /* 120px */
+    /* En-tête : partagé avec le preloader pour que son logo arrive exactement au même endroit */
+    --header-top: 2rem; /* 32px en 1920 */
+    --header-inline: 1rem;
+    --logo-width: 10rem;
     /* Foreuse animée (hero et footer, même position) */
     --fore-width: 12.5rem;
     --fore-right: -1rem;
@@ -83,6 +87,13 @@
         --font-xs-med: 0.938rem / 1.25rem "articulat", sans-serif;
         --font-button: 0.938rem / normal "articulat", sans-serif;
         --font-tag: 0.938rem / normal "bebas";
+    }
+}
+
+@media screen and (min-width: 768px) {
+    :root {
+        --header-inline: 5rem;
+        --logo-width: 15.625rem;
     }
 }
 

@@ -1,7 +1,5 @@
 .hero {
     position: relative;
-    /* Plein écran : nécessaire pour que la copie de fin de page (scroll infini) remplisse l'écran au saut */
-    min-height: 100svh;
     padding-inline: 1rem;
     background-color: var(--rouge);
     overflow: hidden;
@@ -18,8 +16,10 @@
     display: flex;
     flex-direction: column;
     gap: 6rem;
-    min-height: inherit;
     padding-top: 15rem;
+    /* Espace qu'occupait le bouton « [Forer la page] » (gap 6rem + ligne + 30px de padding) :
+       le hero garde sa hauteur d'origine et l'image suivante reste visible au chargement */
+    padding-bottom: calc(6rem + 1.875rem + 30px);
 }
 
 .content {
