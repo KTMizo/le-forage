@@ -57,6 +57,11 @@
 }
 
 .footerCookie {
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
     font-weight: 200;
     font-size: 1rem;
     text-decoration: none;
@@ -68,35 +73,6 @@
     font-size: 1rem;
     text-decoration: none;
     color: var(--beige);
-}
-
-.scrollToTopBtn {
-    color: var(--blanc);
-    font-family: "bebas";
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    transition: transform 0.3s ease;
-    padding: 10px 10px 20px;
-    background: none;
-    border: none;
-}
-
-.scrollToTopBtn:hover {
-    transform: scale(1.05);
-}
-
-.pattern {
-    position: absolute;
-    top: 0;
-    right: 40px;
-    width: 200px;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    pointer-events: none;
 }
 
 @media screen and (max-width: 1024px) {
@@ -121,7 +97,15 @@
         font-size: 0.75rem;
     }
     
-    .scrollToTopBtn {
-        padding: 8px 8px 16px;
     }
+
+/* Foreuse du footer (page contact) : même position que dans le hero */
+.pattern {
+    position: absolute;
+    top: 0;
+    right: var(--fore-right);
+    z-index: 0;
+    width: var(--fore-width);
+    height: 100%;
+    pointer-events: none;
 }

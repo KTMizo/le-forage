@@ -1,0 +1,19 @@
+/* Même sens et même rythme de dents que la foreuse du hero */
+.drill {
+    animation: logoDrill 5s linear infinite;
+}
+
+@keyframes logoDrill {
+    from {
+        transform: translateY(-136.0536px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .drill {
+        animation: none;
+    }
+}

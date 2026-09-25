@@ -5,32 +5,16 @@ import { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import CloseIcon from "@/components/UI/CloseIcon";
 import Logo from "@/components/UI/Logo";
+import { NAV_LINKS, navHref } from "@/lib/site";
+import { usePathname } from "next/navigation";
 
 type LenisWindow = Window & {
   lenis?: { stop: () => void; start: () => void };
 };
 
-const LINKS = [
-  { title: "À propos", url: "#a-propos" },
-  { title: "Nos services", url: "#services" },
-  { title: "Sécurité", url: "#rse" },
-  { title: "Nos machines", url: "#machines" },
-  { title: "FAQ", url: "#faq" },
-];
-
 const MenuButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Le bouton n'apparaît sur mobile qu'après 200px de scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerWidth < 768) setIsVisible(window.scrollY > 200);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const onHome = usePathname() === "/";
 
   // La page ne défile pas derrière le menu ouvert
   useEffect(() => {
@@ -46,12 +30,10 @@ const MenuButton = () => {
   };
 
   return (
-    <div id="t-menu" className={styles.menu}>
+    <div>
       <button
         onClick={() => setIsMenuOpen((open) => !open)}
-        className={`${styles.menu__button} ${
-          isVisible ? styles.menu__button_visible : ""
-        }`}
+        className={styles.menu__button}
         aria-label="Menu"
         aria-expanded={isMenuOpen}
       >
@@ -72,7 +54,7 @@ const MenuButton = () => {
             x2="16"
             y2="8"
             transform="translate(0, -3.03571)"
-            stroke="#AB2325"
+            stroke="currentColor"
             strokeWidth="1.5"
           />
           <line
@@ -81,7 +63,7 @@ const MenuButton = () => {
             x2="16"
             y2="8"
             transform="translate(0, 3.82141)"
-            stroke="#AB2325"
+            stroke="currentColor"
             strokeWidth="1.5"
           />
         </svg>
@@ -119,10 +101,10 @@ const MenuButton = () => {
             }`}
           >
             {/* Ancres simples : le scroll fluide est géré par Lenis (option anchors) */}
-            {LINKS.map((item, index) => (
+            {NAV_LINKS.map((item, index) => (
               <a
                 onClick={closeMenu}
-                href={item.url}
+                href={navHref(item.url, onHome)}
                 key={item.title}
                 className={styles.menu__navLink}
                 style={{ animationDelay: `${index * 0.1}s` }}

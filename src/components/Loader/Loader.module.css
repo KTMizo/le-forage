@@ -13,6 +13,11 @@
     transition: opacity 0.5s ease-out;
     overflow: hidden;
 }
+.logo svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 .loaderExit {
     opacity: 0;
 }
@@ -22,10 +27,12 @@
     position: fixed !important;
     width: 100% !important;
 }
+/* Même position et même taille que le logo de l'en-tête (variables partagées) */
 .logo {
     position: absolute;
-    top: 3rem; /* 48px */
-    left: 5rem; /* 80px */
+    top: var(--header-top);
+    left: var(--header-inline);
+    width: var(--logo-width);
     animation: logoScale 1.5s cubic-bezier(0.98, 0.09, 0.16, 0.92) both;
     transform-origin: left;
 }
@@ -158,14 +165,7 @@
         width: 7.5rem; /* 120px */
     }
 }
-@media screen and (max-width: 64rem) {
-    /* 1024px */
-    /* Loader.module.css */
-    .logo {
-        top: 1rem; /* 16px */
-        left: 1rem; /* 16px */
-    }
-}
+
 @media screen and (max-width: 48rem) {
     /* 768px */
 }

@@ -46,7 +46,7 @@
     font-style: normal;
     font-display: swap;
 }
-@theme {
+@theme static {
     --*: initial;
 
     --spacing: 0.125rem;
@@ -187,10 +187,10 @@ body {
 }
 
 .t-accordeon svg.plus {
-    color: var(--color-red);
+    color: var(--rouge);
 }
 .t-accordeon:hover svg.plus {
-    color: var(--color-bleu);
+    color: var(--bleu);
 }
 
 .t-accordeon:hover .t-accordeon-head,
@@ -198,114 +198,25 @@ body {
     @apply text-bleu;
 }
 
+/* Ouverture animée sans max-height : la ligne de grille passe de 0fr à 1fr */
 .t-accordeon-body {
-    position: relative;
+    display: grid;
+    grid-template-rows: 0fr;
     opacity: 0;
-    transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
-    padding-bottom: 0rem;
+    transition:
+        grid-template-rows 0.6s cubic-bezier(0.7, 0, 0.2, 1),
+        opacity 0.6s cubic-bezier(0.7, 0, 0.2, 1);
 }
-.t-accordeon-body.is-open {
+.t-accordeon.is-open .t-accordeon-body {
+    grid-template-rows: 1fr;
     opacity: 1;
-    max-height: max-content;
+}
+.t-accordeon-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+.t-accordeon-inner > :last-child {
     padding-bottom: 2rem;
-}
-.t-accordeon-body.is-open svg {
-    transform: rotate(45deg);
-}
-
-/* Menu sticky */
-#nav-sticky {
-    transition: transform 0.5s cubic-bezier(0.6, 0, 0.6, 1);
-}
-
-#nav-sticky.is-scroll-down {
-    transform: translateY(-5rem);
-    opacity: 0;
-    pointer-events: none;
-    background-color: transparent !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0) !important;
-}
-
-html.is-red #nav-sticky:not(.is-scroll-down) {
-    background-color: #ffffff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-inline: 1rem;
-    left: 0;
-    right: 0;
-    width: 100%;
-}
-
-@media (min-width: 768px) {
-    html.is-red #nav-sticky:not(.is-scroll-down) {
-        padding-inline: 5rem;
-    }
-}
-
-html.is-red #navbar a {
-    color: #000000;
-    transition: color 0.3s ease;
-}
-
-html.is-red #navbar a:hover {
-    color: #003b87;
-}
-
-html.is-red #hero-logo path {
-    fill: var(--color-red);
-}
-
-/* Menu hamburger */
-#t-menu {
-    transition: all 0.6s cubic-bezier(0.7, 0, 0.2, 1);
-}
-
-#t-menu.is-scroll-down {
-    transform: translateY(-5rem);
-    opacity: 0;
-    pointer-events: none;
-}
-
-html.is-red #t-menu line {
-    stroke: var(--color-white);
-}
-
-html.is-red #t-menu span {
-    color: white;
-}
-
-html.is-red #t-menu span#close {
-    color: var(--color-black);
-}
-
-html.is-red #t-menu button {
-    background-color: var(--color-red);
-}
-
-/* Bouton contact */
-#contact-btn {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    #contact-btn {
-        display: block;
-    }
-}
-
-html.is-red #contact-btn a {
-    background-color: var(--color-red);
-    color: var(--color-white);
-}
-
-html.is-red #contact-btn a:hover {
-    background-color: var(--color-red);
-    color: var(--color-black);
-}
-
-html.is-red #contact-btn a::before {
-    background-color: var(--color-white);
 }
 
 /* Croix : même boîte carrée centrée et même animation partout */
@@ -342,4 +253,28 @@ html.is-red #contact-btn a::before {
 }
 .t-toggle.is-open .t-toggle-bar {
     transform: rotate(90deg);
+}
+
+/* Coupe l'interligne au-dessus des capitales : le haut du texte s'aligne sur son voisin */
+.t-trim {
+    text-box: trim-start cap alphabetic;
+}
+
+/* Texte riche venant de Prismic (réponses FAQ, textes des services) */
+.t-rich p + p,
+.t-rich p + ul,
+.t-rich ul + p {
+    margin-top: 0.75em;
+}
+.t-rich ul {
+    list-style: disc;
+    padding-left: 1.25em;
+}
+.t-rich a {
+    text-decoration: underline;
+}
+
+/* Mots découpés (RevealText) : chaque mot est un inline-block qui hériterait sinon du text-indent */
+.t-reveal div {
+    text-indent: 0;
 }

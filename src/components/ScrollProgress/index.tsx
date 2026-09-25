@@ -19,13 +19,21 @@ const ScrollProgress: React.FC<ScrollProgressProps> = ({
 
   useEffect(() => {
     let ticking = false;
+    let scrollable = 1;
+
+    // Fin de la page = bas du footer. Le scroll infini ajoute ensuite une zone rouge et une
+    // copie du hero ([data-scroll-end] marque leur début) : elles ne comptent pas.
+    // Mesuré au chargement et quand la page change de taille, jamais pendant le scroll.
+    const measure = (): void => {
+      const end = document.querySelector<HTMLElement>("[data-scroll-end]");
+      const bottom = end
+        ? end.getBoundingClientRect().top + window.scrollY
+        : document.documentElement.scrollHeight;
+      scrollable = Math.max(1, bottom - window.innerHeight);
+    };
 
     const updateProgress = (): void => {
       if (!progressBarRef.current) return;
-
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollable = documentHeight - windowHeight;
 
       const scrolled = Math.max(
         0,
@@ -46,11 +54,18 @@ const ScrollProgress: React.FC<ScrollProgressProps> = ({
       }
     };
 
+    const resizeObserver = new ResizeObserver(() => {
+      measure();
+      updateProgress();
+    });
+    resizeObserver.observe(document.body);
     window.addEventListener("scroll", onScroll, { passive: true });
+    measure();
     updateProgress();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      resizeObserver.disconnect();
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }

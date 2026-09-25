@@ -1,0 +1,153 @@
+/* En-tête fixe : logo | navigation (pastille) | contact */
+.header {
+    --logo-min: 0.55; /* taille réduite = 55 % de la taille de départ */
+    --header-ease: cubic-bezier(0.4, 0, 0, 1);
+
+    position: fixed;
+    top: var(--header-top);
+    inset-inline: 0;
+    z-index: 1001;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+    padding-inline: var(--header-inline);
+    pointer-events: none;
+}
+
+.header > * {
+    pointer-events: auto;
+}
+
+/* Couleurs par thème : pastille en aplat (beige sur beige, rouge sur rouge, blanc sur noir/image) */
+.header[data-header-theme="red"] {
+    --h-logo-text: var(--beige);
+    --h-pill-border: var(--beige-30-line);
+    --h-logo: var(--beige);
+    --h-pill-bg: var(--rouge);
+    --h-pill-text: var(--beige);
+    --h-pill-hover: var(--blanc);
+    --h-cta-bg: var(--beige);
+    --h-cta-text: var(--rouge);
+}
+.header[data-header-theme="dark"] {
+    --h-logo-text: var(--beige);
+    --h-pill-border: var(--noir-10);
+    --h-logo: var(--beige);
+    --h-pill-bg: var(--blanc);
+    --h-pill-text: var(--noir);
+    --h-pill-hover: var(--rouge);
+    --h-cta-bg: var(--rouge);
+    --h-cta-text: var(--blanc);
+}
+.header[data-header-theme="beige"] {
+    --h-logo-text: var(--bleu);
+    --h-pill-border: var(--noir-10);
+    --h-logo: var(--rouge);
+    --h-pill-bg: var(--beige);
+    --h-pill-text: var(--noir);
+    --h-pill-hover: var(--rouge);
+    --h-cta-bg: var(--rouge);
+    --h-cta-text: var(--blanc);
+}
+
+.logo {
+    justify-self: start;
+    display: block;
+    width: var(--logo-width);
+    color: var(--h-logo);
+    transform-origin: 0 0;
+    transform: scale(calc(1 - (1 - var(--logo-min)) * var(--logo-progress, 0)));
+    transition: color 0.4s var(--header-ease);
+    will-change: transform;
+}
+
+.logoSvg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.nav,
+.contact {
+    display: none;
+}
+
+.mobile {
+    grid-column: 3;
+    justify-self: end;
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        --logo-min: 0.4;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    /* Pastille de navigation */
+    .nav {
+        display: flex;
+        gap: 2.875rem;
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-6);
+        background-color: var(--h-pill-bg);
+        border: 1px solid var(--h-pill-border);
+        transition:
+            background-color 0.4s var(--header-ease),
+            border-color 0.4s var(--header-ease);
+    }
+
+    .navLink {
+        font: var(--font-button);
+        color: var(--h-pill-text);
+        text-decoration: none;
+        transition: color 0.3s var(--header-ease);
+    }
+
+    .navLink:hover,
+    .navLink:focus-visible {
+        color: var(--h-pill-hover);
+    }
+
+    .contact {
+        display: inline-flex;
+        justify-self: end;
+        align-items: center;
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: var(--border-6);
+        font: var(--font-button);
+        font-weight: 500;
+        text-decoration: none;
+        background-color: var(--h-cta-bg);
+        color: var(--h-cta-text);
+        transition:
+            background-color 0.4s var(--header-ease),
+            color 0.4s var(--header-ease);
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+
+    /* Même survol que les autres boutons du site (Button primary) : fond bleu qui monte */
+    .contact::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-color: var(--bleu);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.5s var(--header-ease);
+    }
+
+    .contact:hover {
+        color: var(--blanc);
+    }
+
+    .contact:hover::before {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+}

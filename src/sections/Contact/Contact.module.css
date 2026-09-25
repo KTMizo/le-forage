@@ -1,0 +1,224 @@
+/* Page contact : fond beige, champs blancs, contenu centré sur 8 des 12 colonnes */
+.page {
+    padding: 15rem 1rem 6rem;
+}
+
+.inner {
+    display: grid;
+    gap: 3rem;
+}
+
+.intro {
+    display: grid;
+    gap: 1rem;
+}
+
+/* Coordonnées : même filet que les lignes d'accordéon */
+.infos {
+    display: grid;
+    border-top: 1px solid var(--noir-10);
+}
+
+.info {
+    display: grid;
+    gap: 0.25rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--noir-10);
+}
+
+.infoLabel {
+    font-family: "bebas";
+    font-size: 1.125rem;
+    color: var(--bleu);
+    text-transform: uppercase;
+}
+
+.infoValue {
+    font: var(--font-xs-med);
+    color: var(--noir);
+    text-decoration: none;
+}
+
+a.infoValue:hover {
+    color: var(--rouge);
+}
+
+.form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.row {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.field {
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.field > label {
+    font: var(--font-xs-med);
+    color: var(--noir);
+}
+
+.form input:not([type="checkbox"]),
+.form select,
+.form textarea {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--noir-10);
+    border-radius: var(--border-6);
+    background-color: var(--blanc);
+    color: var(--noir);
+    font: var(--font-xs-med);
+    transition: border-color 0.3s ease;
+}
+
+.form textarea {
+    resize: vertical;
+    min-height: 10rem;
+}
+
+.form input:not([type="checkbox"]):hover,
+.form select:hover,
+.form textarea:hover {
+    border-color: var(--noir-20);
+}
+
+.form input:focus-visible,
+.form select:focus-visible,
+.form textarea:focus-visible {
+    outline: 2px solid var(--bleu);
+    outline-offset: 1px;
+    border-color: transparent;
+}
+
+.form [aria-invalid="true"] {
+    border-color: var(--rouge) !important;
+}
+
+/* Liste déroulante avec la même flèche que le reste du site */
+.select {
+    position: relative;
+}
+
+.select select {
+    appearance: none;
+    padding-right: 3rem;
+    cursor: pointer;
+}
+
+.select select:invalid,
+.select select:has(option[value=""]:checked) {
+    color: rgb(0 0 0 / 0.45);
+}
+
+.select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 1.5px solid var(--rouge);
+    border-bottom: 1.5px solid var(--rouge);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+}
+
+.counter {
+    justify-self: end;
+    font-size: 0.875rem;
+    color: rgb(0 0 0 / 0.45);
+}
+
+.consent {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font: var(--font-xs-med);
+    font-size: 0.9375rem;
+    color: var(--noir);
+    cursor: pointer;
+}
+
+.consent input {
+    flex: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.2rem;
+    accent-color: var(--rouge);
+}
+
+.consent a {
+    text-decoration: underline;
+}
+
+.error {
+    font-size: 0.875rem;
+    color: var(--rouge);
+}
+
+.trap {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+}
+
+.required {
+    font-size: 0.875rem;
+    color: rgb(0 0 0 / 0.55);
+}
+
+.serverError {
+    padding: 1rem 1.25rem;
+    border-left: 2px solid var(--rouge);
+    background-color: var(--blanc);
+    font: var(--font-xs-med);
+    color: var(--rouge);
+}
+
+.success {
+    display: grid;
+    gap: 1rem;
+    padding: 3rem;
+    background-color: var(--blanc);
+    border-radius: var(--border-6);
+}
+
+@media screen and (min-width: 768px) {
+    .page {
+        padding-inline: 5rem;
+    }
+
+    .row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    .page {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: 1.5rem;
+        padding-bottom: 10rem;
+    }
+
+    .inner {
+        grid-column: 3 / span 8;
+        gap: 4rem;
+    }
+}

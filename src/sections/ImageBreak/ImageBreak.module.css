@@ -43,25 +43,14 @@
     transform: scaleY(0);
 }
 
-.imageContainer {
+/* Pictogramme blanc centré sur l'image */
+.logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 130%;
-    transform: translateY(0);
-    will-change: transform;
-}
-
-.image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Pour les appareils mobiles */
-@media screen and (max-width: 768px) {
-    .imageContainer {
-        height: 100%; /* Réduire la hauteur du conteneur sur mobile */
-    }
+    inset: 0;
+    margin: auto;
+    width: 7.5rem;
+    height: 7.5rem;
+    color: var(--beige);
+    z-index: 0;
+    pointer-events: none;
 }

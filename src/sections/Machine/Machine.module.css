@@ -2,7 +2,7 @@
 .section {
     position: relative;
     width: 100%;
-    background: #000;
+    background: var(--noir);
     overflow: hidden;
     padding: 4rem 0 0 0 !important;
 }
@@ -29,7 +29,7 @@
 }
 
 .mainTitle {
-    color: #fff;
+    color: var(--blanc);
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 400;
     margin: 0;
@@ -79,7 +79,7 @@
     padding: 3.5rem 0;
     box-sizing: border-box;
     text-align: center;
-    border-right: 1px solid #333;
+    border-right: 1px solid var(--blanc-20);
 }
 
 /* Navigation */
@@ -236,7 +236,7 @@
         width: 100vw;
         padding: 4.5rem 0;
         border-right: none;
-        border-bottom: 1px solid #333;
+        border-bottom: 1px solid var(--blanc-20);
     }
 
     .navigation {

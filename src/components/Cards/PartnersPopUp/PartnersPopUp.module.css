@@ -27,8 +27,8 @@
   top: 12px;
   right: 12px;
   z-index: 10;
-  color: #333;
-  background-color: var(--blanc, #fff);
+  color: var(--noir);
+  background-color: var(--blanc);
   border-radius: 4px;
   transition: color 0.3s ease;
 }
@@ -72,7 +72,7 @@
   border-radius: 4px;
   width: 50px;
   height: 50px;
-  background-color: #f2f2f2;
+  background-color: var(--beige);
   border: 1px solid #03030310;
 }
 
@@ -92,7 +92,7 @@
 
 .description {
   font-size: 18px;
-  color: var(--black);
+  color: var(--noir);
   margin: 0;
 }
 
@@ -105,7 +105,7 @@
 .navButton {
   width: 48px;
   height: 48px;
-  background-color: #1e3a8a;
+  background-color: var(--bleu);
   color: white;
   border: none;
   border-radius: 4px;
@@ -118,7 +118,7 @@
 }
 
 .navButton:hover {
-  background-color: #1e40af;
+  background-color: var(--rouge);
 }
 
 @media (max-width: 768px) {

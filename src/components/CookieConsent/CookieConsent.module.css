@@ -1,0 +1,65 @@
+/* Carte en bas à gauche, dans la DA du site (blanc, filet noir 10 %, texte articulat) */
+.banner {
+    position: fixed;
+    left: var(--header-inline);
+    right: var(--header-inline);
+    bottom: 1rem;
+    z-index: 1100; /* au-dessus de l'en-tête, sous le preloader */
+    display: grid;
+    gap: 0.75rem;
+    max-width: 30rem;
+    padding: 1.5rem;
+    border: 1px solid var(--noir-10);
+    border-radius: var(--border-6);
+    background-color: var(--blanc);
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.08);
+    animation: cookieIn 0.5s cubic-bezier(0.4, 0, 0, 1) both;
+}
+
+.title {
+    font-family: "bebas";
+    font-size: 1.25rem;
+    color: var(--bleu);
+    text-transform: uppercase;
+}
+
+.text {
+    font: var(--font-xs-med);
+    font-size: 0.9375rem;
+    color: var(--noir);
+}
+
+.text a {
+    text-decoration: underline;
+}
+
+/* Deux boutons de même taille : refuser est aussi simple qu'accepter */
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.actions > * {
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .banner {
+        right: auto;
+        bottom: 2rem;
+    }
+}
+
+@keyframes cookieIn {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .banner {
+        animation: none;
+    }
+}

@@ -1,6 +1,5 @@
 export const revalidate = 3600;
 
-
 // app/mentions-legales/page.tsx
 import { Metadata } from "next";
 import Link from "next/link";
@@ -35,7 +34,8 @@ const ChevronIcon = () => (
     stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
-    strokeLinejoin="round">
+    strokeLinejoin="round"
+  >
     <path d="m9 18 6-6-6-6" />
   </svg>
 );
@@ -49,7 +49,8 @@ const ArrowUpIcon = () => (
     stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
-    strokeLinejoin="round">
+    strokeLinejoin="round"
+  >
     <path d="m18 15-6-6-6 6" />
   </svg>
 );
@@ -124,13 +125,14 @@ export default async function MentionsLegalesPage() {
     const pageData = await getLegalPage("protection-donnees");
 
     // Ajout d'une vérification sécurisée
-    const sections: SectionProps[] =
-      pageData.sections.map((section, index) => ({
+    const sections: SectionProps[] = pageData.sections.map(
+      (section, index) => ({
         id: section.title.toLowerCase().replace(/\s+/g, "-"),
         number: String(index + 1).padStart(2, "0"),
         title: section.title,
         content: section.content,
-      }));
+      }),
+    );
 
     return (
       <div className={styles.legalPage} id="top">

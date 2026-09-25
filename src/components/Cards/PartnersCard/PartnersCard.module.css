@@ -17,8 +17,8 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid var(--liseret-black, rgba(0, 0, 0, 0.12));
-  background: var(--black-4, rgba(0, 0, 0, 0.04));
+  border: 1px solid var(--noir-10);
+  background: var(--noir-4);
   transition: all 0.2s ease;
   cursor: pointer;
   position: relative;
@@ -67,7 +67,7 @@
   position: relative;
   background-color: var(--blanc);
   border-radius: 4px;
-  border: 1px solid var(--black-20);
+  border: 1px solid var(--noir-20);
   padding: 6px;
   will-change: transform, opacity;
 }
@@ -90,7 +90,7 @@
   font-weight: 500;
   text-align: left;
   margin: 0;
-  color: #000;
+  color: var(--noir);
 }
 
 .tooltipIcon {
@@ -131,7 +131,7 @@
   transform: translateX(-50%);
   border-width: 4px;
   border-style: solid;
-  border-color: #000000 transparent transparent transparent;
+  border-color: var(--noir) transparent transparent transparent;
 }
 
 @media screen and (max-width: 1024px) {

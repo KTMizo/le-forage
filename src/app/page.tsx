@@ -1,16 +1,16 @@
 export const revalidate = 3600;
 
-import styles from "./page.module.css";
 import ScrollProgress from "@/components/ScrollProgress";
-import Menu from "@/components/UI/Menu";
+import Header from "@/components/Header";
 
 import Hero from "@/sections/Hero";
 import ImageBreak from "@/sections/ImageBreak";
-import TAbout from "@/sections/t-about";
-import TServices from "@/sections/t-services";
+import TAbout from "@/sections/About";
+import TServices from "@/sections/Services";
 import RSE from "@/sections/RSE";
 import Machine from "@/sections/Machine";
 import Footer from "@/sections/Footer";
+import InfiniteLoop from "@/components/InfiniteLoop";
 
 import type { HeroData } from "@/types/modules/hero";
 import type { TitleAboutData } from "@/types/modules/titleAbout";
@@ -33,8 +33,7 @@ import {
   getFooterData,
   getFaqData,
 } from "@/lib/prismic";
-import TFAQ from "@/sections/t-faq";
-
+import TFAQ from "@/sections/Faq";
 
 // Créer des valeurs par défaut typées
 const defaultHeroData: HeroData = {
@@ -137,42 +136,55 @@ export default async function Home() {
     result.status === "fulfilled" ? result.value : result.reason,
   );
 
+  // Image sous le hero : aussi rejouée dans la copie de fin de page (scroll infini)
+  const hb = imageBreakData.hero_about_break;
+  const heroBreak = {
+    src: hb.image.url,
+    alt: hb.alt,
+    width: hb.image.width,
+    height: hb.image.height,
+    quality: hb.params.quality,
+    priority: hb.params.priority,
+    parallaxStrength: hb.params.parallax_strength,
+  };
+
   return (
-    <main className={styles.main}>
+    <main>
       <ScrollProgress />
 
-      <div className={styles.menu}>
-        <Menu />
+      <Header />
+      {/* Contenu qui vibre pendant le forage. L'en-tête et la barre de progression restent
+          hors de ce bloc : un transform sur un parent casserait leur position: fixed. */}
+      <div id="page-content">
+        <Hero data={heroData} />
+        <ImageBreak {...heroBreak} />
+        <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
+        <TServices data={servicesData} />
+        <ImageBreak
+          showLogo
+          src={imageBreakData.services_rse_break.image.url}
+          alt={imageBreakData.services_rse_break.alt}
+          width={imageBreakData.services_rse_break.image.width}
+          height={imageBreakData.services_rse_break.image.height}
+          quality={imageBreakData.services_rse_break.params.quality}
+          priority={imageBreakData.services_rse_break.params.priority}
+          parallaxStrength={
+            imageBreakData.services_rse_break.params.parallax_strength
+          }
+        />
+        <RSE data={rseData} />
+        <Machine data={machineData} />
+        <TFAQ data={faqData} />
+        <InfiniteLoop
+          footer={<Footer data={footerData} />}
+          clone={
+            <>
+              <Hero data={heroData} clone />
+              <ImageBreak {...heroBreak} clone />
+            </>
+          }
+        />
       </div>
-      <Hero data={heroData} />
-      <ImageBreak
-        src={imageBreakData.hero_about_break.image.url}
-        alt={imageBreakData.hero_about_break.alt}
-        width={imageBreakData.hero_about_break.image.width}
-        height={imageBreakData.hero_about_break.image.height}
-        quality={imageBreakData.hero_about_break.params.quality}
-        priority={imageBreakData.hero_about_break.params.priority}
-        parallaxStrength={
-          imageBreakData.hero_about_break.params.parallax_strength
-        }
-      />
-      <TAbout titleAboutData={titleAboutData} aboutData={aboutData} />
-      <TServices data={servicesData} />
-      <ImageBreak
-        src={imageBreakData.services_rse_break.image.url}
-        alt={imageBreakData.services_rse_break.alt}
-        width={imageBreakData.services_rse_break.image.width}
-        height={imageBreakData.services_rse_break.image.height}
-        quality={imageBreakData.services_rse_break.params.quality}
-        priority={imageBreakData.services_rse_break.params.priority}
-        parallaxStrength={
-          imageBreakData.services_rse_break.params.parallax_strength
-        }
-      />
-      <RSE data={rseData} />
-      <Machine data={machineData} />
-      <TFAQ data={faqData} />
-      <Footer data={footerData} />
     </main>
   );
 }
